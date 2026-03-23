@@ -35,7 +35,7 @@ const samplePosts: Record<string, { title: string; author: string; level: string
     { title: '여름 나이트 복장 추천', author: '여름밤', level: '클러버', likes: 28, comments: 7, time: '5일 전' },
   ],
   qna: [
-    { title: '나이트 양주 가격 보통 얼마인가요?', author: '궁금이', level: '뉴비', likes: 8, comments: 11, time: '4시간 전' },
+    { title: '나이트 분위기가 궁금한데 어떤가요?', author: '궁금이', level: '뉴비', likes: 8, comments: 11, time: '4시간 전' },
     { title: '호빠 처음인데 시스템이 어떻게 되나요?', author: '첫방문녀', level: '뉴비', likes: 14, comments: 9, time: '1일 전' },
   ],
 };

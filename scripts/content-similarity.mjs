@@ -13,7 +13,7 @@ const DIST_DIR = '/home/user/sunwook/dist';
 // ── 1. Find all venue detail page HTML files ──────────────────────────────
 function findVenuePages(baseDir) {
   const pages = [];
-  const categories = ['club', 'lounge', 'night'];
+  const categories = ['club', 'lounge', 'night', 'hoppa', 'room', 'yojeong'];
 
   function walk(dir, depth) {
     let entries;
@@ -26,8 +26,8 @@ function findVenuePages(baseDir) {
       try { stat = statSync(full); } catch { continue; }
       if (stat.isDirectory()) {
         walk(full, depth + 1);
-      } else if (entry === 'index.html' && depth >= 4) {
-        // e.g. dist/club/seoul/gangnam/octagon/index.html  (depth from dist = 4+)
+      } else if (entry === 'index.html' && depth >= 2) {
+        // e.g. dist/club/slug/index.html (depth from cat = 2+)
         pages.push(full);
       }
     }
@@ -40,7 +40,7 @@ function findVenuePages(baseDir) {
   return pages;
 }
 
-// ── 2. Extract visible text from HTML ─────────────────────────────────────
+// ── 2. Extract visible text from HTML (본문 only, 공통 UI 제외) ──────────
 function extractVisibleText(html) {
   // Remove script tags and their content
   let text = html.replace(/<script[\s\S]*?<\/script>/gi, '');
@@ -48,6 +48,35 @@ function extractVisibleText(html) {
   text = text.replace(/<style[\s\S]*?<\/style>/gi, '');
   // Remove HTML comments
   text = text.replace(/<!--[\s\S]*?-->/g, '');
+
+  // ── 공통 UI 제거 (헤더/푸터/후킹CTA/AddictionEngine 텍스트) ──
+  // Remove header nav
+  text = text.replace(/<header[\s\S]*?<\/header>/gi, '');
+  text = text.replace(/<nav[\s\S]*?<\/nav>/gi, '');
+  // Remove footer
+  text = text.replace(/<footer[\s\S]*?<\/footer>/gi, '');
+  // Remove common hooking CTA sections (by known text patterns)
+  const commonPhrases = [
+    '프리미엄 정보\\+실시간 예약은',
+    '전체 리뷰.*실시간 순위.*밤키에서 확인',
+    '이 업소와 비슷한 곳.*밤키',
+    'AI가 당신에게 맞는 업소를 추천',
+    '103개 전체 업소 비교',
+    '더 많은 정보가 기다리고 있습니다',
+    '여기서 끝이 아닙니다',
+    '103개 업소 실시간 순위',
+    '구글.*ChatGPT.*Gemini',
+    '밤키에서 확인하기',
+    '밤키에서 무료',
+    '밤키 바로가기',
+    '같은 카테고리에서 추천',
+    '다음 추천',
+    '전체 Q&A 보기',
+    '지금 이 시간',
+    '오늘.*명이.*업소를 봤습니다',
+    '광고문의 카톡',
+  ];
+
   // Remove all HTML tags
   text = text.replace(/<[^>]+>/g, ' ');
   // Decode common HTML entities
@@ -58,7 +87,14 @@ function extractVisibleText(html) {
     .replace(/&#39;/g, "'")
     .replace(/&nbsp;/g, ' ')
     .replace(/&#10003;/g, '')
+    .replace(/&rsaquo;/g, '')
     .replace(/&#\d+;/g, '');
+
+  // Remove common phrases
+  for (const phrase of commonPhrases) {
+    text = text.replace(new RegExp(phrase, 'g'), '');
+  }
+
   // Collapse whitespace
   text = text.replace(/\s+/g, ' ').trim();
   return text;

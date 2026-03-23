@@ -784,55 +784,45 @@ export function DailyFortune({ venues }: { venues: any[] }) {
   );
 }
 
-/* ═══ [17] "예산 계산기" — 인원+주종 → 예상 금액 + 맞춤 추천 ═══ */
+/* ═══ [17] "카테고리 추천" — 인원+분위기 → 맞춤 추천 ═══ */
 export function BudgetCalculator({ venues }: { venues: any[] }) {
-  const [people, setPeople] = useState(4);
-  const [bottles, setBottles] = useState(1);
   const [category, setCategory] = useState('night');
-  const prices: Record<string, number> = { night: 250000, club: 150000, lounge: 180000, room: 400000, yojeong: 500000, hoppa: 300000 };
   const catLabels: Record<string, string> = { night: '나이트', club: '클럽', lounge: '라운지', room: '룸', yojeong: '요정', hoppa: '호빠' };
-  const total = prices[category] * bottles;
-  const perPerson = Math.ceil(total / people);
+  const catDesc: Record<string, string> = {
+    night: '라이브 밴드와 테이블 중심 사교 공간',
+    club: 'DJ 사운드와 플로어 중심 파티 공간',
+    lounge: '조용한 대화와 칵테일을 즐기는 공간',
+    room: '프라이빗 단체 모임에 적합한 독립 공간',
+    yojeong: '한정식과 국악이 어우러지는 전통 접대 공간',
+    hoppa: '매니저와 함께 편안하게 즐기는 공간',
+  };
   const matched = venues.filter(v => v.cat_slug === category).slice(0, 3);
 
   return (
     <div style={{ padding: '1.5rem', background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '20px' }}>
-      <h3 style={{ marginBottom: '0.25rem', color: '#111111' }}>오늘 밤 예산 계산기</h3>
-      <p style={{ fontSize: '0.8rem', color: '#666666', marginBottom: '1rem' }}>인원과 카테고리를 선택하면 예상 비용을 알려드립니다</p>
-      <div style={{ display: 'grid', gap: '0.75rem', marginBottom: '1rem' }}>
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          {Object.entries(catLabels).map(([k, l]) => (
-            <button key={k} onClick={() => setCategory(k)} style={{
-              padding: '0.4rem 0.75rem', borderRadius: '20px', fontSize: '0.8rem', fontFamily: 'var(--font-sans)',
-              border: category === k ? '2px solid #6D28D9' : '1px solid #E5E7EB',
-              background: category === k ? '#F5F3FF' : '#FFFFFF', color: category === k ? '#6D28D9' : '#666666',
-              cursor: 'pointer', fontWeight: category === k ? 700 : 400,
-            }}>{l}</button>
-          ))}
-        </div>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <label style={{ fontSize: '0.85rem', fontWeight: 600, minWidth: '50px', color: '#333333' }}>인원</label>
-          <input type="range" min="1" max="10" value={people} onChange={e => setPeople(Number(e.target.value))} style={{ flex: 1 }} aria-label="인원 수 선택" />
-          <span style={{ fontWeight: 700, color: '#6D28D9', minWidth: '30px' }}>{people}명</span>
-        </div>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <label style={{ fontSize: '0.85rem', fontWeight: 600, minWidth: '50px', color: '#333333' }}>양주</label>
-          <input type="range" min="1" max="5" value={bottles} onChange={e => setBottles(Number(e.target.value))} style={{ flex: 1 }} aria-label="양주 병 수 선택" />
-          <span style={{ fontWeight: 700, color: '#6D28D9', minWidth: '30px' }}>{bottles}병</span>
-        </div>
+      <h3 style={{ marginBottom: '0.25rem', color: '#111111' }}>카테고리별 분위기 비교</h3>
+      <p style={{ fontSize: '0.8rem', color: '#555555', marginBottom: '1rem' }}>원하는 분위기를 골라보세요</p>
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+        {Object.entries(catLabels).map(([k, l]) => (
+          <button key={k} onClick={() => setCategory(k)} style={{
+            padding: '0.4rem 0.75rem', borderRadius: '20px', fontSize: '0.8rem', fontFamily: 'var(--font-sans)',
+            border: category === k ? '2px solid #6D28D9' : '1px solid #E5E7EB',
+            background: category === k ? '#F5F3FF' : '#FFFFFF', color: category === k ? '#6D28D9' : '#555555',
+            cursor: 'pointer', fontWeight: category === k ? 700 : 400,
+          }}>{l}</button>
+        ))}
       </div>
       <div style={{ padding: '1rem', background: '#F9FAFB', borderRadius: '12px', textAlign: 'center', marginBottom: '1rem' }}>
-        <p style={{ fontSize: '0.8rem', color: '#666666' }}>예상 총 비용</p>
-        <p style={{ fontSize: '1.5rem', fontWeight: 800, color: '#6D28D9' }}>{total.toLocaleString()}원</p>
-        <p style={{ fontSize: '0.85rem', color: '#333333' }}>1인당 약 <strong>{perPerson.toLocaleString()}원</strong></p>
+        <p style={{ fontSize: '1rem', fontWeight: 700, color: '#6D28D9' }}>{catLabels[category]}</p>
+        <p style={{ fontSize: '0.85rem', color: '#333333', marginTop: '0.25rem' }}>{catDesc[category]}</p>
       </div>
       {matched.length > 0 && (
         <div>
-          <p style={{ fontSize: '0.8rem', color: '#666666', marginBottom: '0.5rem' }}>이 예산에 맞는 곳</p>
+          <p style={{ fontSize: '0.8rem', color: '#555555', marginBottom: '0.5rem' }}>추천 업소</p>
           {matched.map(v => (
             <a key={v.slug} href={`/${v.cat_slug}/${v.slug}/`} target="_blank" rel="noopener noreferrer"
               style={{ display: 'block', padding: '0.5rem 0.75rem', marginBottom: '0.25rem', background: '#F7F7F8', borderRadius: '8px', textDecoration: 'none', color: '#111111', fontSize: '0.85rem' }}>
-              <strong>{v.name}</strong> <span style={{ color: '#666666' }}>· {v.region}</span>
+              <strong>{v.name}</strong> <span style={{ color: '#555555' }}>· {v.region}</span>
             </a>
           ))}
         </div>

@@ -24,12 +24,12 @@ const questions = [
     ],
   },
   {
-    q: '오늘 밤 예산은 얼마 정도?',
+    q: '어떤 분위기를 원하나요?',
     options: [
-      { text: '3만 원 이하', scores: { club: 2, night: 1 } },
-      { text: '3~10만 원', scores: { night: 2, lounge: 1 } },
-      { text: '10~30만 원', scores: { lounge: 2, room: 1 } },
-      { text: '돈은 문제가 아니다', scores: { yojeong: 2, hoppa: 2 } },
+      { text: '신나는 음악에 몸을 맡기고 싶다', scores: { club: 2, night: 1 } },
+      { text: '편하게 대화하면서 즐기고 싶다', scores: { night: 2, lounge: 1 } },
+      { text: '고급스럽고 격식 있는 분위기', scores: { lounge: 2, room: 1 } },
+      { text: '특별한 경험을 하고 싶다', scores: { yojeong: 2, hoppa: 2 } },
     ],
   },
   {

@@ -57,8 +57,8 @@ async function run() {
   // 1. 메인페이지
   const mainSvg = svg({
     bg: '#8B5CF6',
-    lines: ['오늘밤어디'],
-    sub: '전국 클럽 · 나이트 · 라운지 · 룸 · 요정 · 호빠',
+    lines: ['BAMKEY'],
+    sub: '밤키 — 전국 클럽 · 나이트 · 라운지 · 룸 · 요정 · 호빠',
     footer: 'informationa.pages.dev',
   });
   await sharp(Buffer.from(mainSvg)).png({ quality: 90 }).toFile(path.join(OG_DIR, 'home.png'));
@@ -71,7 +71,7 @@ async function run() {
     const s = svg({
       bg: catColors[slug],
       lines: [catLabels[slug] + ' 전체보기'],
-      sub: '오늘밤어디',
+      sub: '밤키 BAMKEY',
       footer: 'informationa.pages.dev',
     });
     await sharp(Buffer.from(s)).png({ quality: 90 }).toFile(path.join(OG_DIR, file + '.png'));
@@ -87,7 +87,7 @@ async function run() {
     const lines = splitName(fullName);
     const sub = [v.region, catLabels[v.cat_slug]].filter(Boolean).join(' · ');
 
-    const s = svg({ bg: color, lines, sub, footer: '오늘밤어디' });
+    const s = svg({ bg: color, lines, sub, footer: '밤키 BAMKEY' });
     const filename = `${v.cat_slug}-${v.slug}.png`;
     await sharp(Buffer.from(s)).png({ quality: 90 }).toFile(path.join(OG_DIR, filename));
     n++;
