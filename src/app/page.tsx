@@ -298,7 +298,7 @@ export default function HomePage() {
             { q: '처음인데 어디부터?', a: '테이블 문화가 궁금하면 수유 쪽. 플로어를 원하면 강남. 조용한 곳이면 압구정 라운지.' },
             { q: '혼자 가도 괜찮나?', a: '바 카운터가 있는 곳이면 어색하지 않다. 혼자 오는 손님 생각보다 많다.' },
             { q: '복장 규정은?', a: '깔끔한 캐주얼이 기본. 강남권은 슬리퍼·트레이닝복 입장 제한.' },
-            { q: '예산은 보통 얼마?', a: '장소마다 다르지만 음료 2~3잔 기준 3~5만 원 선이 보통.' },
+            { q: '예산이 궁금하면?', a: '전화로 미리 문의하면 친절하게 안내받을 수 있다. 부담 없이 즐기는 방법도 알려준다.' },
             { q: '새벽에 귀가는?', a: '카카오T 미리 설치. 지하철 막차는 자정 전후.' },
           ].map((f, i) => (
             <div key={i} className="faq-item">
@@ -312,6 +312,34 @@ export default function HomePage() {
       {/* ═══ [후킹3] 비슷한 곳 ═══ */}
       <section style={{ padding: '1rem 0' }}>
         <div className="container"><SimilarVenuesHook /></div>
+      </section>
+
+      {/* ═══ 매거진 미리보기 ═══ */}
+      <section style={{ padding: '1.5rem 0' }}>
+        <div className="container">
+          <h2 style={{ marginBottom: '1rem' }}>읽을거리</h2>
+          <div style={{ display: 'grid', gap: '0.75rem' }}>
+            {[
+              { title: '처음 가는 사람을 위한 완벽 안내서', cat: '나이트', id: 'beginner-night-guide' },
+              { title: '클럽 vs 나이트, 뭐가 다른 거야?', cat: '클럽·나이트', id: 'club-vs-night' },
+              { title: '1인 방문해도 괜찮을까? 솔로 방문 솔직 후기', cat: '전체', id: 'solo-visit-review' },
+            ].map(m => (
+              <a key={m.id} href="/magazine/" target="_blank" rel="noopener noreferrer"
+                style={{ display: 'block', padding: '1rem 1.25rem', background: '#FFFFFF',
+                  border: '1px solid #E5E7EB', borderRadius: '12px', textDecoration: 'none',
+                  transition: 'box-shadow 0.2s' }}>
+                <span style={{ fontSize: '0.75rem', color: '#8B5CF6', fontWeight: 600 }}>{m.cat}</span>
+                <p style={{ margin: '0.25rem 0 0', fontSize: '1rem', fontWeight: 600, color: '#111' }}>{m.title}</p>
+              </a>
+            ))}
+          </div>
+          <p style={{ textAlign: 'center', marginTop: '0.75rem' }}>
+            <a href="/magazine/" target="_blank" rel="noopener noreferrer"
+              style={{ color: '#8B5CF6', fontWeight: 600, textDecoration: 'none' }}>
+              매거진 전체 보기 →
+            </a>
+          </p>
+        </div>
       </section>
 
       {/* ═══ 인스타그램 링크 ═══ */}
@@ -459,6 +487,8 @@ export default function HomePage() {
 
       {/* ═══ [26] 체류시간 보상 — 글로벌 ═══ */}
       <RetentionRewards />
+
+      {/* SocialProofToast, JourneyTimer, SlideUpHook, ScrollBannerHook, RetentionRewards → layout.tsx에서 전역 활성화 */}
     </>
   );
 }

@@ -43,7 +43,7 @@ export default function CategoryPage({ heading, intro, body, guide, timeslots, v
         <div className="venue-grid">
           {venues.map(v => <VenueCard key={v.slug} venue={v} />)}
         </div>
-        <p style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#666666', textAlign: 'center' }}>
+        <p style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#444444', textAlign: 'center' }}>
           전체 {venues.length}곳 — 각 카드를 눌러 상세 확인
         </p>
 
@@ -71,7 +71,7 @@ export default function CategoryPage({ heading, intro, body, guide, timeslots, v
                 <div style={{ flex: 1, background: '#E5E7EB', borderRadius: '4px', height: '8px' }}>
                   <div style={{ width: t.bar, background: accent, height: '100%', borderRadius: '4px' }} />
                 </div>
-                <span style={{ fontSize: '0.8rem', color: '#666666', minWidth: '40px' }}>{t.level}</span>
+                <span style={{ fontSize: '0.8rem', color: '#444444', minWidth: '40px' }}>{t.level}</span>
               </div>
             ))}
           </div>

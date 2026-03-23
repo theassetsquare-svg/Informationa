@@ -42,18 +42,18 @@ export default function Footer() {
 
           {/* 지역 링크 (SEO 내부링크) */}
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem', marginBottom: '1rem', fontSize: '0.8rem' }}>
-            <a href="/clubs/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>강남</a>
-            <a href="/clubs/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>압구정</a>
-            <a href="/clubs/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>홍대</a>
-            <a href="/clubs/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>이태원</a>
-            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>수유</a>
-            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>수원</a>
-            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>부산</a>
-            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>대전</a>
-            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>광주</a>
-            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>울산</a>
-            <a href="/rooms/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>일산</a>
-            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#555' }}>인천</a>
+            <a href="/clubs/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>강남</a>
+            <a href="/clubs/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>압구정</a>
+            <a href="/clubs/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>홍대</a>
+            <a href="/clubs/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>이태원</a>
+            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>수유</a>
+            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>수원</a>
+            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>부산</a>
+            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>대전</a>
+            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>광주</a>
+            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>울산</a>
+            <a href="/rooms/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>일산</a>
+            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>인천</a>
           </div>
 
           {/* 밤키 링크 */}
@@ -64,7 +64,7 @@ export default function Footer() {
           </p>
 
           <p style={{ color: '#333' }}>&copy; {year} 밤키(BAMKEY). 만 19세 이상 이용 가능.</p>
-          <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#666' }}>
+          <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#444' }}>
             본 사이트는 정보 제공 목적이며 업소와 직접적인 제휴 관계가 없습니다.
           </p>
         </div>

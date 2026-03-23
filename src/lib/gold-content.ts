@@ -111,7 +111,7 @@ const nightTaglines = [
   '안쪽 부스석의 프라이버시가 남다르다',
   '첫 방문이라도 직원이 잘 안내해준다',
   '주중에 오면 한결 여유롭게 즐길 수 있다',
-  '이 가격에 이 분위기는 여기밖에 없다',
+  '이 분위기는 직접 와봐야 안다',
   '동행과 대화가 편한 좌석 구성이 장점이다',
   '미리 예약하면 대기 없이 바로 입장한다',
   '두세 번 와봐야 진짜 매력을 알게 된다',
@@ -135,6 +135,15 @@ const nightTaglines = [
   '이곳 분위기에 반하면 다른 데 못 간다',
   '한 번 앉으면 나가기 싫어지는 마력이 있다',
   '이 동네 저녁의 마무리는 항상 여기다',
+  '조명이 바뀔 때마다 공간이 달라진다',
+  '여기를 찾아오는 사람들의 표정이 전부 말해준다',
+  '금요일 밤이면 빈 테이블을 찾기 어렵다',
+  '예약 없이 왔다가 대기하게 된 사람이 한둘이 아니다',
+  '한 번 경험하면 비교 대상이 사라진다',
+  '주변에 물어보면 열에 여덟은 여기를 추천한다',
+  '마지막 곡이 끝나도 자리에서 일어나기 아쉬운 곳',
+  '첫 방문자도 편하게 즐길 수 있는 구조다',
+  '이 가격에 이 분위기를 찾기 힘들다',
 ];
 
 const loungeTaglines = [
@@ -167,6 +176,12 @@ const hoppaTaglines = [
   '시스템을 알면 긴장할 필요가 전혀 없다',
   '입장하면 편안한 분위기에 바로 적응된다',
   '선택의 폭이 넓어서 취향 저격 가능하다',
+  '한 번 와본 사람은 반드시 다시 오는 곳',
+  '여기 호스트는 대화가 된다는 후기가 많다',
+  '분위기를 먼저 확인하고 싶다면 전화 한 통이면 된다',
+  '퇴근 후 가볍게 즐기기에 딱 좋은 곳',
+  '친구 생일이면 무조건 여기 데려온다',
+  '처음 오는 친구한테 설명이 필요 없는 시스템',
 ];
 
 function getTagline(venue: Venue): string {
@@ -214,7 +229,7 @@ const narrativePool: string[] = [
   '퇴장 시 안내까지 꼼꼼하다. 마지막 인상도 좋게 가져간다.',
   '접근성과 분위기를 동시에 잡은 몇 안 되는 곳이다. 교통편은 미리 확인해두자.',
   '주변에 식사할 곳이 많다. 저녁부터 자연스럽게 이어지는 동선이 완성된다.',
-  '가격대는 주변 상권 수준이다. 예산을 잡아두면 부담 없이 즐길 수 있다.',
+  '전화로 미리 문의하면 예산 계획이 수월하다.',
   '혼자 와도 어색하지 않은 구조다. 바 카운터가 자연스러운 1인석 역할을 한다.',
   '주차가 쉽지 않을 수 있다. 대중교통이나 택시 이용을 추천한다.',
   '예약이 필수는 아니지만 주말에는 미리 연락하는 편이 안전하다.',
@@ -491,12 +506,12 @@ function generateFaq(venue: Venue, label: string): { q: string; a: string }[] {
         : '금·토요일 23시~새벽 1시가 피크타임입니다. 일찍 도착하면 좋은 자리를 확보할 수 있습니다.',
     },
     {
-      q: '예산은 얼마 정도 잡아야 하나요?',
-      a: venue.cat_slug === 'night' ? '양주 1병 기준 10~30만 원대가 일반적입니다. 지역과 요일에 따라 차이가 있으니 전화로 확인하세요.'
-        : venue.cat_slug === 'club' ? '입장료 무료~3만 원, 음료 1~2만 원대가 보통입니다.'
-        : venue.cat_slug === 'yojeong' ? '코스 요리 기준 1인 10~20만 원대입니다. 인원과 메뉴에 따라 달라집니다.'
-        : venue.cat_slug === 'room' ? '인원수와 이용 시간에 따라 다릅니다. 전화로 견적을 받아보세요.'
-        : '이용 형태에 따라 다릅니다. 전화로 미리 알아보면 계획이 수월합니다.',
+      q: '방문 전 뭘 준비하면 좋을까요?',
+      a: venue.cat_slug === 'night' ? '전화로 운영 시간과 시스템을 미리 확인하면 편안하게 즐길 수 있습니다.'
+        : venue.cat_slug === 'club' ? '드레스코드와 운영 일정을 SNS나 전화로 확인하고 가면 좋습니다.'
+        : venue.cat_slug === 'yojeong' ? '인원과 목적을 전화로 미리 알리면 맞춤 안내를 받을 수 있습니다.'
+        : venue.cat_slug === 'room' ? '인원수와 목적을 전화로 미리 알리면 딱 맞는 공간을 안내받을 수 있습니다.'
+        : '전화로 미리 문의하면 시스템과 분위기를 상세히 안내받을 수 있습니다.',
     },
     {
       q: `${venue.name} 문의 연락처가 어떻게 되나요?`,
@@ -586,9 +601,9 @@ function generateGuide(venue: Venue): { intro: string; tips: string[] } {
   };
   const catTips: Record<string, string[]> = {
     night: ['양주 1병이 기본 주문 단위', '테이블 위치가 경험을 좌우한다', '피크타임 전에 도착하면 좋은 자리'],
-    club: ['슬리퍼·운동복 입장 불가', '입장료+음료 별도인 곳 대부분', '귀중품은 최소한으로'],
+    club: ['슬리퍼·운동복 입장 불가', '드레스코드 확인 필수', '귀중품은 최소한으로'],
     lounge: ['시그니처 칵테일부터 시도해보자', '바 카운터는 1인 환영', '주말 저녁은 예약 추천'],
-    room: ['전화로 인원·예산·목적 전달', '정찰제 확인하면 가격 투명', '픽업 서비스 있는 곳도 있다'],
+    room: ['전화로 인원수와 목적 전달', '방문 전 전화 문의 추천', '픽업 서비스 있는 곳도 있다'],
     yojeong: ['사전 예약 필수', '정장 또는 비즈니스 캐주얼', '알레르기 있으면 미리 알려주자'],
     hoppa: ['매니저가 시스템 설명해준다', '호스트 지명은 선택사항', '예산 미리 정해두면 부담 없다'],
   };
@@ -602,19 +617,22 @@ function generateGuide(venue: Venue): { intro: string; tips: string[] } {
   return { intro, tips };
 }
 
-/* ═══ 메타 설명 — 실제 문장 (업소별 고유) ═══ */
-function generateDescription(venue: Venue, label: string, tagline: string): string {
-  const dloc = venue.region === venue.district ? venue.district : `${venue.region} ${venue.district}`;
-  const descVariants = [
-    (v: Venue, l: string, t: string) => `${v.name} ${l} ${v.district} 방문 정보. ${v.hours || '영업시간 확인 필요'}. ${t}`,
-    (v: Venue, l: string, t: string) => `${v.district} ${v.name}. ${t} ${v.hours ? v.hours + ' 운영.' : ''}교통·예산·체크리스트 수록.`,
-    (v: Venue, l: string, t: string) => `${v.name} — ${t} ${dloc} 소재 ${l}. 영업시간·위치·이용 팁 안내.`,
-    (v: Venue, l: string, t: string) => `${v.district} ${l} ${v.name}. ${t} 주소·시간·후기·교통 정리.`,
-    (v: Venue, l: string, t: string) => `${v.name} 완벽 가이드. ${v.district} ${l}. ${v.hours || '시간 확인 필요'}. ${t}`,
-    (v: Venue, l: string, t: string) => `${dloc} ${v.name} ${l}. ${t} 위치·예산·방문 팁 총정리.`,
-  ];
-  const fn = descVariants[hash(venue.slug + ':desc') % descVariants.length];
-  return fn(venue, label, tagline).replace(/\s{2,}/g, ' ').trim().slice(0, 155);
+/* ═══ 메타 설명 — 업소별 100% 고유 (고유 카드훅+태그 활용) ═══ */
+function generateDescription(venue: Venue, _label: string, _tagline: string, _venueIndex: number): string {
+  /*
+   * card_hook = 각 업소별 고유 마케팅 문구 (venues.json에 이미 있음)
+   * card_hook이 있으면 그대로 사용 (완전 고유)
+   * 없으면 이름+태그 조합
+   */
+  const nick = venue.nickname ? `${venue.nickname} 상담.` : '';
+  const tags = (venue.card_tags || []).slice(0, 2).join(' ');
+
+  if (venue.card_hook && venue.card_hook.length > 15) {
+    // card_hook은 업소별 고유 마케팅 문구
+    return `${venue.card_hook}${nick ? ' ' + nick : ''}`.replace(/\s{2,}/g, ' ').trim().slice(0, 155);
+  }
+  // fallback: 이름 + 태그 + 닉네임
+  return `${venue.name}. ${tags}${nick ? ' ' + nick : ''}`.replace(/\s{2,}/g, ' ').trim().slice(0, 155);
 }
 
 /* ═══════════════════════════════════════
@@ -627,7 +645,7 @@ export function generateGoldContent(venue: Venue, venueIndex = 0) {
   const narrative = generateNarrative(venue, label);
   const faq = generateFaq(venue, label);
   const tips = pick(tipPool, venue.slug, 6, 20);
-  const description = generateDescription(venue, label, tagline);
+  const description = generateDescription(venue, label, tagline, venueIndex);
   const timeSlots = generateTimeSlots(venue);
   const guide = generateGuide(venue);
 

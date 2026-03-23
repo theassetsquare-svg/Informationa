@@ -442,6 +442,8 @@ export default function VenueDetailPage({ params }: Props) {
         </div>
       </section>
 
+      {/* SocialProofToast, JourneyTimer, SlideUpHook, ScrollBannerHook → layout.tsx에서 전역 활성화 */}
+
       {/* 하단 여백 */}
       <div style={{ paddingBottom: hasPhone ? '80px' : '0' }} />
 
