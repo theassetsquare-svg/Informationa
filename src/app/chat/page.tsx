@@ -34,9 +34,9 @@ export default function ChatPage() {
 
       <section style={{ padding: '2rem 0 0' }}>
         <div className="container narrow">
-          <h1 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>AI 상담</h1>
+          <h1 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>맞춤 추천 상담</h1>
           <p style={{ textAlign: 'center', color: 'var(--text-sub)', marginBottom: '2rem' }}>
-            오늘밤 뭐하지? AI에게 물어보자.
+            예산·지역·분위기를 말하면 딱 맞는 곳을 골라준다.
           </p>
 
           {/* 채팅 영역 (client component) */}
@@ -49,7 +49,7 @@ export default function ChatPage() {
         <div className="container narrow">
           <h2 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>그동안 이것들을 둘러보세요</h2>
           <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
-            AI 상담이 오픈될 때까지, 이 서비스들을 이용해 보세요.
+            상담이 오픈될 때까지, 이 서비스들을 이용해 보세요.
           </p>
           <div style={{ display: 'grid', gap: '1rem' }}>
             {quickLinks.map(link => (
@@ -82,7 +82,7 @@ export default function ChatPage() {
         <div className="container narrow">
           <h2 style={{ marginBottom: '1.5rem' }}>자주 하는 질문</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
-            AI가 오픈되면 이런 질문에 답해줄 예정이다.
+            곧 오픈하면 이런 질문에 답해줄 예정이다.
           </p>
           <div style={{ display: 'grid', gap: '0.75rem' }}>
             {[

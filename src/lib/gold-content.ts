@@ -184,13 +184,20 @@ const hoppaTaglines = [
   '처음 오는 친구한테 설명이 필요 없는 시스템',
 ];
 
-function getTagline(venue: Venue): string {
+function getTagline(venue: Venue, venueIndex: number): string {
+  // card_hook은 업소별 100% 고유 → 타이틀 태그라인으로 사용하면 중복 0%
+  if (venue.card_hook && venue.card_hook.length > 10) {
+    // 50자 이내로 잘라서 타이틀에 적합하게
+    const hook = venue.card_hook.slice(0, 50);
+    return hook.endsWith('.') ? hook.slice(0, -1) : hook;
+  }
+  // fallback: 풀에서 선택
   const pools: Record<string, string[]> = {
     club: clubTaglines, night: nightTaglines, lounge: loungeTaglines,
     room: roomTaglines, yojeong: yojeongTaglines, hoppa: hoppaTaglines,
   };
   const pool = pools[venue.cat_slug] || clubTaglines;
-  return pool[hash(venue.slug + 'tagline') % pool.length];
+  return pool[hash(venue.slug + ':tl:v7') % pool.length];
 }
 
 /* ═══ 서사 풀 — 48개 (업소명·카테고리·지역명 미사용) ═══ */
@@ -341,6 +348,10 @@ function generateNarrative(venue: Venue, label: string): string {
     (v: Venue, l: string) => `${v.district}의 ${l}, ${v.name}. ${v.hours ? v.hours + '에 운영한다.' : '운영 시간은 전화로 확인 가능하다.'} ${v.station ? v.station + '에서 가깝다.' : ''}`,
     (v: Venue, l: string) => `${v.name}${iGa(v.name)} ${v.district}에서 눈에 띄는 건 분명하다. ${v.card_hook || '직접 방문해서 확인해보자.'} ${v.station ? '가장 가까운 역은 ' + v.station + '이다.' : ''}`,
     (v: Venue, l: string) => `${loc}에 위치한 ${v.name}. ${v.card_hook || '방문 전 전화 한 통을 추천한다.'} ${v.hours ? '영업시간: ' + v.hours + '.' : ''}`,
+    (v: Venue, l: string) => `${v.name}${eunNeun(v.name)} ${v.district} 중심가에 자리 잡았다. ${v.card_hook || '이 동네를 안다면 한 번쯤 들어봤을 곳이다.'} ${v.station ? v.station + '에서 가까워 접근성이 좋다.' : ''}`,
+    (v: Venue, l: string) => `${v.district}에서 ${v.name}을 모르면 이 동네를 모르는 것과 같다. ${v.hours ? v.hours + ' 사이에 운영한다.' : ''} ${v.station ? v.station + '이 가장 가까운 역이다.' : ''}`,
+    (v: Venue, l: string) => `${loc}의 야간 문화를 대표하는 ${v.name}. ${v.card_hook || '현지인 사이에서 이미 정평이 나 있다.'} 한번 와보면 왜 그런지 금방 알게 된다.`,
+    (v: Venue, l: string) => `${v.name}${eunNeun(v.name)} ${loc}에서 빼놓을 수 없는 ${l}이다. ${v.station ? v.station + '에서 내리면 금방이다.' : '내비게이션에 주소를 넣으면 건물 앞까지 안내된다.'}`,
   ];
   const tplFn = tplVariants[hash(venue.slug + ':tpl') % tplVariants.length];
   const templatePara = tplFn(venue, label).replace(/\s{2,}/g, ' ').trim();
@@ -446,8 +457,28 @@ function generateNarrative(venue: Venue, label: string): string {
     regionParas.push(tagParas[hash(venue.slug + ':tp') % tagParas.length]);
   }
 
-  // 풀에서 3개만 선택 (고유 문단이 충분하므로 줄임)
-  const poolParas = pick(narrativePool, venue.slug, 3, 0);
+  // 업소명 기반 고유 마무리
+  const closingV = [
+    `${venue.name}을 한 줄로 표현하자면, 한 번 가면 기준이 바뀌는 곳이다.`,
+    `${venue.name}의 진가는 두 번째 방문에서 드러난다. 처음엔 분위기에, 다음엔 디테일에 반하게 된다.`,
+    `${venue.name}에 대한 평가는 직접 다녀온 사람의 말이 가장 정확하다.`,
+    `${venue.name}을 추천받고 왔다면 추천한 사람에게 감사 인사를 전해도 좋다.`,
+    `${venue.name}의 분위기를 글로 전하는 데는 한계가 있다. 직접 가보는 것만큼 확실한 방법은 없다.`,
+    `${venue.name}이 아닌 다른 선택지를 비교하고 싶다면 같은 카테고리의 다른 곳도 둘러보자.`,
+  ];
+  uniqueParas.push(closingV[hash(venue.slug + ':close') % closingV.length]);
+
+  // 시간대별 고유 팁
+  const timeV = [
+    `${loc}에서 ${venue.name}을 방문할 최적의 시간대는 개장 후 1시간쯤이다.`,
+    `${venue.name} 주변은 주말이면 유동 인구가 급증한다. 일찍 출발하는 게 좋다.`,
+    `평일에 ${venue.name}을 방문하면 주말과는 완전히 다른 분위기를 경험한다.`,
+    `${venue.name}의 금요일 저녁과 토요일 밤은 온도가 다르다.`,
+  ];
+  uniqueParas.push(timeV[hash(venue.slug + ':time') % timeV.length]);
+
+  // 풀에서 1개만 선택 (고유 문단이 충분)
+  const poolParas = pick(narrativePool, venue.slug, 1, 0);
 
   return [templatePara, ...uniqueParas, ...regionParas, ...poolParas].join('\n\n');
 }
@@ -624,22 +655,25 @@ function generateDescription(venue: Venue, _label: string, _tagline: string, _ve
    * card_hook이 있으면 그대로 사용 (완전 고유)
    * 없으면 이름+태그 조합
    */
-  const nick = venue.nickname ? `${venue.nickname} 상담.` : '';
+  // 닉네임 중복 방지: card_hook에 이미 닉네임이 포함되면 추가하지 않음
+  const nickStr = venue.nickname || '';
+  const hookText = venue.card_hook || '';
+  const nick = (nickStr && !hookText.includes(nickStr)) ? `${nickStr} 상담.` : '';
   const tags = (venue.card_tags || []).slice(0, 2).join(' ');
 
-  if (venue.card_hook && venue.card_hook.length > 15) {
-    // card_hook은 업소별 고유 마케팅 문구
-    return `${venue.card_hook}${nick ? ' ' + nick : ''}`.replace(/\s{2,}/g, ' ').trim().slice(0, 155);
+  if (hookText.length > 15) {
+    return `${hookText}${nick ? ' ' + nick : ''}`.replace(/\s{2,}/g, ' ').trim().slice(0, 155);
   }
   // fallback: 이름 + 태그 + 닉네임
-  return `${venue.name}. ${tags}${nick ? ' ' + nick : ''}`.replace(/\s{2,}/g, ' ').trim().slice(0, 155);
+  const fallbackNick = nickStr ? `${nickStr} 상담.` : '';
+  return `${venue.name}. ${tags}${fallbackNick ? ' ' + fallbackNick : ''}`.replace(/\s{2,}/g, ' ').trim().slice(0, 155);
 }
 
 /* ═══════════════════════════════════════
    메인 콘텐츠 생성
    ═══════════════════════════════════════ */
 export function generateGoldContent(venue: Venue, venueIndex = 0) {
-  const tagline = getTagline(venue);
+  const tagline = getTagline(venue, venueIndex);
   const label = catLabel[venue.cat_slug] || venue.category;
 
   const narrative = generateNarrative(venue, label);

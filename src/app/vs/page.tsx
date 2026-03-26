@@ -28,7 +28,7 @@ export default function VsPage() {
 
       <section style={{ padding: '2rem 0 3rem' }}>
         <div className="container narrow">
-          <h1 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>업소 VS 대결</h1>
+          <h1 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>업소 대결</h1>
           <p style={{ textAlign: 'center', color: 'var(--text-sub)', marginBottom: '2.5rem' }}>
             어디가 더 나을까? 투표하고 다른 사람들의 선택을 확인하자.
           </p>

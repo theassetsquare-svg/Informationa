@@ -21,9 +21,9 @@ function generateMatchups(venues: Venue[]): MatchUp[] {
   const matchups: MatchUp[] = [];
 
   const pairings = [
-    { catA: 'club', catB: 'lounge', label: '클럽 vs 라운지' },
-    { catA: 'night', catB: 'hoppa', label: '나이트 vs 호빠' },
-    { catA: 'room', catB: 'yojeong', label: '룸 vs 요정' },
+    { catA: 'club', catB: 'lounge', label: '클럽 대 라운지' },
+    { catA: 'night', catB: 'hoppa', label: '나이트 대 호빠' },
+    { catA: 'room', catB: 'yojeong', label: '룸 대 요정' },
   ];
 
   pairings.forEach((pair, idx) => {
@@ -40,17 +40,17 @@ function generateMatchups(venues: Venue[]): MatchUp[] {
 }
 
 const hallOfFame = [
-  { winner: '강남 옥타곤', loser: '이태원 케이크샵', votes: '72% vs 28%', week: '2025년 48주차' },
-  { winner: '수유 샴푸나이트', loser: '노원 세븐나이트', votes: '65% vs 35%', week: '2025년 47주차' },
-  { winner: '압구정 코드라운지', loser: '청담 르클럽', votes: '58% vs 42%', week: '2025년 46주차' },
-  { winner: '강남 레이스', loser: '이태원 파우스트', votes: '61% vs 39%', week: '2025년 45주차' },
-  { winner: '해운대 빌리진', loser: '서면 그루브', votes: '55% vs 45%', week: '2025년 44주차' },
+  { winner: '강남 옥타곤', loser: '이태원 케이크샵', votes: '72:28', week: '2025년 48주차' },
+  { winner: '수유 샴푸나이트', loser: '노원 세븐나이트', votes: '65:35', week: '2025년 47주차' },
+  { winner: '압구정 코드라운지', loser: '청담 르클럽', votes: '58:42', week: '2025년 46주차' },
+  { winner: '강남 레이스', loser: '이태원 파우스트', votes: '61:39', week: '2025년 45주차' },
+  { winner: '해운대 빌리진', loser: '서면 그루브', votes: '55:45', week: '2025년 44주차' },
 ];
 
 const lastWeekResults = [
-  { matchup: '클럽 vs 나이트', winner: '클럽 사이드가 승리', pct: '62%' },
-  { matchup: '라운지 vs 호빠', winner: '라운지 사이드가 승리', pct: '57%' },
-  { matchup: '룸 vs 요정', winner: '요정 사이드가 승리', pct: '54%' },
+  { matchup: '클럽 대 나이트', winner: '클럽 사이드가 승리', pct: '62%' },
+  { matchup: '라운지 대 호빠', winner: '라운지 사이드가 승리', pct: '57%' },
+  { matchup: '룸 대 요정', winner: '요정 사이드가 승리', pct: '54%' },
 ];
 
 export default function VsPageClient() {

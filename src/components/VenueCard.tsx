@@ -64,7 +64,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
       <div className="venue-card-body">
         {venue.badge && <span className="venue-card-badge">{venue.badge}</span>}
         {meta && <span className="venue-card-meta">{meta}</span>}
-        <h3>{venue.name}</h3>
+        <h3>{line2 || venue.name}</h3>
         {venue.nickname && (
           <p style={{ fontSize: '0.8rem', color: '#6D28D9', fontWeight: 700, marginBottom: '0.25rem' }}>
             담당: {venue.nickname}
