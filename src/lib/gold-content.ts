@@ -135,7 +135,7 @@ const roomTaglines = [
   '단체 모임도 비즈니스 접대도 여기서 해결된다',
   '인원수에 맞는 사이즈를 골라 앉으면 시작이다',
   '문을 닫으면 바깥 세상은 사라진다',
-  '회식 장소를 고민한다면 여기가 답이다',
+  '모임 장소를 고민한다면 여기가 답이다',
   '독립된 공간이 주는 편안함이 다른 곳',
   '프라이빗 세팅이 분위기를 결정한다',
   '우리끼리 마음 놓고 즐길 수 있는 곳',
@@ -259,7 +259,7 @@ const openingHooks: Record<string, string[]> = {
     '조명이 바뀔 때마다 같은 공간이 다른 장소처럼 느껴진다. 전반부의 차분한 분위기와 후반부의 열기 사이 대비가 극적이다.',
     '대형 거울이 홀의 깊이감을 더해준다. 실제보다 넓어 보이는 공간에서 시선을 돌릴 때마다 새로운 장면이 눈에 들어온다.',
     '피크타임이 지나면 분위기가 한층 무르익는다. 자정을 넘긴 시간대의 열기는 그 자리에 있어봐야만 전해지는 종류의 것이다.',
-    '웨이터들의 움직임이 체계적이다. 테이블마다 담당이 정해져 있어 호출하지 않아도 필요한 시점에 다가온다.',
+    '웨이터들이 잘 훈련되어 있다. 테이블마다 담당이 정해져 있어 호출하지 않아도 필요한 시점에 다가온다.',
     '밴드의 레퍼토리가 넓다. 트로트부터 팝송까지, 테이블마다 신청곡을 보내면 분위기가 한층 달아오른다.',
     '금요일 저녁 9시쯤 도착하면 아직 여유로운 분위기에서 자리를 잡을 수 있다. 11시가 넘으면 빈 테이블 찾기가 어려워진다.',
     '정기적으로 오는 단골이 많은 곳이라 초행자에게도 분위기가 안정적으로 느껴진다. 오래된 곳에는 오래된 이유가 있다.',
@@ -282,7 +282,7 @@ const openingHooks: Record<string, string[]> = {
     '창가 좌석에서는 도시의 야경이 배경이 된다. 잔을 기울이며 바라보는 도심의 불빛이 대화의 소재가 되기도 한다.',
     '인테리어에 사용된 소재 하나하나가 분위기를 구성하는 요소다. 원목, 가죽, 황동의 조합이 클래식한 품격을 완성한다.',
     '조명이 시간대에 따라 미세하게 변한다. 저녁 초반의 밝은 톤이 밤이 깊어질수록 따뜻한 호박색으로 전환된다.',
-    '대화에 최적화된 좌석 배치가 인상적이다. 2인석은 마주 앉기보다 90도 각도로 배치되어 친밀감을 높인다.',
+    '좌석 배치가 좋다. 2인석은 마주 앉기보다 90도 각도로 놓여 있어 대화할 때 훨씬 편하다.',
     '얼음 하나를 고르는 것부터 다르다. 수제 아이스볼이 잔에 담기는 순간, 음료의 품격이 올라가는 것을 눈으로 확인할 수 있다.',
     '배경 음악의 장르가 재즈, 보사노바, 어쿠스틱을 오간다. 시간대에 따라 분위기가 미묘하게 전환되는 것이 라운지의 섬세함이다.',
     '바텐더에게 취향을 말하면 메뉴에 없는 칵테일도 즉석에서 만들어준다. 그 즉흥성이 매 방문을 특별하게 만든다.',
@@ -380,7 +380,7 @@ const locationContextPool = [
   '비 오는 날에 방문하면 의외로 한산해서 여유로운 경험이 가능하다. 우산만 챙기면 평소보다 훨씬 쾌적한 방문이 된다.',
   '주변 편의점 위치를 알아두면 유용하다. 보조배터리, 간식, 생수 등을 미리 준비하면 밤새 불편할 일이 줄어든다.',
   '이 거리의 야경은 그 자체로 볼거리다. 네온사인과 간판 불빛이 만드는 분위기가 도착하는 순간부터 기대감을 높인다.',
-  '공휴일 전날은 주말 못지않게 붐빈다. 미리 연락해서 상황을 확인한 뒤 출발하는 것이 효율적이다.',
+  '공휴일 전날은 주말 못지않게 붐빈다. 미리 연락해서 상황을 확인한 뒤 출발하는 것이 편하다.',
   '대중교통 이용 시 막차 시간을 반드시 확인하자. 놓치면 택시비 부담이 커지므로 알람을 맞춰두는 것을 추천한다.',
   '근처에 노래방, 포차, 카페 등 2차 선택지가 다양하다. 하룻밤 동선을 미리 계획하면 더 알차게 보낼 수 있다.',
   '골목 안쪽에 위치한 곳이라면 큰 도로에서 들어가는 입구를 미리 확인하자. 좁은 골목에서 헤매는 일을 방지할 수 있다.',
@@ -453,10 +453,10 @@ const timeRecommendPool = [
   '오픈 직후에 방문하면 분위기가 형성되기 전이라 차분하게 공간을 살필 수 있다. 처음이라면 이 시간대를 추천한다.',
   '마감 시간이 가까워지면 분위기가 급격히 달라진다. 여유 있게 즐기려면 일찍 자리를 잡는 것이 정석이다.',
   '공휴일 전날은 주말 못지않게 사람이 몰린다. 미리 전화로 상황을 확인하면 헛걸음을 줄일 수 있다.',
-  '이른 저녁에 출발해서 주변에서 식사한 뒤 방문하는 코스가 가장 효율적이다. 밤이 시작되는 시간에 맞춰 도착하면 타이밍이 완벽하다.',
+  '이른 저녁에 출발해서 주변에서 식사한 뒤 방문하는 코스가 가장 편하다. 밤이 시작되는 시간에 맞춰 도착하면 타이밍이 완벽하다.',
   '비 오는 날에 방문하면 평소보다 한산해서 프라이빗한 분위기를 즐길 수 있다.',
   '계절에 따라 방문객 수가 달라진다. 여름 휴가철과 연말은 평소보다 2배 이상 붐비므로 사전 연락이 필수다.',
-  '늦은 시간에 도착하면 이미 분위기가 최고조에 달해 있다. 바로 분위기에 합류할 수 있어 시간이 짧은 사람에게는 오히려 효율적이다.',
+  '늦은 시간에 도착하면 이미 분위기가 최고조에 달해 있다. 바로 분위기에 합류할 수 있어 시간이 짧은 사람에게는 오히려 편하다.',
   '일요일 저녁에 가면 한 주의 마무리를 조용하게 할 수 있다. 주말의 활기와는 다른 차분한 분위기가 매력이다.',
   '새벽 2시 이후에는 또 다른 분위기가 형성된다. 남아 있는 사람들끼리 묘한 연대감이 생기는 시간대다.',
   '평일 저녁은 업무 후 가볍게 방문하기에 적합하다. 부담 없이 한두 잔 하고 귀가하는 패턴이 가능하다.',
@@ -551,7 +551,7 @@ function generateNarrative(venue: Venue, label: string): string {
   locationParas.push(...locCtx);
 
   /* ── 파트 4: 경험 묘사 (풀에서 선택) ── */
-  const expParas = pick(experiencePool, venue.slug, 2, 3);
+  const expParas = pick(experiencePool, venue.slug, 4, 3);
 
   /* ── 파트 5: 업소 속성 기반 고유 문단 ── */
   const uniqueParas: string[] = [];
@@ -586,15 +586,15 @@ function generateNarrative(venue: Venue, label: string): string {
   }
 
   /* ── 파트 6: 시간대 추천 (풀에서 선택) ── */
-  const timeReco = pick(timeRecommendPool, venue.slug, 1, 5);
+  const timeReco = pick(timeRecommendPool, venue.slug, 2, 5);
 
   /* ── 파트 7: 첫 방문자 팁 (풀에서 선택) ── */
-  const ftTip = pick(firstTimerTipPool, venue.slug, 1, 6);
+  const ftTip = pick(firstTimerTipPool, venue.slug, 2, 6);
 
   /* ── 파트 8: 마무리 훅 (CTA 포함) ── */
-  const closing = pick(closingHookPool, venue.slug, 1, 7);
+  const closing = pick(closingHookPool, venue.slug, 2, 7);
 
-  /* ── 조합: 모든 파트를 합쳐 500+ 글자 보장 ── */
+  /* ── 조합: 모든 파트를 합쳐 1000+ 글자 보장 ── */
   const allParts = [
     introPara,
     ...selectedHooks,
@@ -804,14 +804,50 @@ function generateDescription(venue: Venue, _label: string, venueIndex = 0): stri
     return W[slot][(hash(venue.slug + ':w' + slot + offset) + venueIndex * (slot + 3)) % W[slot].length];
   }
 
-  // 2문장 조립 (각각 독립 해시 → 고유 조합)
-  const s1 = `${hp(0)} ${hp(1)}, ${hp(2)}의 ${hp(3)}${iGa(hp(3))} ${hp(4)} ${hp(5)}에 ${hp(6)} ${hp(7)}.`;
-  const s2 = `${hp(8,1)}. ${hp(9,1)}. ${hp(10,1)}.`;
+  // 업소 고유 데이터 최대 활용 → 유사도 최소화
+  const loc = venue.region === venue.district ? venue.district : `${venue.region} ${venue.district}`;
+  const stn = venue.station || '';
+  const tag0 = (venue.tags && venue.tags[0]) || '';
+  const tag1 = (venue.tags && venue.tags[1]) || '';
+  const kw0 = (venue.keywords && venue.keywords[0]) || nm;
 
-  let desc = `${nm} — ${hook}. ${s1} ${s2}`;
+  // 각 업소마다 고유 데이터 조합이 다르므로 유사도 자동 분산
+  const parts: string[] = [nm, hook];
+  if (stn) parts.push(stn);
+  if (tag0) parts.push(tag0);
+  if (loc) parts.push(loc);
+
+  // 해시 기반 구조 선택 (23종)
+  const idx = (hash(venue.slug + ':desc:v4') + venueIndex) % 23;
+  let desc = '';
+  switch (idx) {
+    case 0: desc = `${nm}, ${loc}. ${hook}. ${hp(6)} ${hp(7)}.`; break;
+    case 1: desc = `${loc}에서 ${nm}${eulReul(nm)} 찾는다면. ${hook}. ${stn ? stn + '.' : ''} ${hp(8,1)}.`; break;
+    case 2: desc = `${hook} — ${nm}(${loc}). ${tag0 ? tag0+' 중심.' : ''} ${hp(6)} ${hp(9,1)}.`; break;
+    case 3: desc = `${nm}${eunNeun(nm)} ${loc}에 있다. ${hook}. ${hp(7)}. ${hp(10,1)}.`; break;
+    case 4: desc = `${kw0} 검색 1순위, ${nm}. ${hook}. ${hp(6)}`; break;
+    case 5: desc = `${loc} ${hp(1)}, ${nm}. ${hook}. ${stn ? stn + ' 인근.' : ''} ${hp(7)}.`; break;
+    case 6: desc = `${nm}(${loc}). ${hook}. ${tag0 ? tag0+', ' : ''}${tag1 ? tag1+'. ' : ''}${hp(8,1)}.`; break;
+    case 7: desc = `${hook}. ${nm}${eunNeun(nm)} ${loc}. ${hp(6)} ${hp(10,1)}.`; break;
+    case 8: desc = `${loc} ${nm}. ${hook}. ${hp(9,1)}. ${hp(7)}.`; break;
+    case 9: desc = `${nm} — ${hook}. ${loc}. ${stn ? stn+'.' : ''} ${hp(6)}`; break;
+    case 10: desc = `${kw0}, ${loc}. ${hook}. ${hp(7)}. ${hp(8,1)}.`; break;
+    case 11: desc = `${nm}${eulReul(nm)} 한마디로? ${hook}. ${loc}. ${hp(10,1)}.`; break;
+    case 12: desc = `${loc} ${hp(1)}, ${nm}의 분위기. ${hook}. ${hp(9,1)}.`; break;
+    case 13: desc = `${hook}. ${loc}의 ${nm}. ${tag0 ? tag0+' 기반.' : ''} ${hp(6)} ${hp(7)}.`; break;
+    case 14: desc = `${nm}, ${hook}. ${stn ? stn+' 근처.' : loc+'.'} ${hp(8,1)}.`; break;
+    case 15: desc = `${loc}에 ${nm}${iGa(nm)} 있다. ${hook}. ${hp(7)}. ${hp(9,1)}.`; break;
+    case 16: desc = `${nm} — ${loc}. ${hook}. ${hp(6)} ${hp(10,1)}.`; break;
+    case 17: desc = `${kw0} 가이드. ${nm}(${loc}), ${hook}. ${hp(8,1)}.`; break;
+    case 18: desc = `${hook} — ${nm}. ${loc} ${stn ? stn+'.' : ''} ${hp(7)}.`; break;
+    case 19: desc = `${loc}의 ${nm}. ${hook}. ${tag0 ? tag0+' ' : ''}${tag1 || ''}. ${hp(9,1)}.`; break;
+    case 20: desc = `${nm}${eunNeun(nm)} ${hook}. ${loc}. ${hp(6)} ${hp(8,1)}.`; break;
+    case 21: desc = `${hook}. ${kw0}${eulReul(kw0)} 알고 싶다면 ${nm}. ${loc}. ${hp(10,1)}.`; break;
+    default: desc = `${nm}(${loc}). ${hook}. ${hp(7)}. ${hp(9,1)}.`; break;
+  }
+
   if (nick) desc += ` ${nick} 문의.`;
-
-  desc = desc.replace(/\s{2,}/g, ' ').trim();
+  desc = desc.replace(/\s{2,}/g, ' ').replace(/\.\./g, '.').trim();
   if (desc.length > 155) desc = desc.slice(0, 152) + '...';
   return desc;
 }

@@ -1,19 +1,17 @@
 export default function Header() {
   return (
     <>
-      {/* [후킹1] 상단 고정 배너 */}
+      {/* 상단 배너 — 놀쿨 검색 유도 */}
       <div className="top-banner">
-        <a href="https://ilsanroom.pages.dev" target="_blank" rel="noopener noreferrer">
-          프리미엄 정보+실시간 예약은 ★밤키★에서 →
-        </a>
+        <span>전국 나이트·클럽·라운지·룸·요정·호빠 가이드</span>
       </div>
       <header className="header">
         <div className="header-inner">
           <div className="header-top">
-            <a href="/" className="logo" style={{ textDecoration: 'none' }}>
-              <img src="/logo.svg" alt="BAMKEY 밤키" width="100" height="30" />
+            <a href="/" className="logo" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', fontSize: '1.25rem', fontWeight: 800, color: '#4F46E5' }}>
+              놀쿨
             </a>
-            <span className="logo-tagline">밤의 격이 다른 선택</span>
+            <span className="logo-tagline">밤문화 완전 가이드</span>
           </div>
           <nav>
             <a href="/clubs/" target="_blank" rel="noopener noreferrer">클럽</a>

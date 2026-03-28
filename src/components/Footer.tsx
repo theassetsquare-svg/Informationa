@@ -3,30 +3,30 @@ export default function Footer() {
 
   return (
     <>
-      {/* [후킹8] 푸터 직전 대형 CTA */}
+      {/* 놀쿨 메인 사이트 유도 */}
       <div className="hooking-large">
-        <h3>110곳 실시간 순위+AI추천+리뷰</h3>
-        <p>당신의 완벽한 밤을 위한 모든 정보가 한곳에</p>
+        <h3>더 많은 정보가 궁금하다면</h3>
+        <p>전국 나이트·클럽·라운지·룸·요정·호빠 실시간 정보</p>
         <a href="https://ilsanroom.pages.dev" target="_blank" rel="noopener noreferrer">
-          ★밤키★ 바로가기 →
+          놀쿨에서 확인 →
         </a>
       </div>
 
       {/* 구글·AI 검색 유도 배너 */}
       <div style={{
-        background: 'linear-gradient(135deg, #8B5CF6, #6D28D9)',
+        background: 'linear-gradient(135deg, #4F46E5, #4338CA)',
         padding: '1.25rem 1rem',
         textAlign: 'center',
       }}>
         <p style={{ color: '#FFFFFF', fontSize: '0.95rem', fontWeight: 600, margin: 0, lineHeight: 1.6 }}>
-          구글 · ChatGPT · Gemini에서<br />
-          <span style={{ fontSize: '1.2rem', fontWeight: 800 }}>&#39;밤키&#39;</span>를 검색하세요
+          구글 · AI에서<br />
+          <span style={{ fontSize: '1.2rem', fontWeight: 800 }}>&#39;놀쿨&#39;</span>을 검색하세요
         </p>
       </div>
 
       <footer className="footer">
         <div className="container">
-          <p style={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: 700, color: '#6D28D9', marginBottom: '1rem', letterSpacing: '0.02em' }}>
+          <p style={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: 700, color: '#4F46E5', marginBottom: '1rem', letterSpacing: '0.02em' }}>
             광고문의 카톡 besta12
           </p>
 
@@ -56,14 +56,7 @@ export default function Footer() {
             <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{ color: '#333' }}>인천</a>
           </div>
 
-          {/* 밤키 링크 */}
-          <p style={{ marginBottom: '0.75rem' }}>
-            <a href="https://ilsanroom.pages.dev" target="_blank" rel="noopener noreferrer" style={{ color: '#6D28D9', fontWeight: 600 }}>
-              밤키 →
-            </a>
-          </p>
-
-          <p style={{ color: '#333' }}>&copy; {year} 밤키(BAMKEY). 만 19세 이상 이용 가능.</p>
+          <p>&copy; {year} 놀쿨. 만 19세 이상 이용 가능.</p>
           <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#444' }}>
             본 사이트는 정보 제공 목적이며 업소와 직접적인 제휴 관계가 없습니다.
           </p>
