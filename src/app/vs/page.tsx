@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: `양자택일 투표 — 승자를 골라보자 | ${SITE_NAME}`,
     description: '두 곳을 나란히 놓고 투표. 매주 새 대진표.',
     url: SITE_URL + '/vs/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
-    images: [{ url: '/og/home.png', width: 1200, height: 630 }],
+    images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
 };
 

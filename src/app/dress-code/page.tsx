@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: `착장 규정 정리 — 입장 허용 기준표 | ${SITE_NAME}`,
     description: '착장 허용·불가 기준표와 계절별 코디 예시.',
     url: SITE_URL + '/dress-code/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
-    images: [{ url: '/og/home.png', width: 1200, height: 630 }],
+    images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
 };
 

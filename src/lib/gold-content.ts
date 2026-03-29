@@ -329,7 +329,7 @@ const openingHooks: Record<string, string[]> = {
     '계절마다 코스 구성이 달라진다. 봄에는 냉이와 달래, 가을에는 송이와 대하. 제철 식재료가 요정 경험의 핵심이다.',
     '판소리 한 대목이 시작되면 좌중이 숙연해진다. 그 울림이 끝나고 박수가 터지는 순간, 분위기가 한순간에 화기애애해진다.',
     '정원에서 식후 산책을 즐길 수 있다. 밤공기를 맞으며 정원 돌길을 걷는 여유는 도심의 어떤 공간에서도 얻기 어렵다.',
-    '외국 바이어 접대에 요정을 선택하면 열에 아홉은 깊은 인상을 남긴다. 한국 전통 문화의 정수를 체험시킬 수 있는 유일무이한 공간이다.',
+    '외국 바이어 접대에 요정을 선택하면 열에 아홉은 깊은 인상을 남긴다. 한국 전통 문화의 정수를 경험시킬 수 있는 유일무이한 공간이다.',
     '방마다 이름이 있고, 이름에 담긴 의미를 직원이 설명해준다. 그 이야기부터 대화의 시작점이 된다.',
     '한정식 코스의 마지막에 나오는 디저트까지 긴장을 놓지 않는 것이 요정 주방의 자존심이다.',
     '마루에 앉아 정원을 바라보면 계절의 변화가 한눈에 들어온다. 사계절마다 다른 풍경이 재방문의 이유가 된다.',
@@ -780,74 +780,43 @@ function generateGuide(venue: Venue): { intro: string; tips: string[] } {
 /* 전략: 단어 단위 조합. 8개 슬롯 × 각 15~25개 어휘 = 수억 가지 고유 조합.
    같은 문장이 2개 업소에 겹칠 확률 ≈ 0. bigram 유사도 자동 10% 이하. */
 function generateDescription(venue: Venue, _label: string, venueIndex = 0): string {
+  // 업소 고유 데이터 최대한 활용 + 155자 꽉 채움 → 유사도 최소화
   const nm = venue.name;
-  const hook = venue.card_hook;
+  const hook = venue.card_hook || '';
   const nick = venue.nickname;
-
-  // 11 슬롯 × 소수(17,19,23) 크기 = 해시 충돌 수학적 최소화
-  const W: string[][] = [
-    /* 0: 17개 */ ['금요일','토요일','목요일','수요일','화요일','일요일','연말','월초','주중','격주','분기말','초순','하순','매주','격월','시즌초','마감전'],
-    /* 1: 19개 */ ['밤','저녁','자정','심야','새벽','오후','황혼','한밤','초저녁','해질무렵','늦은저녁','정오직후','동틀녘','점심뒤','석양무렵','어스름','개점직후','폐점직전','달뜨는밤'],
-    /* 2: 23개 */ ['플로어','카운터','테이블','코너석','바','무대앞','창가','VIP석','로비','복도','2층','옥상','발코니','소파석','계단옆','지하','천장아래','거울앞','스피커옆','출입구','화장실앞','주방근처','비상구쪽'],
-    /* 3: 17개 */ ['에너지','온도','밀도','파동','진동','잔향','울림','떨림','열기','냉기','고요','정적','소란','환호','웅성거림','적막','흥분'],
-    /* 4: 19개 */ ['바뀐다','달라진다','시작된다','올라간다','커진다','사라진다','터진다','깊어진다','가라앉는다','섞인다','몰린다','퍼진다','채워진다','흐른다','감돈다','번진다','스민다','짙어진다','걷힌다'],
-    /* 5: 17개 */ ['조명','음악','향기','얼음','그림자','안개','연기','거울','바람','촛불','네온','레이저','샹들리에','스모그','반사광','무대조명','스트로브'],
-    /* 6: 19개 */ ['몸이 반응한다','눈이 적응된다','귀가 열린다','발걸음이 느려진다','긴장이 풀린다','시야가 넓어진다','숨이 깊어진다','어깨가 내려간다','입꼬리가 올라간다','손끝이 차가워진다','목소리가 낮아진다','심장이 빨라진다','감각이 예민해진다','피부가 서늘해진다','호흡이 가빠진다','동공이 커진다','척추가 곧아진다','턱이 올라간다','주먹이 쥐어진다'],
-    /* 7: 23개 */ ['그게 여기다','답은 현장뿐','말로는 부족하다','직접 와야 안다','여운이 남는다','기준이 생긴다','다시 오게 된다','기억에 박힌다','사진으론 모른다','감각이 깨어난다','비교가 안 된다','설명이 필요없다','몸이 기억한다','시간이 멈춘다','한마디로 안 끝난다','글로 못 담는다','귀로 듣는게 전부 아니다','눈으로만 봐선 모른다','발로 밟아봐야 안다','코끝부터 느껴진다','혀끝까지 닿는다','손바닥이 뜨거워진다','등줄기가 서늘해진다'],
-    /* 8: 19개 */ ['셔츠 한 장이 갈림길','신분증이 입장 열쇠','택시앱이 귀가 보험','편한 신발이 정답','보조배터리가 생존도구','현금보다 카드가 편리','물 한 잔이 내일을 바꿈','이어폰 하나가 귀가 벗','손목시계가 시간 감각','얇은 겉옷이 체온 무기','마스크가 의외로 유용','향수 한 방울이 무기','양말 여분이 구원','껌 하나가 대화 시작','손수건이 격의 증거','모자가 자신감 부스터','팔찌가 대화 소재','반지가 시선 유도','선글라스가 분위기 전환'],
-    /* 9: 23개 */ ['코너석 확보가 승부처','바텐더 추천이 최선','오픈 직후가 최적','예약 전화가 격차','22시 도착이 기본','단골석 요청이 꿀팁','평일 방문이 여유 비결','2인 테이블이 대화 명당','창가석 선점이 핵심','입구 근처가 명당','15분 일찍 도착이 여유','홀짝수 테이블이 비결','왼쪽 바가 숨은 자리','무대 정면이 최고석','에어컨 근처가 쾌적','화장실 가까운 곳이 편리','음향 데드존이 대화석','조명 어두운 쪽이 분위기','스피커 먼 자리가 대화용','구석 소파가 프라이빗','계단 근처가 탈출 용이','발코니석이 환기 최고','카운터 끝이 단독 명당'],
-    /* 10: 17개 */ ['복장 점검 끝나면 출발','전화 확인 후 이동','지도앱 켜고 출발','동행자 연락 먼저','주차 포기하고 택시','저녁 가볍게 먹고','카드 잔액 확인하고','충전기 챙기고 출발','날씨 확인 후 옷 결정','일정 비우고 여유롭게','친구한테 위치 공유하고','미러 한 번 보고 출발','플레이리스트 준비하고','지갑 한 번 확인하고','구두 닦고 출발','체력 비축해두고','카톡 예약 확인하고'],
-  ];
-
-  function hp(slot: number, offset = 0): string {
-    // venueIndex를 salt에 추가 → 같은 해시값 충돌 완전 제거
-    return W[slot][(hash(venue.slug + ':w' + slot + offset) + venueIndex * (slot + 3)) % W[slot].length];
-  }
-
-  // 업소 고유 데이터 최대 활용 → 유사도 최소화
   const loc = venue.region === venue.district ? venue.district : `${venue.region} ${venue.district}`;
   const stn = venue.station || '';
+  const hrs = venue.hours || '';
+  const addr = venue.address || '';
   const tag0 = (venue.tags && venue.tags[0]) || '';
   const tag1 = (venue.tags && venue.tags[1]) || '';
   const kw0 = (venue.keywords && venue.keywords[0]) || nm;
+  const kw1 = (venue.keywords && venue.keywords[1]) || '';
 
-  // 각 업소마다 고유 데이터 조합이 다르므로 유사도 자동 분산
-  const parts: string[] = [nm, hook];
-  if (stn) parts.push(stn);
-  if (tag0) parts.push(tag0);
-  if (loc) parts.push(loc);
-
-  // 해시 기반 구조 선택 (23종)
-  const idx = (hash(venue.slug + ':desc:v4') + venueIndex) % 23;
-  let desc = '';
-  switch (idx) {
-    case 0: desc = `${nm}, ${loc}. ${hook}. ${hp(6)} ${hp(7)}.`; break;
-    case 1: desc = `${loc}에서 ${nm}${eulReul(nm)} 찾는다면. ${hook}. ${stn ? stn + '.' : ''} ${hp(8,1)}.`; break;
-    case 2: desc = `${hook} — ${nm}(${loc}). ${tag0 ? tag0+' 중심.' : ''} ${hp(6)} ${hp(9,1)}.`; break;
-    case 3: desc = `${nm}${eunNeun(nm)} ${loc}에 있다. ${hook}. ${hp(7)}. ${hp(10,1)}.`; break;
-    case 4: desc = `${kw0} 검색 1순위, ${nm}. ${hook}. ${hp(6)}`; break;
-    case 5: desc = `${loc} ${hp(1)}, ${nm}. ${hook}. ${stn ? stn + ' 인근.' : ''} ${hp(7)}.`; break;
-    case 6: desc = `${nm}(${loc}). ${hook}. ${tag0 ? tag0+', ' : ''}${tag1 ? tag1+'. ' : ''}${hp(8,1)}.`; break;
-    case 7: desc = `${hook}. ${nm}${eunNeun(nm)} ${loc}. ${hp(6)} ${hp(10,1)}.`; break;
-    case 8: desc = `${loc} ${nm}. ${hook}. ${hp(9,1)}. ${hp(7)}.`; break;
-    case 9: desc = `${nm} — ${hook}. ${loc}. ${stn ? stn+'.' : ''} ${hp(6)}`; break;
-    case 10: desc = `${kw0}, ${loc}. ${hook}. ${hp(7)}. ${hp(8,1)}.`; break;
-    case 11: desc = `${nm}${eulReul(nm)} 한마디로? ${hook}. ${loc}. ${hp(10,1)}.`; break;
-    case 12: desc = `${loc} ${hp(1)}, ${nm}의 분위기. ${hook}. ${hp(9,1)}.`; break;
-    case 13: desc = `${hook}. ${loc}의 ${nm}. ${tag0 ? tag0+' 기반.' : ''} ${hp(6)} ${hp(7)}.`; break;
-    case 14: desc = `${nm}, ${hook}. ${stn ? stn+' 근처.' : loc+'.'} ${hp(8,1)}.`; break;
-    case 15: desc = `${loc}에 ${nm}${iGa(nm)} 있다. ${hook}. ${hp(7)}. ${hp(9,1)}.`; break;
-    case 16: desc = `${nm} — ${loc}. ${hook}. ${hp(6)} ${hp(10,1)}.`; break;
-    case 17: desc = `${kw0} 가이드. ${nm}(${loc}), ${hook}. ${hp(8,1)}.`; break;
-    case 18: desc = `${hook} — ${nm}. ${loc} ${stn ? stn+'.' : ''} ${hp(7)}.`; break;
-    case 19: desc = `${loc}의 ${nm}. ${hook}. ${tag0 ? tag0+' ' : ''}${tag1 || ''}. ${hp(9,1)}.`; break;
-    case 20: desc = `${nm}${eunNeun(nm)} ${hook}. ${loc}. ${hp(6)} ${hp(8,1)}.`; break;
-    case 21: desc = `${hook}. ${kw0}${eulReul(kw0)} 알고 싶다면 ${nm}. ${loc}. ${hp(10,1)}.`; break;
-    default: desc = `${nm}(${loc}). ${hook}. ${hp(7)}. ${hp(9,1)}.`; break;
+  // description에는 가게이름 제외 (og:title에 이미 포함) → 유사도 최소화
+  const hookClean = hook.replace(new RegExp(nm.split(/[\s·]+/).filter(w => w.length >= 2).join('|'), 'g'), '').replace(/^\s*[,.\-—]+\s*/, '').trim();
+  const base = hookClean || hook;
+  const extras: string[] = [];
+  if (stn) extras.push(stn);
+  if (hrs) extras.push(hrs);
+  if (tag0 && !base.includes(tag0)) extras.push(tag0);
+  if (tag1 && !base.includes(tag1)) extras.push(tag1);
+  if (nick) extras.push(`${nick} 문의`);
+  // loc에서 base에 이미 포함된 부분 제거
+  if (loc) {
+    const locParts = loc.split(/\s+/).filter(p => p.length >= 2 && !base.includes(p));
+    if (locParts.length > 0) extras.push(locParts.join(' '));
   }
 
-  if (nick) desc += ` ${nick} 문의.`;
-  desc = desc.replace(/\s{2,}/g, ' ').replace(/\.\./g, '.').trim();
+  let desc = base;
+  for (const e of extras) {
+    const next = desc + '. ' + e;
+    if (next.length > 150) break;
+    desc = next;
+  }
+
+  desc = desc.replace(/\.\s*\./g, '.').replace(/\s{2,}/g, ' ').trim();
+  if (!desc.endsWith('.')) desc += '.';
   if (desc.length > 155) desc = desc.slice(0, 152) + '...';
   return desc;
 }
@@ -866,14 +835,22 @@ export function generateGoldContent(venue: Venue, venueIndex = 0) {
   const timeSlots = generateTimeSlots(venue);
   const guide = generateGuide(venue);
 
-  // 제목 중복 단어 제거 (부분 문자열 포함 검사)
+  // 제목: 풀네임 + (region·label 중 name에 없는 것만 추가) + 단어 중복 제거
   const namePart = venue.name;
   const extras: string[] = [];
-  // region이 name에 포함 안 되면 추가
   if (venue.region && !namePart.includes(venue.region)) extras.push(venue.region);
-  // label이 name에 포함 안 되면 추가
   if (label && !namePart.includes(label)) extras.push(label);
-  const pageTitle = [namePart, ...extras].join(' ') + ` | ${SITE_NAME}`;
+  const rawTitle = [namePart, ...extras].join(' ');
+  // 단어 단위 중복 제거 (2글자 이상 단어 기준, 첫 등장만 유지)
+  const titleWords = rawTitle.split(/\s+/);
+  const seen = new Set<string>();
+  const deduped = titleWords.filter(w => {
+    if (w.length < 2) return true;
+    if (seen.has(w)) return false;
+    seen.add(w);
+    return true;
+  });
+  const pageTitle = deduped.join(' ') + ` | ${SITE_NAME}`;
 
   return {
     title: pageTitle,

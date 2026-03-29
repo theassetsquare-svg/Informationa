@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     locale: 'ko_KR',
     type: 'website',
-    images: [{ url: '/og/home.png', width: 1200, height: 630 }],
+    images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
 };
 

@@ -7,9 +7,9 @@ const cat = getCategoryContent('club');
 const venues = getVenuesByCategory('club');
 
 export const metadata: Metadata = {
-  title: cat.title, description: cat.description,
+  title: '클럽 추천 | 전국 35곳 완전 가이드 — 놀쿨', description: cat.description,
   alternates: { canonical: SITE_URL + '/clubs/' },
-  openGraph: { title: cat.title, description: cat.description, url: SITE_URL + '/clubs/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: '/og/clubs.png', width: 1200, height: 630 }] },
+  openGraph: { title: '클럽 추천 | 전국 35곳 완전 가이드 — 놀쿨', description: cat.description, url: SITE_URL + '/clubs/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/clubs.png', width: 1200, height: 1200 }] },
 };
 
 export default function ClubsPage() {
@@ -17,17 +17,17 @@ export default function ClubsPage() {
     <CategoryPage
       heading={cat.heading}
       intro={cat.intro}
-      body="단순한 춤추는 곳이 아니다. 조명이 바뀌는 순간, 음악이 몸을 감싸는 순간, 옆 사람과 눈이 마주치는 순간. 그 경험은 다른 어디에서도 느낄 수 없다. 강남은 대형 사운드 시스템과 VIP 공간이 밀집해 있고, 압구정·청담은 트렌디한 감각이 돋보인다. 홍대·이태원은 글로벌 DJ가 자주 찾는 인디 씬의 거점이다. 드레스코드가 있는 곳이 대부분이라 슬리퍼·트레이닝복은 입장이 제한된다. 피크타임은 금·토 자정 전후. 일찍 도착하면 대기 없이 입장할 수 있다. 전국에서 직접 다녀본 사람들의 솔직한 이야기를 모았다. 어디가 진짜 좋은지, 처음 가는 사람은 뭘 알아야 하는지. 밤키가 전부 정리했다."
+      body="클럽은 DJ의 선곡과 사운드 시스템이 만들어내는 공간 자체가 콘텐츠다. 같은 장르라도 스피커 배치와 음향 튜닝에 따라 체감이 완전히 달라진다. 강남권은 대형 플로어와 VIP 부스가 밀집해 있고, EDM·하우스 중심의 메인스트림 라인업이 주를 이룬다. 압구정·청담은 소규모 부티크 클럽이 많아 트렌디한 분위기에서 테크노·딥하우스를 즐길 수 있다. 홍대는 언더그라운드 씬의 본거지로 힙합·인디일렉트로닉 라이브가 강하고, 이태원은 해외 DJ 게스트 셋이 가장 활발한 지역이다. 드레스코드는 대부분 적용되며 슬리퍼·트레이닝복은 입장이 거절된다. 셔츠에 깔끔한 신발이면 거의 모든 곳에서 통과된다. 금·토요일 자정 전후가 피크타임이고, 23시 이전에 도착하면 대기 없이 바로 입장할 수 있다. 수요일이나 목요일 레이디스 나이트를 운영하는 곳도 있으니 평일 방문도 고려해볼 만하다. 주차는 대부분 인근 유료 주차장을 이용하며, 대중교통이나 택시 이용을 권장한다. 놀쿨에서 전국 35곳의 사운드·분위기·접근성을 직접 확인하고, 나에게 맞는 플로어를 찾아보자."
       guide={{
         title: '처음이세요?',
         items: [
-          '복장: 셔츠+깨끗한 신발이면 대부분 통과. 슬리퍼·반바지 NO',
-          '준비물: 신분증(필수), 현금+카드, 보조배터리',
-          '혼자 가도 됨. 바 카운터에 앉으면 자연스럽다',
-          '피크타임: 금·토 23시~01시. 일찍 가면 대기 없음',
-          '예산: 전화로 미리 확인하면 부담 없이 즐길 수 있다',
-          '귀중품은 최소한으로. 소지품 분실 주의',
-          '물을 충분히 마셔두면 다음 날 컨디션이 한결 낫다',
+          '복장: 셔츠에 깔끔한 신발이면 대부분 통과한다. 슬리퍼·반바지·트레이닝복은 입장 불가',
+          '준비물: 신분증은 필수, 현금과 카드 모두 챙기고 보조배터리도 가져가자',
+          '혼자 가도 괜찮다. 바 카운터나 스탠딩 구역에서 자연스럽게 분위기에 합류할 수 있다',
+          '피크타임: 금·토 23시~01시가 가장 뜨겁다. 일찍 도착하면 대기 없이 입장 가능',
+          '귀중품은 최소한으로 챙기고, 휴대폰과 카드만 주머니에 넣는 게 안전하다',
+          '물을 충분히 마셔두면 다음 날 컨디션이 훨씬 낫다. 중간중간 수분 보충 필수',
+          '강남·홍대·이태원은 분위기가 전혀 다르니 취향에 맞는 지역부터 정하자',
         ],
       }}
       timeslots={[

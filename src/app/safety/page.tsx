@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: `귀가 수칙 — 알코올 계산기·긴급번호 | ${SITE_NAME}`,
     description: '혈중농도 측정기, 긴급 전화번호부, 택시 호출 팁.',
     url: SITE_URL + '/safety/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
-    images: [{ url: '/og/home.png', width: 1200, height: 630 }],
+    images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
 };
 

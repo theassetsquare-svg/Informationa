@@ -2,11 +2,10 @@ import type { Metadata } from 'next';
 import { getAllVenues, getVenueBySlug, getRelatedVenues, SITE_URL, CAT_SLUG_TO_LABEL } from '../../../lib/venues';
 import { generateGoldContent, SITE_NAME } from '../../../lib/gold-content';
 import { loadVenueContent, stripHtml } from '../../../lib/venue-loader';
+import { getVenueImage, getVenueBodyImages, getVenueGalleryImages } from '../../../lib/venue-images';
 import VenueCard from '../../../components/VenueCard';
 import StickyPhoneBar from '../../../components/StickyPhoneBar';
-import { ReadingProgress, AutoNext, EndlessRecommend, FOMOCounter, BlurReveal } from '../../../components/AddictionEngine';
-import { MidContentHook, SimilarVenuesHook, AIRecommendHook, FullCompareHook } from '../../../components/HookingCTAs';
-import RecentTracker from '../../../components/RecentTracker';
+import { ViewCounter, SecretReveal, VsVote, DailyFortune, InfiniteRecommend, SwipeGallery } from '../../../components/EngagementSuite';
 
 interface Props { params: { category: string; slug: string } }
 
@@ -93,7 +92,7 @@ export function generateMetadata({ params }: Props): Metadata {
     openGraph: {
       title: gc.title, description: gc.description, url,
       siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
-      images: [{ url: gc.ogImage, width: 1200, height: 630 }],
+      images: [{ url: gc.ogImage, width: 1200, height: 1200 }],
     },
     twitter: { card: 'summary_large_image', title: gc.title, description: gc.description, images: [gc.ogImage] },
   };
@@ -130,9 +129,17 @@ export default function VenueDetailPage({ params }: Props) {
   // FAQ: venue-content 있으면 사용, 없으면 gc.faq
   const faqItems = vc?.faqItems && vc.faqItems.length > 0 ? vc.faqItems : gc.faq;
 
+  // 이미지
+  const thumbSrc = getVenueImage(venue.cat_slug, venue.slug);
+  const bodyImages = getVenueBodyImages(venue.cat_slug, venue.slug, 4);
+  const galleryImages = getVenueGalleryImages(venue.cat_slug, venue.slug, 6);
+
+  // 무한 추천용 같은 카테고리 업소
+  const sameCatVenues = allV.filter(v => v.cat_slug === venue.cat_slug && v.slug !== venue.slug).slice(0, 15);
+
   // JSON-LD
   const localBizLd = {
-    '@context': 'https://schema.org', '@type': 'LocalBusiness',
+    '@context': 'https://schema.org', '@type': 'NightClub',
     name: venue.name,
     address: { '@type': 'PostalAddress', streetAddress: venue.address || undefined, addressLocality: venue.district, addressRegion: venue.region, addressCountry: 'KR' },
     openingHours: venue.hours || undefined,
@@ -160,9 +167,6 @@ export default function VenueDetailPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
-      {/* 방문 기록 저장 (개인화 추천용) */}
-      <RecentTracker slug={venue.slug} />
-
       {/* 브레드크럼 */}
       <div className="container">
         <div className="breadcrumb">
@@ -180,7 +184,7 @@ export default function VenueDetailPage({ params }: Props) {
           <h1>{venue.name}</h1>
           <p className="detail-tagline">{vc?.heroTagline || gc.tagline}</p>
           {hasPhone && (
-            <p style={{ color: '#6D28D9', fontWeight: 700, marginBottom: '0.5rem', fontSize: '0.95rem' }}>
+            <p style={{ color: '#4F46E5', fontWeight: 700, marginBottom: '0.5rem', fontSize: '0.95rem' }}>
               담당: {venue.nickname}
             </p>
           )}
@@ -188,9 +192,23 @@ export default function VenueDetailPage({ params }: Props) {
             <span>{venue.region}</span>
             {venue.hours && <span>{venue.hours}</span>}
           </div>
-          <div style={{ marginTop: '0.75rem' }}><FOMOCounter /></div>
+
+          {/* 히어로 썸네일 (1:1) */}
+          <div style={{ marginTop: '1.25rem' }}>
+            <img
+              src={thumbSrc}
+              alt={venue.name}
+              style={{ width: '100%', borderRadius: '12px', aspectRatio: '1/1', objectFit: 'cover', background: '#E5E7EB' }}
+              loading="eager"
+            />
+          </div>
         </div>
       </section>
+
+      {/* 오늘 N명 카운터 */}
+      <div className="container narrow">
+        <ViewCounter slug={venue.slug} />
+      </div>
 
       {/* ═══ 본문 — venue-content 있으면 고유 콘텐츠, 없으면 생성 콘텐츠 ═══ */}
       {vc ? (
@@ -203,8 +221,10 @@ export default function VenueDetailPage({ params }: Props) {
             </div>
           </section>
 
-          {/* [후킹2] 중간 끊기 */}
-          <div className="container"><MidContentHook /></div>
+          {/* 본문 이미지 1 */}
+          <div className="container narrow" style={{ margin: '1.5rem auto' }}>
+            <img src={bodyImages[0]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
+          </div>
 
           {/* 장면 1 */}
           {vc.scene1 && (
@@ -216,8 +236,10 @@ export default function VenueDetailPage({ params }: Props) {
             </section>
           )}
 
-          {/* [후킹4] AI 추천 */}
-          <div className="container"><AIRecommendHook /></div>
+          {/* 본문 이미지 2 */}
+          <div className="container narrow" style={{ margin: '1.5rem auto' }}>
+            <img src={bodyImages[1]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
+          </div>
 
           {/* 장면 2 */}
           {vc.scene2 && (
@@ -238,6 +260,11 @@ export default function VenueDetailPage({ params }: Props) {
               </div>
             </section>
           )}
+
+          {/* 본문 이미지 3 */}
+          <div className="container narrow" style={{ margin: '1.5rem auto' }}>
+            <img src={bodyImages[2]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
+          </div>
 
           {/* 대화 */}
           {vc.dialogueSection && (
@@ -299,8 +326,10 @@ export default function VenueDetailPage({ params }: Props) {
             </div>
           </section>
 
-          {/* [후킹2] 중간 끊기 */}
-          <div className="container"><MidContentHook /></div>
+          {/* 본문 이미지 1 */}
+          <div className="container narrow" style={{ margin: '1.5rem auto' }}>
+            <img src={bodyImages[0]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
+          </div>
 
           {/* 첫 방문 가이드 */}
           <section className="detail-section" style={{ background: '#F7F7F8', padding: '2rem 0' }}>
@@ -315,8 +344,10 @@ export default function VenueDetailPage({ params }: Props) {
             </div>
           </section>
 
-          {/* [후킹4] AI 추천 */}
-          <div className="container"><AIRecommendHook /></div>
+          {/* 본문 이미지 2 */}
+          <div className="container narrow" style={{ margin: '1.5rem auto' }}>
+            <img src={bodyImages[1]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
+          </div>
 
           {/* 방문 체크리스트 */}
           <section className="detail-section">
@@ -327,6 +358,11 @@ export default function VenueDetailPage({ params }: Props) {
               </ul>
             </div>
           </section>
+
+          {/* 본문 이미지 3 */}
+          <div className="container narrow" style={{ margin: '1.5rem auto' }}>
+            <img src={bodyImages[2]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
+          </div>
         </>
       )}
 
@@ -339,25 +375,23 @@ export default function VenueDetailPage({ params }: Props) {
               {venue.address && <tr><th>주소</th><td>{venue.address}</td></tr>}
               {venue.hours && <tr><th>영업시간</th><td>{venue.hours}</td></tr>}
               {venue.station && <tr><th>교통</th><td>{venue.station}</td></tr>}
-              {hasPhone && <tr><th>담당</th><td>{venue.nickname} ({venue.nickname_phone})</td></tr>}
+              {hasPhone && <tr><th>담당</th><td>{venue.nickname}</td></tr>}
               {filteredTags.length > 0 && <tr><th>태그</th><td>{filteredTags.join(', ')}</td></tr>}
             </tbody>
           </table>
         </div>
       </section>
 
-      {/* FAQ — BlurReveal로 클릭 유도 */}
+      {/* FAQ */}
       <section className="detail-section">
         <div className="container narrow">
           <h2>Q&amp;A</h2>
-          <BlurReveal label="전체 Q&A 보기">
-            {faqItems.map((f, i) => (
-              <div key={i} className="faq-item">
-                <p className="faq-q">Q. {f.q}</p>
-                <p className="faq-a">{typeof f.a === 'string' ? f.a : ''}</p>
-              </div>
-            ))}
-          </BlurReveal>
+          {faqItems.map((f, i) => (
+            <div key={i} className="faq-item">
+              <p className="faq-q">Q. {f.q}</p>
+              <p className="faq-a">{typeof f.a === 'string' ? f.a : ''}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -370,7 +404,7 @@ export default function VenueDetailPage({ params }: Props) {
               <div key={t.time} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <span style={{ minWidth: '80px', fontSize: '0.9rem', fontWeight: 600, color: '#111' }}>{t.time}</span>
                 <div style={{ flex: 1, background: '#E5E7EB', borderRadius: '4px', height: '8px', overflow: 'hidden' }}>
-                  <div style={{ width: t.bar, background: '#8B5CF6', height: '100%', borderRadius: '4px' }} />
+                  <div style={{ width: t.bar, background: '#4F46E5', height: '100%', borderRadius: '4px' }} />
                 </div>
                 <span style={{ fontSize: '0.8rem', color: '#555', minWidth: '40px' }}>{t.level}</span>
               </div>
@@ -379,7 +413,7 @@ export default function VenueDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* 위치 안내 */}
+      {/* 찾아가는 길 */}
       {(venue.address || venue.station) && (
         <section className="detail-section">
           <div className="container narrow">
@@ -406,15 +440,74 @@ export default function VenueDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* [후킹3] 비슷한 곳 → 메인 */}
-      <div className="container"><SimilarVenuesHook /></div>
+      {/* 비교표 */}
+      {related.length > 0 && (
+        <section className="detail-section">
+          <div className="container narrow">
+            <h2>한눈에 비교</h2>
+            <div style={{ overflowX: 'auto' }}>
+              <table className="info-table" style={{ minWidth: '320px' }}>
+                <thead>
+                  <tr style={{ borderBottom: '2px solid #4F46E5' }}>
+                    <th style={{ width: '30%' }}>항목</th>
+                    <th style={{ fontWeight: 700, color: '#4F46E5' }}>{venue.name}</th>
+                    <th>{related[0].name}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th>지역</th><td>{venue.region}</td><td>{related[0].region}</td></tr>
+                  <tr><th>카테고리</th><td>{catLabel}</td><td>{CAT_SLUG_TO_LABEL[related[0].cat_slug] || related[0].category}</td></tr>
+                  {venue.hours && <tr><th>영업시간</th><td>{venue.hours}</td><td>{related[0].hours || '문의'}</td></tr>}
+                  {venue.station && <tr><th>교통</th><td>{venue.station}</td><td>{related[0].station || '문의'}</td></tr>}
+                  <tr><th>분위기</th><td>{venue.card_hook}</td><td>{related[0].card_hook}</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
 
-      {/* 관련 업소 */}
+      {/* 스와이프 갤러리 (6장) */}
+      <section className="detail-section">
+        <div className="container narrow">
+          <h2>사진 갤러리</h2>
+          <SwipeGallery images={galleryImages} name={venue.name} />
+        </div>
+      </section>
+
+      {/* VS 투표 */}
+      {related.length >= 2 && (
+        <div className="container narrow">
+          <VsVote a={venue} b={related[0]} />
+        </div>
+      )}
+
+      {/* 오늘의 운세 */}
+      <div className="container narrow">
+        <DailyFortune catSlug={venue.cat_slug} />
+      </div>
+
+      {/* 이 업소의 비밀 (80% 스크롤 시 등장) */}
+      <div className="container narrow">
+        <SecretReveal name={venue.name} catSlug={venue.cat_slug} />
+      </div>
+
+      {/* 놀쿨에서 확인 CTA */}
+      <div className="container narrow">
+        <div style={{ background: '#EEF2FF', border: '2px solid #4F46E5', borderRadius: '16px', padding: '1.5rem', textAlign: 'center', margin: '2rem 0' }}>
+          <p style={{ fontSize: '1rem', color: '#111', marginBottom: '0.75rem', fontWeight: 600 }}>더 자세한 정보가 궁금하다면</p>
+          <a href="https://ilsanroom.pages.dev" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#4F46E5', color: '#FFF', padding: '0.75rem 2rem', borderRadius: '8px', fontWeight: 700, textDecoration: 'none' }}>
+            놀쿨에서 확인 →
+          </a>
+        </div>
+      </div>
+
+      {/* 다음 글 추천 */}
       {related.length > 0 && (
         <section className="related-section">
           <div className="container">
-            <h2>비슷한 곳</h2>
-            <p style={{ color: '#555', marginBottom: '1rem', fontSize: '0.9rem' }}>같은 카테고리에서 추천</p>
+            <h2>다음에 읽을 글</h2>
+            <p style={{ color: '#555', marginBottom: '1rem', fontSize: '0.9rem' }}>이 글을 읽은 사람이 많이 본 곳</p>
             <div className="venue-grid">
               {related.map(v => <VenueCard key={v.slug} venue={v} />)}
             </div>
@@ -422,27 +515,14 @@ export default function VenueDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* 읽기 진행률 */}
-      <ReadingProgress />
-
-      {/* [후킹5] 전체 비교 */}
-      <div className="container"><FullCompareHook /></div>
-
-      {/* 자동 다음 추천 */}
-      <section className="section">
-        <div className="container narrow">
-          <AutoNext venues={related} current={venue.slug} />
-        </div>
-      </section>
-
-      {/* 끝없는 추천 */}
-      <section className="section">
-        <div className="container narrow">
-          <EndlessRecommend venues={related} />
-        </div>
-      </section>
-
-      {/* SocialProofToast, JourneyTimer, SlideUpHook, ScrollBannerHook → layout.tsx에서 전역 활성화 */}
+      {/* 무한스크롤 추천 */}
+      {sameCatVenues.length > 0 && (
+        <section className="detail-section">
+          <div className="container narrow">
+            <InfiniteRecommend venues={sameCatVenues} />
+          </div>
+        </section>
+      )}
 
       {/* 하단 여백 */}
       <div style={{ paddingBottom: hasPhone ? '80px' : '0' }} />

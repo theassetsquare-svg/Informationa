@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: `게시판 — 자유글·동행모집·질문답변 | ${SITE_NAME}`,
     description: '자유글, 동행 모집, 질문 답변 게시판.',
     url: SITE_URL + '/community/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
-    images: [{ url: '/og/home.png', width: 1200, height: 630 }],
+    images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
 };
 

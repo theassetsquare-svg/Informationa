@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: `성향 진단 10문항 — 나의 유형 찾기 | ${SITE_NAME}`,
     description: '10문항 객관식으로 여섯 유형 중 본인 성향을 진단.',
     url: SITE_URL + '/quiz/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
-    images: [{ url: '/og/home.png', width: 1200, height: 630 }],
+    images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
 };
 

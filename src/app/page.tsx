@@ -2,10 +2,6 @@ import type { Metadata } from 'next';
 import { getCategories, getAllVenues, SITE_NAME, SITE_URL } from '../lib/venues';
 import VenueCard from '../components/VenueCard';
 import SearchBar from '../components/SearchBar';
-import Roulette from '../components/Roulette';
-import VsBattle from '../components/VsBattle';
-import { SlotMachine, DailyStreak, InfiniteFeed, EndlessRecommend, PersonalizedFeed, FOMOCounter, ExploreProgress, SwipeFeed, BingeChain, JackpotHunt, DailyFortune, BudgetCalculator, WeeklyHot, MoodMatch, TikTokFeed, AutoPlayCountdown, MegaSlot, LiveActivityFeed, StoryMode, VenueQuizGame, RetentionRewards } from '../components/AddictionEngine';
-import { AIRecommendHook, FullCompareHook, MidContentHook, SimilarVenuesHook } from '../components/HookingCTAs';
 
 const cats = getCategories();
 const allVenues = getAllVenues();
@@ -27,14 +23,14 @@ const top5 = allVenues.filter(v => {
 }).slice(0, 5);
 
 export const metadata: Metadata = {
-  title: '밤키(BAMKEY) — 일산룸, 일산명월관요정, 전국 나이트·클럽·라운지 실시간 정보',
-  description: '전국 114곳 비교. 일산룸 신실장, 강남청담클럽, 부산나이트 실시간 현장 정보. 밤의 격이 다른 선택.',
+  title: '놀쿨 — 전국 나이트·클럽·라운지·룸·요정·호빠 가이드',
+  description: '전국 114곳 나이트, 클럽, 라운지, 룸, 요정, 호빠 현장 정보를 한눈에. 지역별·카테고리별 완전 가이드.',
   alternates: { canonical: SITE_URL + '/' },
   openGraph: {
-    title: '밤키(BAMKEY) — 일산룸, 일산명월관요정, 전국 나이트·클럽·라운지 실시간 정보',
-    description: '전국 114곳 비교. 일산룸 신실장, 강남청담클럽, 부산나이트 실시간 현장 정보.',
+    title: '놀쿨 — 전국 나이트·클럽·라운지·룸·요정·호빠 가이드',
+    description: '전국 114곳 나이트, 클럽, 라운지, 룸, 요정, 호빠 현장 정보를 한눈에.',
     url: SITE_URL + '/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
-    images: [{ url: '/og/home.png', width: 1200, height: 630 }],
+    images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
 };
 
@@ -44,7 +40,7 @@ export default function HomePage() {
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'WebSite',
     name: SITE_NAME, url: SITE_URL,
-    description: '전국 114곳 비교. 밤의 격이 다른 선택.',
+    description: '전국 114곳 나이트·클럽·라운지·룸·요정·호빠 현장 가이드.',
     potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/search?q={search_term_string}`, 'query-input': 'required name=search_term_string' },
   };
 
@@ -57,7 +53,6 @@ export default function HomePage() {
     hoppa: '여성을 위한 프리미엄 선택',
   };
 
-  /* WCAG AA 4.5:1 대비율 — 흰배경 대비 진한 색상 */
   const catIcons: Record<string, string> = {
     club: '#6D28D9', night: '#BE185D', lounge: '#0E7490',
     room: '#1D4ED8', yojeong: '#047857', hoppa: '#BE123C',
@@ -68,20 +63,22 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ═══ 히어로 + 검색 ═══ */}
-      <section style={{ padding: '2.5rem 0 1.5rem', background: '#F7F7F8' }}>
+      <section style={{ padding: '2.5rem 0 1.5rem', background: 'linear-gradient(180deg, #EEF2FF 0%, #F7F7F8 100%)' }}>
         <div className="container" style={{ textAlign: 'center' }}>
-          <h1 style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)', marginBottom: '0.5rem', color: '#111' }}>
-            밤의 격이 다른 선택
+          <p style={{ color: '#4F46E5', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>
+            놀쿨 GUIDE
+          </p>
+          <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.4rem)', marginBottom: '0.5rem', color: '#111', lineHeight: 1.3 }}>
+            전국 나이트·클럽·라운지<br />룸·요정·호빠 완전 가이드
           </h1>
-          <p style={{ color: '#555', marginBottom: '0.75rem', fontSize: '0.95rem' }}>
+          <p style={{ color: '#555', marginBottom: '1.25rem', fontSize: '0.95rem' }}>
             전국 {allVenues.length}곳 · {year}년 현장 정보
           </p>
-          <div style={{ marginBottom: '1rem' }}><FOMOCounter /></div>
           <SearchBar venues={allVenues} />
         </div>
       </section>
 
-      {/* ═══ 6종 카테고리 아이콘 ═══ */}
+      {/* ═══ 6종 카테고리 아이콘 그리드 ═══ */}
       <section style={{ padding: '1.5rem 0' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
@@ -91,18 +88,13 @@ export default function HomePage() {
                   background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '16px',
                   textDecoration: 'none', color: '#111', transition: 'all 0.2s',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-                <span style={{ fontSize: '1.1rem', fontWeight: 700, color: catIcons[cat.slug] || '#8B5CF6' }}>{cat.name}</span>
+                <span style={{ fontSize: '1.1rem', fontWeight: 700, color: catIcons[cat.slug] || '#4F46E5' }}>{cat.name}</span>
                 <span style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.25rem' }}>{cat.count}곳</span>
                 <span style={{ fontSize: '0.75rem', color: '#666', marginTop: '0.25rem' }}>{catDescs[cat.slug]}</span>
               </a>
             ))}
           </div>
         </div>
-      </section>
-
-      {/* ═══ 개인화 추천 ═══ */}
-      <section style={{ padding: '1rem 0' }}>
-        <div className="container"><PersonalizedFeed venues={allVenues} /></div>
       </section>
 
       {/* ═══ PREMIUM — 신실장 직통 상담 ═══ */}
@@ -112,7 +104,7 @@ export default function HomePage() {
             borderRadius: '16px', padding: '1.25rem', marginBottom: '0.75rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
               <span style={{ background: '#F59E0B', color: '#111', fontSize: '0.7rem', fontWeight: 700,
-                padding: '0.2rem 0.6rem', borderRadius: '4px' }}>★ PREMIUM</span>
+                padding: '0.2rem 0.6rem', borderRadius: '4px' }}>PREMIUM</span>
               <span style={{ fontSize: '0.85rem', color: '#92400E', fontWeight: 600 }}>신실장 직통 상담</span>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
@@ -129,7 +121,7 @@ export default function HomePage() {
                     style={{ display: 'block', background: '#15803D', color: '#FFF', fontWeight: 700,
                       fontSize: '0.8rem', padding: '0.5rem 1rem', borderRadius: '8px', textDecoration: 'none',
                       marginTop: '0.75rem' }}>
-                    📞 신실장 010-3695-4929
+                    신실장 010-3695-4929
                   </a>
                 </div>
               ))}
@@ -149,7 +141,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ 담당 직통 7개 ═══ */}
+      {/* ═══ 담당 직통 연결 ═══ */}
       <section className="section">
         <div className="container">
           <h2>담당 직통 연결</h2>
@@ -160,67 +152,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ [A] 룰렛 ═══ */}
-      <section className="section" style={{ background: '#F7F7F8' }}>
-        <div className="container"><Roulette venues={allVenues} /></div>
-      </section>
-
-      {/* ═══ [후킹4] AI 추천 ═══ */}
-      <section style={{ padding: '1rem 0' }}>
-        <div className="container"><AIRecommendHook /></div>
-      </section>
-
-      {/* ═══ [B] VS 대결 ═══ */}
-      <section className="section">
-        <div className="container"><VsBattle venues={allVenues} /></div>
-      </section>
-
-      {/* ═══ 감정 기반 추천 ═══ */}
-      <section style={{ padding: '1rem 0' }}>
-        <div className="container"><MoodMatch venues={allVenues} /></div>
-      </section>
-
-      {/* ═══ [후킹2] 중간 끊기 ═══ */}
-      <section style={{ padding: '1rem 0' }}>
-        <div className="container"><MidContentHook /></div>
-      </section>
-
-      {/* ═══ 오늘의 운세 ═══ */}
-      <section style={{ padding: '1rem 0' }}>
-        <div className="container"><DailyFortune venues={allVenues} /></div>
-      </section>
-
-      {/* ═══ [D] 첫 방문 가이드 배너 ═══ */}
-      <section style={{ padding: '1.5rem 0' }}>
-        <div className="container">
-          <div style={{ background: 'linear-gradient(135deg, #F5F3FF, #EDE9FE)', border: '1px solid rgba(139,92,246,0.3)',
-            borderRadius: '16px', padding: '1.5rem', textAlign: 'center' }}>
-            <h3 style={{ marginBottom: '0.5rem', color: '#111' }}>밤문화 처음이세요?</h3>
-            <p style={{ color: '#555', marginBottom: '1rem', fontSize: '0.95rem' }}>
-              뭘 입고 가야 하는지, 얼마 드는지, 혼자 가도 되는지. 다 정리했다.
-            </p>
-            <a href="/nights/" target="_blank" rel="noopener noreferrer" style={{
-              display: 'inline-block', background: '#8B5CF6', color: '#FFFFFF',
-              padding: '0.75rem 2rem', borderRadius: '8px', fontWeight: 700,
-              textDecoration: 'none', fontSize: '0.95rem' }}>
-              첫 방문 가이드 보기 →
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ [E] 시간대별 추천 ═══ */}
+      {/* ═══ 시간대별 추천 ═══ */}
       <section className="section" style={{ background: '#F7F7F8' }}>
         <div className="container narrow">
           <h2>지금 이 시간, 어디가 좋을까</h2>
           <div style={{ display: 'grid', gap: '0.75rem' }}>
             {[
-              { t: '19~22시 · 워밍업', d: '라운지에서 칵테일 한 잔. 요정에서 한정식 코스. 저녁부터 자연스럽게 밤으로.' },
-              { t: '22~01시 · 피크타임', d: '테이블석이 가장 뜨거운 시간. 플로어 입장 대기가 시작된다. 일찍 움직여라.' },
-              { t: '01~05시 · 심야', d: '진짜 밤은 자정 넘어서. 에너지가 올라가는 하이라이트. 귀가 앱 미리 준비.' },
+              { t: '19~22시 · 워밍업', d: '라운지에서 칵테일 한 잔. 요정에서 한정식 코스. 저녁부터 자연스럽게 밤으로 이어진다.' },
+              { t: '22~01시 · 피크타임', d: '테이블석이 가장 뜨거운 시간. 플로어 입장 대기가 시작된다. 일찍 움직이는 게 유리하다.' },
+              { t: '01~05시 · 심야', d: '진짜 밤은 자정 넘어서. 에너지가 정점에 달하는 하이라이트. 귀가 앱 미리 준비하자.' },
             ].map(item => (
               <div key={item.t} style={{ padding: '1.25rem', background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px' }}>
-                <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem', color: '#111' }}>{item.t}</h3>
+                <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem', color: '#4F46E5' }}>{item.t}</h3>
                 <p style={{ fontSize: '0.9rem', color: '#333' }}>{item.d}</p>
               </div>
             ))}
@@ -235,35 +178,11 @@ export default function HomePage() {
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1rem' }}>
             {cats.map(cat => (
               <a key={cat.slug} href={cat.path} target="_blank" rel="noopener noreferrer"
-                style={{ padding: '0.6rem 1.25rem', background: '#8B5CF6', color: '#FFFFFF',
+                style={{ padding: '0.6rem 1.25rem', background: '#4F46E5', color: '#FFFFFF',
                   borderRadius: '8px', fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem' }}>
-                {cat.name} {cat.count}곳 →
+                {cat.name} {cat.count}곳
               </a>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ [후킹5] 전체 비교 ═══ */}
-      <section style={{ padding: '1rem 0' }}>
-        <div className="container"><FullCompareHook /></div>
-      </section>
-
-      {/* ═══ 퀴즈 CTA ═══ */}
-      <section style={{ padding: '1.5rem 0' }}>
-        <div className="container">
-          <div style={{ background: '#FFFFFF', border: '2px solid #E5E7EB', borderRadius: '16px',
-            padding: '1.5rem', textAlign: 'center' }}>
-            <h3 style={{ marginBottom: '0.5rem', color: '#111' }}>나에게 맞는 곳은?</h3>
-            <p style={{ color: '#555', marginBottom: '1rem', fontSize: '0.9rem' }}>
-              5초 테스트. 취향에 딱 맞는 카테고리를 찾아보자.
-            </p>
-            <a href="/quiz/" target="_blank" rel="noopener noreferrer" style={{
-              display: 'inline-block', background: '#8B5CF6', color: '#FFFFFF',
-              padding: '0.75rem 2rem', borderRadius: '8px', fontWeight: 700,
-              textDecoration: 'none', fontSize: '0.95rem' }}>
-              테스트 시작 →
-            </a>
           </div>
         </div>
       </section>
@@ -274,12 +193,13 @@ export default function HomePage() {
           <h2>지역별 밤의 표정</h2>
           <div style={{ display: 'grid', gap: '0.75rem' }}>
             {[
-              { name: '강남·서초', desc: '대형 플로어와 프리미엄 라운지 밀집 지역.' },
-              { name: '압구정·청담', desc: '세련된 분위기. 20~30대 직장인이 주 고객.' },
-              { name: '홍대·이태원', desc: '글로벌 감각의 인디 씬. 장르 폭이 넓다.' },
-              { name: '수유·노원·상봉', desc: '전통 사교 문화의 본거지. 단골이 많다.' },
-              { name: '수원·성남·인덕원', desc: '경기권 밤문화 격전지. 접근성 우수.' },
-              { name: '부산·울산', desc: '연산동·해운대 중심. 서울과 다른 온도.' },
+              { name: '강남·서초', desc: '대형 플로어와 프리미엄 라운지 밀집 지역. 트렌드의 중심이다.' },
+              { name: '압구정·청담', desc: '세련된 분위기. 20~30대 직장인이 주 고객층을 이룬다.' },
+              { name: '홍대·이태원', desc: '글로벌 감각의 인디 씬. 장르 폭이 가장 넓다.' },
+              { name: '수유·노원·상봉', desc: '전통 사교 문화의 본거지. 오래된 단골이 많은 곳.' },
+              { name: '수원·성남·인덕원', desc: '경기권 밤문화 격전지. 서울 접근성이 뛰어나다.' },
+              { name: '부산·울산', desc: '연산동·해운대 중심. 서울과는 또 다른 온도를 느낄 수 있다.' },
+              { name: '일산·파주', desc: '경기 북부 사교 문화의 거점. 룸과 요정이 강세.' },
             ].map(r => (
               <div key={r.name} style={{ padding: '1rem', background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px' }}>
                 <h3 style={{ fontSize: '1rem', marginBottom: '0.25rem', color: '#111' }}>{r.name}</h3>
@@ -295,11 +215,11 @@ export default function HomePage() {
         <div className="container narrow">
           <h2>자주 묻는 질문</h2>
           {[
-            { q: '처음인데 어디부터?', a: '테이블 문화가 궁금하면 수유 쪽. 플로어를 원하면 강남. 조용한 곳이면 압구정 라운지.' },
-            { q: '혼자 가도 괜찮나?', a: '바 카운터가 있는 곳이면 어색하지 않다. 혼자 오는 손님 생각보다 많다.' },
-            { q: '복장 규정은?', a: '깔끔한 캐주얼이 기본. 강남권은 슬리퍼·트레이닝복 입장 제한.' },
-            { q: '예산이 궁금하면?', a: '전화로 미리 문의하면 친절하게 안내받을 수 있다. 부담 없이 즐기는 방법도 알려준다.' },
-            { q: '새벽에 귀가는?', a: '카카오T 미리 설치. 지하철 막차는 자정 전후.' },
+            { q: '처음인데 어디부터 가면 좋을까?', a: '테이블 문화가 궁금하면 수유·노원 쪽 나이트. 대형 플로어를 원하면 강남 클럽. 조용한 곳이면 압구정 라운지가 좋다.' },
+            { q: '혼자 가도 괜찮은가?', a: '바 카운터가 있는 라운지라면 어색하지 않다. 1인 방문 손님은 생각보다 많다.' },
+            { q: '복장 규정이 있나?', a: '깔끔한 캐주얼이 기본. 강남·청담권은 슬리퍼·트레이닝복 입장을 제한하는 곳이 많다.' },
+            { q: '궁금한 게 더 있으면?', a: '각 업소 상세 페이지에서 전화번호를 확인할 수 있다. 전화 문의가 가장 정확하다.' },
+            { q: '새벽에 귀가는 어떻게?', a: '카카오T 미리 설치. 지하철 막차는 자정 전후니 시간을 체크하자.' },
           ].map((f, i) => (
             <div key={i} className="faq-item">
               <p className="faq-q">Q. {f.q}</p>
@@ -309,13 +229,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ [후킹3] 비슷한 곳 ═══ */}
-      <section style={{ padding: '1rem 0' }}>
-        <div className="container"><SimilarVenuesHook /></div>
-      </section>
-
       {/* ═══ 매거진 미리보기 ═══ */}
-      <section style={{ padding: '1.5rem 0' }}>
+      <section style={{ padding: '1.5rem 0', background: '#F7F7F8' }}>
         <div className="container">
           <h2 style={{ marginBottom: '1rem' }}>읽을거리</h2>
           <div style={{ display: 'grid', gap: '0.75rem' }}>
@@ -328,167 +243,40 @@ export default function HomePage() {
                 style={{ display: 'block', padding: '1rem 1.25rem', background: '#FFFFFF',
                   border: '1px solid #E5E7EB', borderRadius: '12px', textDecoration: 'none',
                   transition: 'box-shadow 0.2s' }}>
-                <span style={{ fontSize: '0.75rem', color: '#8B5CF6', fontWeight: 600 }}>{m.cat}</span>
+                <span style={{ fontSize: '0.75rem', color: '#4F46E5', fontWeight: 600 }}>{m.cat}</span>
                 <p style={{ margin: '0.25rem 0 0', fontSize: '1rem', fontWeight: 600, color: '#111' }}>{m.title}</p>
               </a>
             ))}
           </div>
           <p style={{ textAlign: 'center', marginTop: '0.75rem' }}>
             <a href="/magazine/" target="_blank" rel="noopener noreferrer"
-              style={{ color: '#8B5CF6', fontWeight: 600, textDecoration: 'none' }}>
-              매거진 전체 보기 →
+              style={{ color: '#4F46E5', fontWeight: 600, textDecoration: 'none' }}>
+              매거진 전체 보기
             </a>
           </p>
         </div>
       </section>
 
-      {/* ═══ 인스타그램 링크 ═══ */}
-      <section style={{ padding: '1.5rem 0' }}>
-        <div className="container">
-          <div style={{ background: '#F7F7F8', border: '1px solid #E5E7EB',
-            borderRadius: '16px', padding: '1.5rem', textAlign: 'center' }}>
-            <h3 style={{ marginBottom: '0.5rem', color: '#111' }}>SNS에서 만나요</h3>
-            <p style={{ color: '#555', marginBottom: '1rem', fontSize: '0.9rem' }}>
-              실시간 분위기, 이벤트 소식을 인스타그램에서 확인하세요
+      {/* ═══ 최종 CTA ═══ */}
+      <section style={{ padding: '2rem 0' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <div style={{ background: 'linear-gradient(135deg, #EEF2FF, #E0E7FF)', border: '1px solid rgba(79,70,229,0.2)',
+            borderRadius: '16px', padding: '2rem 1.5rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.3rem, 4vw, 1.8rem)', marginBottom: '0.5rem', color: '#111' }}>
+              더 자세한 정보가 필요하다면
+            </h2>
+            <p style={{ color: '#555', marginBottom: '1.25rem', fontSize: '0.95rem' }}>
+              전국 {allVenues.length}곳의 상세 정보, 실시간 현장 소식까지
             </p>
-            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              {['#강남청담클럽', '#부산나이트', '#압구정라운지', '#호빠추천'].map(tag => (
-                <a key={tag} href={`https://www.instagram.com/explore/tags/${tag.replace('#','')}/`}
-                  target="_blank" rel="noopener noreferrer"
-                  style={{ padding: '0.5rem 1rem', background: '#FFFFFF', border: '1px solid #E5E7EB',
-                    borderRadius: '20px', fontSize: '0.85rem', color: '#6D28D9', fontWeight: 600, textDecoration: 'none' }}>
-                  {tag}
-                </a>
-              ))}
-            </div>
+            <a href="https://ilsanroom.pages.dev" target="_blank" rel="noopener noreferrer"
+              style={{ display: 'inline-block', background: '#4F46E5', color: '#FFFFFF',
+                padding: '0.85rem 2.5rem', borderRadius: '10px', fontWeight: 700,
+                textDecoration: 'none', fontSize: '1rem' }}>
+              놀쿨에서 확인 &rarr;
+            </a>
           </div>
         </div>
       </section>
-
-      {/* ═══ 슬롯머신 ═══ */}
-      <section className="section" style={{ background: '#F7F7F8' }}>
-        <div className="container"><SlotMachine venues={priorityVenues} /></div>
-      </section>
-
-      {/* ═══ 잭팟 헌팅 ═══ */}
-      <section className="section">
-        <div className="container"><JackpotHunt venues={allVenues} /></div>
-      </section>
-
-      {/* ═══ 예산 계산기 ═══ */}
-      <section className="section" style={{ background: '#F7F7F8' }}>
-        <div className="container"><BudgetCalculator venues={allVenues} /></div>
-      </section>
-
-      {/* ═══ 이번주 급상승 ═══ */}
-      <section className="section">
-        <div className="container"><WeeklyHot venues={allVenues} /></div>
-      </section>
-
-      {/* ═══ 출석 체크 ═══ */}
-      <section className="section" style={{ background: '#F7F7F8' }}>
-        <div className="container narrow"><DailyStreak /></div>
-      </section>
-
-      {/* ═══ 틱톡 스와이프 피드 ═══ */}
-      <section className="section">
-        <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>한 곳씩 발견하기</h2>
-          <p style={{ textAlign: 'center', color: '#666', marginBottom: '1rem', fontSize: '0.85rem' }}>
-            다음 추천을 눌러보세요
-          </p>
-          <SwipeFeed venues={allVenues} />
-        </div>
-      </section>
-
-      {/* ═══ 몰아보기 모드 ═══ */}
-      <section className="section" style={{ background: '#F7F7F8' }}>
-        <div className="container"><BingeChain venues={allVenues} /></div>
-      </section>
-
-      {/* ═══ 무한 피드 ═══ */}
-      <section className="section" style={{ background: '#F7F7F8' }}>
-        <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>전체 둘러보기</h2>
-          <p style={{ textAlign: 'center', color: '#666', marginBottom: '1rem', fontSize: '0.85rem' }}>
-            스크롤하면 더 많은 곳이 나옵니다
-          </p>
-          <InfiniteFeed venues={allVenues} />
-        </div>
-      </section>
-
-      {/* ═══ 탐험 진행도 ═══ */}
-      <section style={{ padding: '1rem 0' }}>
-        <div className="container narrow"><ExploreProgress /></div>
-      </section>
-
-      {/* ═══ 끝없는 추천 ═══ */}
-      <section className="section">
-        <div className="container narrow"><EndlessRecommend venues={priorityVenues} /></div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-         95분 체류 킬러 메커니즘 — 7가지 추가
-         ═══════════════════════════════════════ */}
-
-      {/* ═══ [20] 틱톡식 풀스크린 스와이프 ═══ */}
-      <section className="section">
-        <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>한 곳씩 탐험하기</h2>
-          <p style={{ textAlign: 'center', color: '#666', marginBottom: '1rem', fontSize: '0.85rem' }}>
-            다음 버튼을 누르면 새로운 곳이 나타난다. 멈출 수 있을까?
-          </p>
-          <TikTokFeed venues={allVenues} />
-        </div>
-      </section>
-
-      {/* ═══ [24] 인스타 스토리 모드 ═══ */}
-      <section className="section" style={{ background: '#F7F7F8' }}>
-        <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>스토리로 보기</h2>
-          <p style={{ textAlign: 'center', color: '#666', marginBottom: '1rem', fontSize: '0.85rem' }}>
-            자동으로 넘어가는 스토리. 마음에 드는 곳은 바로 클릭
-          </p>
-          <StoryMode venues={allVenues} />
-        </div>
-      </section>
-
-      {/* ═══ [22] 메가 슬롯 잭팟 ═══ */}
-      <section className="section">
-        <div className="container">
-          <MegaSlot venues={allVenues} />
-        </div>
-      </section>
-
-      {/* ═══ [25] 업소 퀴즈 미니게임 ═══ */}
-      <section className="section" style={{ background: '#F7F7F8' }}>
-        <div className="container">
-          <VenueQuizGame venues={allVenues} />
-        </div>
-      </section>
-
-      {/* ═══ [21] 넷플릭스 오토플레이 ═══ */}
-      <section className="section">
-        <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>자동 추천</h2>
-          <p style={{ textAlign: 'center', color: '#666', marginBottom: '1rem', fontSize: '0.85rem' }}>
-            8초마다 새로운 곳을 보여준다. 일시정지 가능
-          </p>
-          <AutoPlayCountdown venues={allVenues} />
-        </div>
-      </section>
-
-      {/* ═══ [23] 실시간 활동 피드 ═══ */}
-      <section className="section" style={{ background: '#F7F7F8' }}>
-        <div className="container">
-          <LiveActivityFeed />
-        </div>
-      </section>
-
-      {/* ═══ [26] 체류시간 보상 — 글로벌 ═══ */}
-      <RetentionRewards />
-
-      {/* SocialProofToast, JourneyTimer, SlideUpHook, ScrollBannerHook, RetentionRewards → layout.tsx에서 전역 활성화 */}
     </>
   );
 }

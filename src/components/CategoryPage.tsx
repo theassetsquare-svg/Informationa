@@ -1,7 +1,4 @@
 import VenueCard from './VenueCard';
-import VsBattle from './VsBattle';
-import { SlotMachine, DailyStreak, EndlessRecommend } from './AddictionEngine';
-import { FullCompareHook, AIRecommendHook } from './HookingCTAs';
 
 interface CatPageProps {
   heading: string;
@@ -47,9 +44,6 @@ export default function CategoryPage({ heading, intro, body, guide, timeslots, v
           전체 {venues.length}곳 — 각 카드를 눌러 상세 확인
         </p>
 
-        {/* [후킹] AI 추천 */}
-        <div style={{ marginTop: '2rem' }}><AIRecommendHook /></div>
-
         {/* ③ [D] 첫 방문 가이드 */}
         <div className="narrow" style={{ marginTop: '2rem', padding: '2rem',
           background: bgAccent, borderRadius: '16px', border: `1px solid ${borderAccent}` }}>
@@ -77,20 +71,17 @@ export default function CategoryPage({ heading, intro, body, guide, timeslots, v
           </div>
         </div>
 
-        {/* ⑤ [B] VS 대결 (2개 이상일 때만) */}
-        {venues.length >= 2 && (
-          <div style={{ marginTop: '2rem' }}>
-            <VsBattle venues={venues} />
+        {/* ⑤ 놀쿨 CTA */}
+        <div style={{ marginTop: '2.5rem' }}>
+          <div style={{ background: 'linear-gradient(135deg, #EEF2FF, #E0E7FF)', border: '2px solid rgba(79,70,229,0.3)', borderRadius: '16px', padding: '2rem 1.5rem', textAlign: 'center' }}>
+            <h3 style={{ color: '#4F46E5', fontSize: '1.2rem', marginBottom: '0.5rem' }}>더 자세한 정보가 궁금하다면</h3>
+            <p style={{ color: '#555', marginBottom: '1rem', fontSize: '0.9rem' }}>전국 {venues.length}곳의 상세 정보, 실시간 현장 소식까지</p>
+            <a href="https://ilsanroom.pages.dev" target="_blank" rel="noopener noreferrer"
+              style={{ display: 'inline-block', background: '#4F46E5', color: '#FFF', padding: '0.85rem 2.5rem', borderRadius: '10px', fontWeight: 700, textDecoration: 'none', fontSize: '1rem' }}>
+              놀쿨에서 확인 →
+            </a>
           </div>
-        )}
-
-        {/* [후킹] 전체 비교 */}
-        <div style={{ marginTop: '2rem' }}><FullCompareHook /></div>
-
-        {/* 슬롯머신 + 출석 + 추천 */}
-        <div style={{ marginTop: '2rem' }}><SlotMachine venues={venues.slice(0, 7)} /></div>
-        <div style={{ marginTop: '2rem' }}><DailyStreak /></div>
-        <div style={{ marginTop: '2rem' }}><EndlessRecommend venues={venues.slice(0, 7)} /></div>
+        </div>
       </div>
     </section>
   );
