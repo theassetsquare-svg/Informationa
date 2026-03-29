@@ -793,20 +793,14 @@ function generateDescription(venue: Venue, _label: string, venueIndex = 0): stri
   const kw0 = (venue.keywords && venue.keywords[0]) || nm;
   const kw1 = (venue.keywords && venue.keywords[1]) || '';
 
-  // description에는 가게이름 제외 (og:title에 이미 포함) → 유사도 최소화
-  const hookClean = hook.replace(new RegExp(nm.split(/[\s·]+/).filter(w => w.length >= 2).join('|'), 'g'), '').replace(/^\s*[,.\-—]+\s*/, '').trim();
-  const base = hookClean || hook;
+  // 가게이름 맨 앞 + hook + 고유 데이터 → 150자 이내
+  const base = nm + '. ' + hook;
   const extras: string[] = [];
-  if (stn) extras.push(stn);
-  if (hrs) extras.push(hrs);
+  if (stn && !base.includes(stn)) extras.push(stn);
+  if (hrs && !base.includes(hrs)) extras.push(hrs);
   if (tag0 && !base.includes(tag0)) extras.push(tag0);
   if (tag1 && !base.includes(tag1)) extras.push(tag1);
-  if (nick) extras.push(`${nick} 문의`);
-  // loc에서 base에 이미 포함된 부분 제거
-  if (loc) {
-    const locParts = loc.split(/\s+/).filter(p => p.length >= 2 && !base.includes(p));
-    if (locParts.length > 0) extras.push(locParts.join(' '));
-  }
+  if (nick && !base.includes(nick)) extras.push(`${nick} 문의`);
 
   let desc = base;
   for (const e of extras) {
@@ -850,7 +844,13 @@ export function generateGoldContent(venue: Venue, venueIndex = 0) {
     seen.add(w);
     return true;
   });
-  const pageTitle = deduped.join(' ') + ` | ${SITE_NAME}`;
+  const nameWithExtras = deduped.join(' ');
+  // "가게이름 — 후킹제목 | 놀쿨" 형식 (tagline에서 이름 중복단어 제거)
+  let hookShort = tagline.length > 30 ? tagline.slice(0, 28) + '…' : tagline;
+  // nameWithExtras에 이미 있는 2자+ 단어를 tagline에서 제거
+  const nameWords = new Set(nameWithExtras.split(/\s+/).filter(w => w.length >= 2));
+  hookShort = hookShort.split(/\s+/).filter(w => w.length < 2 || !nameWords.has(w)).join(' ').replace(/^[,\s·]+/, '').trim();
+  const pageTitle = `${nameWithExtras} — ${hookShort} | ${SITE_NAME}`;
 
   return {
     title: pageTitle,
