@@ -24,11 +24,11 @@ const top5 = allVenues.filter(v => {
 
 export const metadata: Metadata = {
   title: '놀쿨 — 전국 나이트·클럽·라운지·룸·요정·호빠 가이드',
-  description: '전국 114곳 나이트, 클럽, 라운지, 룸, 요정, 호빠 현장 정보를 한눈에. 지역별·카테고리별 완전 가이드.',
+  description: '전국 114곳 나이트, 클럽, 라운지, 룸, 요정, 호빠 현장 정보를 바로 확인. 지역별·카테고리별 완전 가이드.',
   alternates: { canonical: SITE_URL + '/' },
   openGraph: {
     title: '놀쿨 — 전국 나이트·클럽·라운지·룸·요정·호빠 가이드',
-    description: '전국 114곳 나이트, 클럽, 라운지, 룸, 요정, 호빠 현장 정보를 한눈에.',
+    description: '전국 114곳 나이트, 클럽, 라운지, 룸, 요정, 호빠 현장 정보를 바로 확인.',
     url: SITE_URL + '/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
@@ -50,7 +50,7 @@ export default function HomePage() {
     lounge: '잔을 기울이며 나누는 대화',
     room: '문 닫으면 우리만의 공간',
     yojeong: '한정식과 국악의 풍류',
-    hoppa: '여성을 위한 프리미엄 선택',
+    hoppa: '여성을 위한 고급 선택',
   };
 
   const catIcons: Record<string, string> = {
@@ -193,7 +193,7 @@ export default function HomePage() {
           <h2>지역별 밤의 표정</h2>
           <div style={{ display: 'grid', gap: '0.75rem' }}>
             {[
-              { name: '강남·서초', desc: '대형 플로어와 프리미엄 라운지 밀집 지역. 트렌드의 중심이다.' },
+              { name: '강남·서초', desc: '대형 플로어와 고급 라운지 밀집 지역. 트렌드의 중심이다.' },
               { name: '압구정·청담', desc: '세련된 분위기. 20~30대 직장인이 주 고객층을 이룬다.' },
               { name: '홍대·이태원', desc: '글로벌 감각의 인디 씬. 장르 폭이 가장 넓다.' },
               { name: '수유·노원·상봉', desc: '전통 사교 문화의 본거지. 오래된 단골이 많은 곳.' },

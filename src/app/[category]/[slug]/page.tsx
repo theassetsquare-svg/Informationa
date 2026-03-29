@@ -444,7 +444,7 @@ export default function VenueDetailPage({ params }: Props) {
       {related.length > 0 && (
         <section className="detail-section">
           <div className="container narrow">
-            <h2>한눈에 비교</h2>
+            <h2>바로 비교</h2>
             <div style={{ overflowX: 'auto' }}>
               <table className="info-table" style={{ minWidth: '320px' }}>
                 <thead>

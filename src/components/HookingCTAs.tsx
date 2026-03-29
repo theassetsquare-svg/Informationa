@@ -8,8 +8,8 @@ export function MidContentHook() {
   return (
     <div className="hooking-mid">
       <p style={{ fontSize: '0.9rem', color: '#666666', marginBottom: '0.5rem' }}>전체 리뷰 93개 + 실시간 순위</p>
-      <p>나머지 정보는 프리미엄 가이드에서 확인하세요</p>
-      <a href={MAIN_URL} target="_blank" rel="noopener noreferrer">프리미엄 가이드 보기 →</a>
+      <p>나머지 정보는 고급 가이드에서 확인하세요</p>
+      <a href={MAIN_URL} target="_blank" rel="noopener noreferrer">고급 가이드 보기 →</a>
     </div>
   );
 }
@@ -40,7 +40,7 @@ export function AIRecommendHook() {
 export function FullCompareHook() {
   return (
     <div style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '16px', padding: '1.25rem', textAlign: 'center', margin: '1.5rem 0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-      <p style={{ color: '#111111', fontSize: '0.95rem', marginBottom: '0.75rem' }}>110곳 전체를 한눈에 비교하고 싶다면</p>
+      <p style={{ color: '#111111', fontSize: '0.95rem', marginBottom: '0.75rem' }}>110곳 전체를 바로 비교하고 싶다면</p>
       <a href={MAIN_URL} target="_blank" rel="noopener noreferrer" style={{
         display: 'inline-block', background: '#8B5CF6', color: '#FFFFFF', padding: '0.6rem 1.5rem', borderRadius: '8px', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none',
       }}>전체 비교+랭킹 보기 →</a>
@@ -60,7 +60,7 @@ export function SlideUpHook() {
       <p style={{ color: '#111111', fontWeight: 700, marginBottom: '0.5rem', fontSize: '0.95rem' }}>더 깊은 정보가 기다리고 있습니다</p>
       <a href={MAIN_URL} target="_blank" rel="noopener noreferrer" style={{
         display: 'inline-block', background: '#8B5CF6', color: '#FFFFFF', padding: '0.6rem 1.5rem', borderRadius: '8px', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none',
-      }}>프리미엄 가이드 바로가기 →</a>
+      }}>고급 가이드 바로가기 →</a>
       <style dangerouslySetInnerHTML={{ __html: '@keyframes slideUp{from{transform:translateX(-50%) translateY(100%)}to{transform:translateX(-50%) translateY(0)}}' }} />
     </div>
   );
@@ -83,7 +83,7 @@ export function ScrollBannerHook() {
       <p style={{ color: '#6D28D9', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.95rem' }}>여기서 끝이 아닙니다</p>
       <a href={MAIN_URL} target="_blank" rel="noopener noreferrer" style={{
         display: 'inline-block', background: '#8B5CF6', color: '#FFFFFF', padding: '0.6rem 1.5rem', borderRadius: '8px', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none',
-      }}>완벽한 밤 시작하기 →</a>
+      }}>나만의 밤 시작하기 →</a>
       <style dangerouslySetInnerHTML={{ __html: '@keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}' }} />
     </div>
   );

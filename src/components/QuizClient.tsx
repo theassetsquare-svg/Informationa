@@ -29,7 +29,7 @@ const questions = [
       { text: '신나는 음악에 몸을 맡기고 싶다', scores: { club: 2, night: 1 } },
       { text: '편하게 대화하면서 즐기고 싶다', scores: { night: 2, lounge: 1 } },
       { text: '고급스럽고 격식 있는 분위기', scores: { lounge: 2, room: 1 } },
-      { text: '특별한 경험을 하고 싶다', scores: { yojeong: 2, hoppa: 2 } },
+      { text: '색다른 경험을 하고 싶다', scores: { yojeong: 2, hoppa: 2 } },
     ],
   },
   {
@@ -81,7 +81,7 @@ const questions = [
     options: [
       { text: '거의 매주', scores: { club: 2, night: 1 } },
       { text: '월 1~2회', scores: { lounge: 2, night: 1 } },
-      { text: '특별한 날에만', scores: { room: 2, yojeong: 1 } },
+      { text: '기념일에만', scores: { room: 2, yojeong: 1 } },
       { text: '처음이다', scores: { hoppa: 1, lounge: 1, night: 1 } },
     ],
   },
@@ -131,13 +131,13 @@ const resultTypes: ResultType[] = [
   {
     key: 'yojeong',
     name: '요정격식형',
-    description: '전통의 풍류를 아는 당신. 한정식과 국악, 격식 있는 자리를 즐긴다. 비즈니스든 특별한 날이든, 품격 있는 밤을 보내고 싶어 한다.',
+    description: '전통의 풍류를 아는 당신. 한정식과 국악, 격식 있는 자리를 즐긴다. 비즈니스든 기념일이든, 품격 있는 밤을 보내고 싶어 한다.',
     catSlug: 'yojeong',
   },
   {
     key: 'hoppa',
-    name: '호빠프리미엄형',
-    description: '대접받는 밤을 원하는 당신. 프리미엄 서비스와 세심한 배려, 특별한 경험을 추구한다. 가끔은 자신을 위한 투자도 필요하니까.',
+    name: '호빠고급형',
+    description: '대접받는 밤을 원하는 당신. 고급 서비스와 세심한 배려, 색다른 경험을 추구한다. 가끔은 자신을 위한 투자도 필요하니까.',
     catSlug: 'hoppa',
   },
 ];

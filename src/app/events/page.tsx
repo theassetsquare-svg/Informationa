@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import { SITE_URL, SITE_NAME } from '@/lib/venues';
 
 export const metadata: Metadata = {
-  title: `캘린더 — 월간 스케줄 한눈에 | ${SITE_NAME}`,
+  title: `캘린더 — 월간 스케줄 바로 확인 | ${SITE_NAME}`,
   description: '월간 스케줄 달력. 금토 오프닝부터 월말 스페셜까지 날짜별 일정 표기.',
   alternates: { canonical: SITE_URL + '/events/' },
   openGraph: {
-    title: `캘린더 — 월간 스케줄 한눈에 | ${SITE_NAME}`,
+    title: `캘린더 — 월간 스케줄 바로 확인 | ${SITE_NAME}`,
     description: '월간 스케줄 달력. 금토 오프닝부터 월말 스페셜까지.',
     url: SITE_URL + '/events/',
     siteName: SITE_NAME,
@@ -58,7 +58,7 @@ const EVENTS = [
   },
   {
     title: '매월 마지막 금요일 — 월말 파티',
-    desc: '월말 금요일에는 특별한 파티와 이벤트가 열리는 곳이 많다. 한 달의 마무리를 화려하게 장식하자.',
+    desc: '월말 금요일에는 색다른 파티와 이벤트가 열리는 곳이 많다. 한 달의 마무리를 화려하게 장식하자.',
     recurrence: 'lastFriday' as const,
   },
 ];
@@ -132,7 +132,7 @@ export default function EventsPage() {
         <div className="container">
           <h1 style={{ marginBottom: '0.5rem' }}>이벤트 캘린더</h1>
           <p style={{ color: 'var(--text-sub)', marginBottom: '2rem', maxWidth: '600px' }}>
-            이번 달 밤문화 일정을 한눈에 확인하자. 매주 금요일과 토요일이 피크타임이다.
+            이번 달 밤문화 일정을 쉽게 확인하자. 매주 금요일과 토요일이 피크타임이다.
           </p>
 
           {/* 캘린더 그리드 */}
@@ -282,7 +282,7 @@ export default function EventsPage() {
               이벤트 등록은 밤키에서
             </p>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-sub)', marginBottom: '1rem' }}>
-              업소 이벤트를 등록하고 더 많은 방문객을 만나보세요.
+              업소 이벤트를 등록하고 더 많은 방문객을 확보하세요.
             </p>
             <a
               href="https://ilsanroom.pages.dev"

@@ -107,7 +107,7 @@ export function SlotMachine({ venues }: { venues: any[] }) {
     <div style={{ textAlign: 'center', padding: '2rem 0' }}>
       <h3 style={{ marginBottom: '0.25rem' }}>오늘의 행운</h3>
       <p style={{ fontSize: '0.85rem', color: '#666666', marginBottom: '1rem' }}>
-        당겨서 운명의 장소를 만나보세요
+        당겨서 운명의 장소를 확인해보세요
         {streak > 0 && <span style={{ color: '#6D28D9', fontWeight: 700 }}> · {streak}연속 도전</span>}
       </p>
 
@@ -868,7 +868,7 @@ export function MoodMatch({ venues }: { venues: any[] }) {
     { emoji: '🔥', label: '신나고 싶다', cats: ['club', 'night'] },
     { emoji: '🍷', label: '차분하게 마시고 싶다', cats: ['lounge', 'yojeong'] },
     { emoji: '👑', label: '제대로 접대하고 싶다', cats: ['room', 'yojeong'] },
-    { emoji: '💃', label: '특별한 밤을 보내고 싶다', cats: ['hoppa', 'club'] },
+    { emoji: '💃', label: '색다른 밤을 보내고 싶다', cats: ['hoppa', 'club'] },
     { emoji: '🎲', label: '아무데나 좋아', cats: ['club', 'night', 'lounge', 'room', 'yojeong', 'hoppa'] },
   ];
   const selected = moods.find(m => m.label === mood);
