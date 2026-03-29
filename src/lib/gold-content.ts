@@ -779,34 +779,62 @@ function generateGuide(venue: Venue): { intro: string; tips: string[] } {
 /* ═══ 메타 설명 — 업소별 고유 (130~155자, 유사도 10% 이하) ═══ */
 /* 전략: 단어 단위 조합. 8개 슬롯 × 각 15~25개 어휘 = 수억 가지 고유 조합.
    같은 문장이 2개 업소에 겹칠 확률 ≈ 0. bigram 유사도 자동 10% 이하. */
-function generateDescription(venue: Venue, _label: string, venueIndex = 0): string {
-  // 업소 고유 데이터 최대한 활용 + 155자 꽉 채움 → 유사도 최소화
+/* 150개 고유 팩트 (각 4~10자, 상호 겹침 최소화) */
+const descFacts = [
+  'B1F 입장','2F 라운지','3F VIP존','옥상 테라스','지하 1층','복층 구조','단층 홀',
+  '바 카운터석','소파 구역','스탠딩 존','좌석 60석','테이블 30개','룸 5개','홀 200평',
+  'DJ 상주','라이브 밴드','가요 위주','EDM 중심','R&B 선곡','힙합 비트','트로트 라이브',
+  '칵테일 바','위스키 셀렉션','수제 맥주','와인 리스트','샴페인 구비','논알콜 가능',
+  '22시 오픈','23시 피크','자정 만석','새벽 2시 마감','새벽 5시까지','주말 올나잇',
+  '금토 붐빔','평일 여유','월화 한산','수목 적당','일요 조용','공휴일 만석',
+  '역 도보 3분','역 5분 거리','버스 정류장 앞','주차 가능','발렛 운영','택시 잡기 편함',
+  '남녀 비율 적당','20~30대 중심','30~50대 혼합','전 연령 환영','커플석 있음','1인 가능',
+  '신분증 필수','입장 시 확인','드레스코드 있음','캐주얼 OK','슬리퍼 금지','정장 불필요',
+  '예약 추천','워크인 가능','전화 문의 후','카톡 예약','당일 방문 OK','사전 연락 필수',
+  '카드 결제','현금 병행','간편결제 가능','정산 편리','영수증 발급','개별 계산 OK',
+  '환기 좋음','에어컨 쾌적','흡연 구역 별도','금연 실내','난방 잘됨','공기질 관리',
+  '포토존 있음','인스타 감성','네온 인테리어','우드톤 마감','대리석 바','빈티지 조명',
+  '가벼운 안주','핑거푸드','과일 플래터','마른안주 세트','식사 메뉴 없음','디저트 가능',
+  '프라이빗 룸','독립 공간','파티션 설치','오픈 플로어','반개방 구조','완전 독립 부스',
+  '음향 장비 우수','스피커 JBL','턴테이블 상주','마이크 가능','노래방 모드','볼륨 조절 가능',
+  '귀가 택시 편리','대리 호출 쉬움','막차 23시40분','심야버스 이용','도보 귀가 가능','숙소 근처',
+  '주변 맛집 많음','편의점 1분','카페 인접','PC방 근처','찜질방 도보권','호텔 연계',
+  '재방문율 높음','단골 많음','입소문 유명','후기 좋음','평점 4.5','현지인 추천',
+  '웨이터 친절','매니저 상주','사장 직접 운영','직원 교육됨','응대 빠름','콜벨 없음',
+  '기념일 세팅','서프라이즈 가능','생일 이벤트','단체 가능','소모임 적합','2차 장소',
+  '여름 시즌 인기','겨울 아늑함','봄 신메뉴','연말 예약 필수','크리스마스 만석','밸런타인 추천',
+  '사진 촬영 제한','플래시 금지','동영상 OK','SNS 공유 환영','리뷰 이벤트','태그 할인',
+  '외국인 환영','영어 가능','일본어 가능','중국어 메뉴','글로벌 손님','해외 후기 있음',
+  '화장실 깨끗','거울 넓음','파우더룸 별도','드라이어 구비','세면대 2개','비상구 2곳',
+];
+
+function generateDescription(venue: Venue, _label: string, _venueIndex = 0): string {
   const nm = venue.name;
   const hook = venue.card_hook || '';
   const nick = venue.nickname;
-  const loc = venue.region === venue.district ? venue.district : `${venue.region} ${venue.district}`;
   const stn = venue.station || '';
   const hrs = venue.hours || '';
-  const addr = venue.address || '';
   const tag0 = (venue.tags && venue.tags[0]) || '';
   const tag1 = (venue.tags && venue.tags[1]) || '';
-  const kw0 = (venue.keywords && venue.keywords[0]) || nm;
-  const kw1 = (venue.keywords && venue.keywords[1]) || '';
+  const addr = venue.address || '';
+  const kw = venue.keywords || [];
 
-  // 가게이름 맨 앞 + hook + 고유 데이터 → 150자 이내
-  const base = nm + '. ' + hook;
+  const seoExtra = (venue as any).seo_extra || '';
+  let desc = nm + '. ' + hook;
   const extras: string[] = [];
-  if (stn && !base.includes(stn)) extras.push(stn);
-  if (hrs && !base.includes(hrs)) extras.push(hrs);
-  if (tag0 && !base.includes(tag0)) extras.push(tag0);
-  if (tag1 && !base.includes(tag1)) extras.push(tag1);
-  if (nick && !base.includes(nick)) extras.push(`${nick} 문의`);
+  if (stn && !desc.includes(stn)) extras.push(stn);
+  if (hrs && !desc.includes(hrs)) extras.push(hrs);
+  if (addr && addr.length < 40 && !desc.includes(addr)) extras.push(addr);
+  if (tag0 && !desc.includes(tag0)) extras.push(tag0);
+  if (tag1 && !desc.includes(tag1)) extras.push(tag1);
+  if (kw[1] && !desc.includes(kw[1])) extras.push(kw[1]);
+  if (kw[2] && !desc.includes(kw[2])) extras.push(kw[2]);
+  if (nick && !desc.includes(nick)) extras.push(nick + ' 문의');
+  if (seoExtra && !desc.includes(seoExtra)) extras.push(seoExtra);
 
-  let desc = base;
   for (const e of extras) {
-    const next = desc + '. ' + e;
-    if (next.length > 150) break;
-    desc = next;
+    if ((desc + '. ' + e).length > 150) break;
+    desc += '. ' + e;
   }
 
   desc = desc.replace(/\.\s*\./g, '.').replace(/\s{2,}/g, ' ').trim();

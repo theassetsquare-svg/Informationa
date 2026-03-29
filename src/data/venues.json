@@ -33,7 +33,8 @@
     ],
     "source_urls": [],
     "nickname": "신실장",
-    "nickname_phone": "010-3695-4929"
+    "nickname_phone": "010-3695-4929",
+    "seo_extra": "접대 코스의 시작점이자 마무리. 문 닫고 조용히 얘기하기 좋은 룸이다."
   },
   {
     "name": "해운대고구려",
@@ -70,7 +71,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "마린시티 야경 아래 60개 방. 비즈니스 자리를 잡기에 부족함이 없다."
   },
   {
     "name": "일산명월관요정",
@@ -106,7 +108,8 @@
     ],
     "source_urls": [],
     "nickname": "신실장",
-    "nickname_phone": "010-3695-4929"
+    "nickname_phone": "010-3695-4929",
+    "seo_extra": "국악 선율 위에 한정식 코스가 올라온다. 풍류를 아는 자리에 어울린다."
   },
   {
     "name": "청담H2O나이트",
@@ -140,7 +143,8 @@
     ],
     "source_urls": [],
     "nickname": "펩시맨",
-    "nickname_phone": "010-5655-4866"
+    "nickname_phone": "010-5655-4866",
+    "seo_extra": "청담동 감성이 물 흐르듯 번지는 저녁. H2O라는 이름값을 한다."
   },
   {
     "name": "강남줄리아나나이트",
@@ -174,7 +178,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "줄리아나라는 이름 하나로 강남 역사를 쓴 곳. 전설은 아직 현재진행형."
   },
   {
     "name": "신림그랑프리나이트",
@@ -208,7 +213,8 @@
     ],
     "source_urls": [],
     "nickname": "태양",
-    "nickname_phone": "010-4241-3748"
+    "nickname_phone": "010-4241-3748",
+    "seo_extra": "그랑프리급 속도로 테이블이 돌아간다. 신림역 5분 컷."
   },
   {
     "name": "상봉동한국관나이트",
@@ -242,7 +248,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "상봉동에서 한국관을 모르면 이상한 거다. 로컬 단골이 증명한다."
   },
   {
     "name": "수유샴푸나이트",
@@ -278,7 +285,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "수유동 심야 타임의 에너지는 샴푸에서 시작된다."
   },
   {
     "name": "독산국빈관나이트",
@@ -314,7 +322,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "독산에서 가장 넓은 홀. 국빈관이라는 간판이 허세가 아니다."
   },
   {
     "name": "답십리돈텔마마나이트",
@@ -348,7 +357,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "답십리 골목 안쪽. 돈텔마마라는 비밀을 지키는 곳."
   },
   {
     "name": "강서나이트",
@@ -382,7 +392,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "강서구 로컬들의 아지트. 금요일이면 만석이 기본이다."
   },
   {
     "name": "영등포터미널나이트",
@@ -416,7 +427,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "영등포 터미널 근처. 택시에서 내리면 바로 보인다."
   },
   {
     "name": "노원호박나이트",
@@ -450,7 +462,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "노원에서 호박은 브랜드다. 간판만 봐도 안심."
   },
   {
     "name": "노원스타나이트",
@@ -487,7 +500,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "노원역 스타. 2층 구조에서 펼쳐지는 라이브."
   },
   {
     "name": "길동찬스나이트",
@@ -524,7 +538,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "길동 찬스. 동서울 쪽에서 가장 접근성 좋은 나이트."
   },
   {
     "name": "일산샴푸나이트",
@@ -559,7 +574,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "일산역 샴푸. 경기 서북부 밤문화의 출발선."
   },
   {
     "name": "일산물나이트",
@@ -594,7 +610,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "일산물나이트. 이름처럼 흐르듯 이어지는 테이블 배정."
   },
   {
     "name": "파주야당스카이돔나이트",
@@ -629,7 +646,8 @@
     ],
     "source_urls": [],
     "nickname": "막내",
-    "nickname_phone": "010-8255-3509"
+    "nickname_phone": "010-8255-3509",
+    "seo_extra": "야당역 스카이돔. 파주에서 유일한 대형 무대."
   },
   {
     "name": "화정한국관나이트",
@@ -664,7 +682,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "화정역 3번 출구. 한국관 간판이 바로 보인다."
   },
   {
     "name": "김포호박나이트",
@@ -701,7 +720,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "김포 호박. 한강신도시 주민들의 금요 루틴."
   },
   {
     "name": "김포썸나이트",
@@ -738,7 +758,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "김포 썸. 이름처럼 설레는 첫 방문이 가능하다."
   },
   {
     "name": "구리호박나이트",
@@ -773,7 +794,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "구리 호박. 토평역 인근 로컬 단골 밀집 지역."
   },
   {
     "name": "의정부한국관나이트",
@@ -808,7 +830,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "의정부 한국관. 경기 북부 테이블 문화의 산실."
   },
   {
     "name": "수원찬스돔나이트",
@@ -843,7 +866,8 @@
     ],
     "source_urls": [],
     "nickname": "강호동",
-    "nickname_phone": "010-9354-1323"
+    "nickname_phone": "010-9354-1323",
+    "seo_extra": "찬스돔. 수원 권선구에서 가장 큰 플로어를 자랑."
   },
   {
     "name": "수원코리아나이트",
@@ -878,7 +902,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "코리아. 수원역 앞, 오랜 역사가 곧 신뢰다."
   },
   {
     "name": "오산호박나이트",
@@ -915,7 +940,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "오산 호박. 세마역 도보권 내 최대 시설."
   },
   {
     "name": "성남국빈관나이트",
@@ -952,7 +978,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "성남 국빈관. 판교·분당 직장인의 2차 선택지."
   },
   {
     "name": "인덕원국빈관나이트",
@@ -987,7 +1014,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "인덕원 국빈관. 4호선 라인에서 가장 가까운 무대."
   },
   {
     "name": "성남샴푸나이트",
@@ -1022,7 +1050,8 @@
     ],
     "source_urls": [],
     "nickname": "박찬호",
-    "nickname_phone": "010-3987-6885"
+    "nickname_phone": "010-3987-6885",
+    "seo_extra": "성남 샴푸. 야탑역 인근 주말 만석 보장."
   },
   {
     "name": "분당퐁퐁나이트",
@@ -1057,7 +1086,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "분당 퐁퐁. 젊은 감성이 흐르는 신분당선 라인."
   },
   {
     "name": "평택호박나이트",
@@ -1092,7 +1122,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "평택 호박. 주한미군 기지 근처 글로벌 분위기."
   },
   {
     "name": "인천아라비안나이트",
@@ -1129,7 +1160,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "아라비안. 인천 구도심 야간 상권의 중심축."
   },
   {
     "name": "부천메리트나이트",
@@ -1166,7 +1198,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "부천 메리트. 중동역 근처 꾸준한 단골층."
   },
   {
     "name": "부천고래나이트",
@@ -1201,7 +1234,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "부천 고래. 송내역 도보 7분 컷."
   },
   {
     "name": "안산히트나이트",
@@ -1236,7 +1270,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "안산 히트. 중앙역 인근 젊은 에너지."
   },
   {
     "name": "안산돈텔마마나이트",
@@ -1271,7 +1306,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "안산 돈텔마마. 비밀스러운 분위기가 매력."
   },
   {
     "name": "천안스타돔나이트",
@@ -1306,7 +1342,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "천안 스타돔. 충남 최대 규모 라이브 공연."
   },
   {
     "name": "천안코리아나이트",
@@ -1343,7 +1380,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "천안 코리아. 신부동 상권과 함께 움직인다."
   },
   {
     "name": "대전세븐나이트",
@@ -1380,7 +1418,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "대전 세븐. 둔산동 금토 피크 타임 보장."
   },
   {
     "name": "대전원나이트",
@@ -1415,7 +1454,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "대전 원. 봉명동 로컬 밀착형 영업."
   },
   {
     "name": "대전봉명나이트",
@@ -1450,7 +1490,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "봉명동 밤거리의 시작과 끝. 대전 사교의 핵심 거점."
   },
   {
     "name": "대전한국관나이트",
@@ -1485,7 +1526,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "대전 한국관. 유성구에서 가장 접근성 좋은 선택."
   },
   {
     "name": "청주돈텔마마나이트",
@@ -1520,7 +1562,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "청주 돈텔마마. 충북 비밀 아지트."
   },
   {
     "name": "청주호박나이트",
@@ -1557,7 +1600,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "청주 호박. 가경동 사거리 인근 최대."
   },
   {
     "name": "서산호박나이트",
@@ -1594,7 +1638,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "서산 호박. 충남 서부 유일의 대형 시설."
   },
   {
     "name": "대구한국관나이트",
@@ -1629,7 +1674,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "대구 한국관. 동성로에서 택시 10분."
   },
   {
     "name": "대구호박나이트",
@@ -1664,7 +1710,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "대구 호박. 수성구 밤문화 핵심 거점."
   },
   {
     "name": "대구바밤바나이트",
@@ -1699,7 +1746,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "대구 바밤바. 동성로 골목 안쪽 숨겨진 무대."
   },
   {
     "name": "대구토토가나이트",
@@ -1734,7 +1782,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "대구 토토가. 반월당역 도보 5분 컷."
   },
   {
     "name": "구미호박나이트",
@@ -1771,7 +1820,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "구미 호박. 경북 중부 유일 대형 테이블."
   },
   {
     "name": "부산연산동물나이트",
@@ -1808,7 +1858,8 @@
     ],
     "source_urls": [],
     "nickname": "따봉",
-    "nickname_phone": "010-7942-9076"
+    "nickname_phone": "010-7942-9076",
+    "seo_extra": "연산동 따봉이 무대. 부산 부킹 씬의 시작."
   },
   {
     "name": "부산아시아드나이트",
@@ -1843,7 +1894,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "부산 아시아드. 24시간 운영 부산 최대."
   },
   {
     "name": "부산물나이트",
@@ -1878,7 +1930,8 @@
     ],
     "source_urls": [],
     "nickname": "따봉",
-    "nickname_phone": "010-7942-9076"
+    "nickname_phone": "010-7942-9076",
+    "seo_extra": "부산 물나이트. 서면 상권 한복판."
   },
   {
     "name": "울산뉴월드나이트",
@@ -1913,7 +1966,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "울산 뉴월드. 삼산동 밤거리 대표."
   },
   {
     "name": "울산챔피언나이트",
@@ -1948,7 +2002,8 @@
     ],
     "source_urls": [],
     "nickname": "춘자",
-    "nickname_phone": "010-5653-0069"
+    "nickname_phone": "010-5653-0069",
+    "seo_extra": "울산 챔피언. 10년 넘게 자리를 지킨 저력."
   },
   {
     "name": "광주상무나이트",
@@ -1985,7 +2040,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "상무지구 한복판. 광주 밤의 온도를 올리는 곳."
   },
   {
     "name": "광주토토밤나이트",
@@ -2022,7 +2078,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "토토밤. 광주 첨단 쪽 젊은 에너지."
   },
   {
     "name": "광주첨단엠파나이트",
@@ -2057,7 +2114,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "첨단 엠파. 광주 첨단지구 금토 만석."
   },
   {
     "name": "광주MGM나이트",
@@ -2092,7 +2150,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "광주 MGM. 충장로에서 택시 8분."
   },
   {
     "name": "광주올나이트",
@@ -2127,7 +2186,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "광주 올. 전남대 앞 20대 밀집 구역."
   },
   {
     "name": "제주나이트",
@@ -2161,7 +2221,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "제주도에서 유일하게 밤이 긴 곳."
   },
   {
     "name": "강남청담클럽 레이스",
@@ -2198,7 +2259,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "레이스. 강남 속도감 있는 비트 위의 질주."
   },
   {
     "name": "강남청담클럽 사운드",
@@ -2235,7 +2297,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "사운드. 강남 음압으로 가슴이 울리는 그 순간."
   },
   {
     "name": "강남청담클럽 Jack",
@@ -2272,7 +2335,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "잭. 매주 다른 게스트 DJ가 판을 바꾼다."
   },
   {
     "name": "강남청담클럽 피크",
@@ -2309,7 +2373,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "피크. 강남 드롭의 쾌감이 정점을 찍는 곳."
   },
   {
     "name": "강남청담클럽 미로",
@@ -2346,7 +2411,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "미로. 한번 빠지면 헤어나올 수 없는 밤길."
   },
   {
     "name": "강남청담클럽 유토피아",
@@ -2383,7 +2449,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "유토피아. 3층 구조 VIP 존의 위엄."
   },
   {
     "name": "강남청담클럽 라퓨타",
@@ -2420,7 +2487,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "라퓨타. 하늘 위 성처럼 떠오르는 플로어."
   },
   {
     "name": "강남청담클럽 페이스",
@@ -2457,7 +2525,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "페이스. 얼굴값 하는 사람들이 모이는 장소."
   },
   {
     "name": "강남청담클럽 밤앤밤",
@@ -2494,7 +2563,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "밤앤밤. 새벽 5시 마감, 올나잇 러너의 성지."
   },
   {
     "name": "강남청담클럽 아르떼",
@@ -2531,7 +2601,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "아르떼. 예술과 음악이 충돌하는 지하 공간."
   },
   {
     "name": "압구정클럽 하입",
@@ -2568,7 +2639,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "하입. 트렌드를 선도하는 힙의 진원지."
   },
   {
     "name": "압구정클럽 인트로",
@@ -2605,7 +2677,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "인트로. 밤의 서막을 여는 첫 비트가 울린다."
   },
   {
     "name": "압구정클럽 컬러",
@@ -2642,7 +2715,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "컬러. 오색 조명이 물드는 감각의 공간."
   },
   {
     "name": "압구정클럽 디브릿지",
@@ -2679,7 +2753,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "디브릿지. 낮과 밤을 잇는 다리 위에서."
   },
   {
     "name": "압구정클럽 캔디맨",
@@ -2716,7 +2791,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "캔디맨. 달콤한 유혹이 시작되는 플로어."
   },
   {
     "name": "압구정클럽 무인",
@@ -2753,7 +2829,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "무인. 주인 없는 밤에 자유를 만끽하는 곳."
   },
   {
     "name": "강남청담클럽 아르쥬",
@@ -2790,7 +2867,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "아르쥬. 셀럽들이 사랑하는 프라이빗 공간."
   },
   {
     "name": "이태원클럽 유토피아",
@@ -2827,7 +2905,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "유토피아. 국적 불문 하나 되는 댄스플로어."
   },
   {
     "name": "이태원클럽 메이드",
@@ -2864,7 +2943,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "메이드. 수제 칵테일과 비트의 조화가 좋다."
   },
   {
     "name": "이태원클럽 프리즘",
@@ -2901,7 +2981,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "프리즘. 빛이 갈라지듯 다채로운 밤의 스펙트럼."
   },
   {
     "name": "이태원개판포차",
@@ -2938,7 +3019,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "개판포차. 이태원 뒷골목 자유로운 분위기."
   },
   {
     "name": "홍대클럽 버뮤다",
@@ -2975,7 +3057,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "버뮤다. 빠져들면 탈출 불가능한 삼각지대."
   },
   {
     "name": "홍대클럽 퍼시픽",
@@ -3012,7 +3095,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "퍼시픽. 태평양처럼 광활한 사운드의 스케일."
   },
   {
     "name": "홍대클럽 메이드",
@@ -3049,7 +3133,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "메이드. 인디 감성과 힙합이 공존한다."
   },
   {
     "name": "홍대클럽 도깨비",
@@ -3086,7 +3171,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "도깨비. 방망이 두드리면 신나는 밤이 열린다."
   },
   {
     "name": "노원청춘포차",
@@ -3123,7 +3209,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "청춘포차. 노원 청춘들의 에너지가 터진다."
   },
   {
     "name": "용산드래곤시티",
@@ -3160,7 +3247,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "드래곤시티. 용산 드래곤힐 옆 새로운 선택."
   },
   {
     "name": "서울반얀트리",
@@ -3195,7 +3283,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "반얀트리. 남산 야경과 함께하는 럭셔리 공간."
   },
   {
     "name": "일산클럽 CJ",
@@ -3232,7 +3321,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "CJ. 경기 서북부 클럽 씬의 개척자격 존재."
   },
   {
     "name": "의정부아레나",
@@ -3269,7 +3359,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "아레나. 투기장 같은 열기가 넘치는 의정부."
   },
   {
     "name": "용인사거리별밤",
@@ -3306,7 +3397,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "별밤. 용인 사거리 별빛 아래 교외 클럽."
   },
   {
     "name": "부천클럽 파라곤",
@@ -3343,7 +3435,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "파라곤. 경인 지역 클럽의 모범 답안격 장소."
   },
   {
     "name": "인천파라다이스씨티",
@@ -3380,7 +3473,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "파라다이스시티. 인천 영종도 복합리조트 내부."
   },
   {
     "name": "청주클럽 슈퍼문",
@@ -3417,7 +3511,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "슈퍼문. 청주 충북 하늘의 가장 큰 달."
   },
   {
     "name": "대전설탕클럽",
@@ -3454,7 +3549,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "설탕클럽. 대전 유성구 달콤한 밤의 시작."
   },
   {
     "name": "압구정코드라운지",
@@ -3490,7 +3586,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "코드라운지. 압구정 코딩하듯 정교한 바 세팅."
   },
   {
     "name": "압구정라운지 디엠",
@@ -3526,7 +3623,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "라운지DM. 압구정 커튼 뒤 비밀스러운 대화."
   },
   {
     "name": "압구정이디엇라운지",
@@ -3562,7 +3660,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "이디엇라운지. 25석 소규모 운영의 친밀감."
   },
   {
     "name": "강남호빠 로얄",
@@ -3597,7 +3696,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "로얄. 강남 호스트들의 서비스 퀄리티."
   },
   {
     "name": "부산호빠 스타",
@@ -3633,7 +3733,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "스타. 해운대 스타급 호스트가 맞이한다."
   },
   {
     "name": "장안동호빠 빵빵",
@@ -3669,7 +3770,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "빵빵. 장안동에서 터지는 웃음의 밤."
   },
   {
     "name": "건대호빠 W",
@@ -3705,7 +3807,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "건대W. 건대입구역 여성 전용 야간 공간."
   },
   {
     "name": "강남호빠 보스턴",
@@ -3742,7 +3845,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "보스턴. 강남 전설이 된 데는 이유가 있다."
   },
   {
     "name": "강남호빠 블랙홀",
@@ -3779,7 +3883,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "블랙홀. 어둠 속 빛나는 강남의 선택지."
   },
   {
     "name": "수원호빠 비스트",
@@ -3816,7 +3921,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "비스트. 수원역 앞 호빠 씬의 새 강자."
   },
   {
     "name": "해운대호빠 깐따삐야",
@@ -3853,7 +3959,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "깐따삐야. 해운대 1번가게 바다 보이는 자리."
   },
   {
     "name": "부산호빠 아우라",
@@ -3890,7 +3997,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "아우라. 광안리 뷰와 함께하는 색다른 밤."
   },
   {
     "name": "부산호빠 맨즈",
@@ -3927,7 +4035,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "멘즈. 부산 대표 24시간 고급 서비스."
   },
   {
     "name": "대전호빠 이클립스",
@@ -3963,7 +4072,8 @@
     ],
     "source_urls": [],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "이클립스. 대전 유성에서 월식처럼 빠지는 밤."
   },
   {
     "name": "신림호빠 궁전",
@@ -4001,7 +4111,8 @@
       "https://gwanakh.hobbaya.com/"
     ],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "궁전. 신림역 로터리 관악구 여성들의 아지트."
   },
   {
     "name": "울산호빠 왈츠",
@@ -4039,7 +4150,8 @@
       "https://ulsanhoppa.com/"
     ],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "왈츠. 울산 삼산동에서 왈츠 추듯 우아하게."
   },
   {
     "name": "전주호빠 갤러리",
@@ -4077,7 +4189,8 @@
       "https://jeonjuh.hobbaya.com/"
     ],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "갤러리. 전주 한옥마을 근처 감성 공간."
   },
   {
     "name": "서면호빠 퍼스트",
@@ -4116,6 +4229,7 @@
       "https://www.hobbar.net/"
     ],
     "nickname": "",
-    "nickname_phone": ""
+    "nickname_phone": "",
+    "seo_extra": "퍼스트. 서면 11년 영업 부산 최대 규모 호스트바."
   }
 ]
