@@ -877,7 +877,7 @@ export function MoodMatch({ venues }: { venues: any[] }) {
   return (
     <div style={{ padding: '1.5rem', background: 'linear-gradient(135deg, #F9FAFB, #FFFFFF)', border: '1px solid #8B5CF6', borderRadius: '20px' }}>
       <h3 style={{ marginBottom: '0.25rem', color: '#111111' }}>지금 기분이 어때요?</h3>
-      <p style={{ fontSize: '0.8rem', color: '#666666', marginBottom: '1rem' }}>기분에 맞는 곳을 추천해드립니다</p>
+      <p style={{ fontSize: '0.8rem', color: '#666666', marginBottom: '1rem' }}>기분에 맞는 곳을 추천해준다</p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
         {moods.map(m => (
           <button key={m.label} onClick={() => setMood(m.label)} style={{

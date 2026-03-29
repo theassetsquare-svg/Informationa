@@ -639,7 +639,7 @@ function generateFaq(venue: Venue, _label: string): { q: string; a: string }[] {
     {
       q: '1인 방문도 괜찮은가요?',
       a: venue.cat_slug === 'room' ? '보통 2인 이상 이용을 권장하지만, 전화로 문의하시면 안내받을 수 있습니다.'
-        : venue.cat_slug === 'hoppa' ? '물론입니다. 혼자 방문하는 분도 많으며 매니저가 편하게 안내해드립니다.'
+        : venue.cat_slug === 'hoppa' ? '당연하다. 혼자 오는 분도 많고 매니저가 처음부터 끝까지 챙겨준다.'
         : '바 카운터를 이용하면 혼자서도 자연스럽게 분위기를 즐길 수 있습니다.',
     },
     {
@@ -839,7 +839,7 @@ function generateDescription(venue: Venue, _label: string, _venueIndex = 0): str
 
   desc = desc.replace(/\.\s*\./g, '.').replace(/\s{2,}/g, ' ').trim();
   if (!desc.endsWith('.')) desc += '.';
-  if (desc.length > 155) desc = desc.slice(0, 152) + '...';
+  if (desc.length > 150) desc = desc.slice(0, 147) + '...';
   return desc;
 }
 
