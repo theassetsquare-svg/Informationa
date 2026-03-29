@@ -1,57 +1,50 @@
-# 밤키 BAMKEY
+# 놀쿨 (NOLCOOL) — 전국 나이트·클럽·라운지·룸·요정·호빠 가이드
 > https://informationa.pages.dev
-> 전국 클럽·나이트·라운지·룸·요정·호빠 현장 기반 밤문화 가이드
+> 전국 114곳 밤문화 업소의 현장 기반 가이드
 
 ## 우선 URL
 - 홈: https://informationa.pages.dev/
-- 클럽: https://informationa.pages.dev/clubs/
-- 나이트: https://informationa.pages.dev/nights/
-- 라운지: https://informationa.pages.dev/lounges/
-- 룸: https://informationa.pages.dev/rooms/
-- 요정: https://informationa.pages.dev/yojeongs/
-- 호빠: https://informationa.pages.dev/hoppas/
-- 커뮤니티: https://informationa.pages.dev/community/
-- 랭킹: https://informationa.pages.dev/ranking/
-- 매거진: https://informationa.pages.dev/magazine/
-- 퀴즈: https://informationa.pages.dev/quiz/
+- 클럽 (35곳): https://informationa.pages.dev/clubs/
+- 나이트 (58곳): https://informationa.pages.dev/nights/
+- 라운지 (3곳): https://informationa.pages.dev/lounges/
+- 룸 (2곳): https://informationa.pages.dev/rooms/
+- 요정 (1곳): https://informationa.pages.dev/yojeongs/
+- 호빠 (15곳): https://informationa.pages.dev/hoppas/
 - 사이트맵: https://informationa.pages.dev/sitemap.xml
 
 ## FAQ
 Q: 이 사이트는 무엇인가요?
-A: 전국 103곳의 밤문화 업소(클럽, 나이트, 라운지, 룸, 요정, 호빠) 정보를 한눈에 비교할 수 있는 가이드입니다.
-
-Q: 정보는 어떻게 수집하나요?
-A: 현장 방문과 확인 기반으로 작성합니다. 광고비를 받고 쓴 글이 아닙니다.
+A: 전국 114곳의 밤문화 업소 정보를 비교할 수 있는 가이드입니다.
 
 Q: 만 19세 미만도 이용 가능한가요?
-A: 아닙니다. 이 사이트의 모든 정보는 만 19세 이상 성인을 대상으로 합니다.
+A: 아닙니다. 만 19세 이상 성인 대상입니다.
 
 ## 클럽 (35곳)
-- 강남클럽 레이스 (강남)
+- 강남청담클럽 레이스 (강남)
   https://informationa.pages.dev/club/gangnam-club-race/
-- 강남클럽 사운드 (강남)
+- 강남청담클럽 사운드 (강남)
   https://informationa.pages.dev/club/gangnam-club-sound/
-- 강남클럽 Jack (강남)
+- 강남청담클럽 Jack (강남)
   https://informationa.pages.dev/club/gangnam-club-jack/
-- 강남클럽 피크 (강남)
+- 강남청담클럽 피크 (강남)
   https://informationa.pages.dev/club/gangnam-club-peak/
-- 강남클럽 미로 (강남)
+- 강남청담클럽 미로 (강남)
   https://informationa.pages.dev/club/gangnam-club-miro/
-- 강남클럽 유토피아 (강남)
+- 강남청담클럽 유토피아 (강남)
   https://informationa.pages.dev/club/gangnam-club-utopia/
-- 강남클럽 라퓨타 (강남)
+- 강남청담클럽 라퓨타 (강남)
   https://informationa.pages.dev/club/gangnam-club-laputa/
-- 강남클럽 페이스 (강남)
+- 강남청담클럽 페이스 (강남)
   https://informationa.pages.dev/club/gangnam-club-face/
-- 강남클럽 밤앤밤 (강남)
+- 강남청담클럽 밤앤밤 (강남)
   https://informationa.pages.dev/club/gangnam-club-bamnbam/
-- 강남클럽 아르떼 (강남)
+- 강남청담클럽 아르떼 (강남)
   https://informationa.pages.dev/club/gangnam-club-arte/
-- 압구정클럽 하입 (압구정)
+- 압구정클럽 하입 (서울압구정)
   https://informationa.pages.dev/club/apgujeong-club-hype/
 - 압구정클럽 인트로 (압구정)
   https://informationa.pages.dev/club/apgujeong-club-intro/
-- 압구정클럽 컬러 (압구정)
+- 압구정클럽 컬러 (서울압구정)
   https://informationa.pages.dev/club/apgujeong-club-color/
 - 압구정클럽 디브릿지 (압구정)
   https://informationa.pages.dev/club/apgujeong-club-dbridge/
@@ -59,7 +52,7 @@ A: 아닙니다. 이 사이트의 모든 정보는 만 19세 이상 성인을 �
   https://informationa.pages.dev/club/apgujeong-club-candyman/
 - 압구정클럽 무인 (압구정)
   https://informationa.pages.dev/club/apgujeong-club-muin/
-- 청담클럽 아르쥬 (청담)
+- 강남청담클럽 아르쥬 (서울청담)
   https://informationa.pages.dev/club/cheongdam-club-arjou/
 - 이태원클럽 유토피아 (이태원)
   https://informationa.pages.dev/club/itaewon-club-utopia/
@@ -197,7 +190,7 @@ A: 아닙니다. 이 사이트의 모든 정보는 만 19세 이상 성인을 �
   https://informationa.pages.dev/night/busan-yeonsandong-mul-night/
 - 부산아시아드나이트 (부산)
   https://informationa.pages.dev/night/busan-asiad-night/
-- 부산물나이트 (부산)
+- 부산물나이트 (부산) — 담당: 따봉
   https://informationa.pages.dev/night/busan-mul-night/
 - 울산뉴월드나이트 (울산)
   https://informationa.pages.dev/night/ulsan-newworld-night/
@@ -234,24 +227,40 @@ A: 아닙니다. 이 사이트의 모든 정보는 만 19세 이상 성인을 �
 - 일산명월관요정 (일산) — 담당: 신실장
   https://informationa.pages.dev/yojeong/ilsan-myeongwolgwan-yojeong/
 
-## 호빠 (10곳)
+## 호빠 (15곳)
 - 강남호빠 로얄 (강남)
   https://informationa.pages.dev/hoppa/gangnam-hoppa-royal/
-- 강남호빠 보스턴 (강남)
-  https://informationa.pages.dev/hoppa/gangnam-hoppa-boston/
-- 강남호빠 블랙홀 (강남)
-  https://informationa.pages.dev/hoppa/gangnam-hoppa-blackhole/
 - 부산호빠 스타 (부산)
   https://informationa.pages.dev/hoppa/busan-hoppa-star/
-- 부산호빠 아우라 (부산)
-  https://informationa.pages.dev/hoppa/busan-hoppa-aura/
-- 부산호빠 맨즈 (부산)
-  https://informationa.pages.dev/hoppa/busan-hoppa-menz/
 - 장안동호빠 빵빵 (장안동)
   https://informationa.pages.dev/hoppa/jangandong-hoppa-bbangbbang/
 - 건대호빠 W (건대)
   https://informationa.pages.dev/hoppa/geondae-hoppa-w/
+- 강남호빠 보스턴 (강남)
+  https://informationa.pages.dev/hoppa/gangnam-hoppa-boston/
+- 강남호빠 블랙홀 (강남)
+  https://informationa.pages.dev/hoppa/gangnam-hoppa-blackhole/
 - 수원호빠 비스트 (수원)
   https://informationa.pages.dev/hoppa/suwon-hoppa-beast/
 - 해운대호빠 깐따삐야 (해운대)
   https://informationa.pages.dev/hoppa/haeundae-hoppa-kkantappiya/
+- 부산호빠 아우라 (부산)
+  https://informationa.pages.dev/hoppa/busan-hoppa-aura/
+- 부산호빠 맨즈 (부산)
+  https://informationa.pages.dev/hoppa/busan-hoppa-menz/
+- 대전호빠 이클립스 (대전)
+  https://informationa.pages.dev/hoppa/daejeon-hoppa-eclipse/
+- 신림호빠 궁전 (신림)
+  https://informationa.pages.dev/hoppa/sillim-hoppa-gungjon/
+- 울산호빠 왈츠 (울산)
+  https://informationa.pages.dev/hoppa/ulsan-hoppa-waltz/
+- 전주호빠 갤러리 (전주)
+  https://informationa.pages.dev/hoppa/jeonju-hoppa-gallery/
+- 서면호빠 퍼스트 (부산서면)
+  https://informationa.pages.dev/hoppa/seomyeon-hoppa-first/
+
+## 연락처
+- 광고문의: 카카오톡 besta12
+
+## 메인 사이트
+- https://ilsanroom.pages.dev/
