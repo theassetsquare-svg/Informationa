@@ -135,8 +135,12 @@ export default function CommunityBoard() {
         </div>
       )}
 
-      {/* N빵 계산기 (파티모집 탭) */}
-      {activeBoard === 'party' && <NbbangCalc />}
+      {/* 파티모집 안내 */}
+      {activeBoard === 'party' && (
+        <div style={{ padding: '1.25rem', background: 'var(--bg-alt)', borderRadius: '12px', marginBottom: '1.5rem', border: '1px solid var(--border)' }}>
+          <p style={{ fontSize: '0.95rem', color: 'var(--text-sub)' }}>파티 모집 게시판 — 함께 갈 사람을 구해 보세요</p>
+        </div>
+      )}
 
       {/* 게시글 목록 */}
       <div>
@@ -170,7 +174,7 @@ export default function CommunityBoard() {
       {/* 더 많은 글 */}
       <div style={{ textAlign: 'center', padding: '2rem 0' }}>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-          더 많은 글은 로그인 후 확인할 수 있다.
+          더 많은 글은 놀쿨에서 확인할 수 있다.
         </p>
         <a href="https://ilsanroom.pages.dev" target="_blank" rel="noopener noreferrer"
           style={{
@@ -181,50 +185,6 @@ export default function CommunityBoard() {
           }}>
           놀쿨에서 전체 커뮤니티 보기 →
         </a>
-      </div>
-    </div>
-  );
-}
-
-function NbbangCalc() {
-  const [total, setTotal] = useState('');
-  const [people, setPeople] = useState('');
-  const perPerson = total && people && Number(people) > 0 ? Math.ceil(Number(total) / Number(people)) : 0;
-
-  return (
-    <div style={{
-      padding: '1.25rem', background: 'var(--bg-alt)', borderRadius: '12px',
-      marginBottom: '1.5rem', border: '1px solid var(--border)',
-    }}>
-      <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem' }}>N빵 계산기</h3>
-      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
-        <input
-          type="number"
-          placeholder="총 금액 (원)"
-          value={total}
-          onChange={e => setTotal(e.target.value)}
-          style={{
-            padding: '0.5rem 0.75rem', border: '1px solid var(--border)',
-            borderRadius: '8px', fontSize: '0.9rem', width: '140px',
-            background: 'var(--bg-card)', color: 'var(--text)', fontFamily: 'var(--font-sans)',
-          }}
-        />
-        <span style={{ color: 'var(--text-muted)' }}>÷</span>
-        <input
-          type="number"
-          placeholder="인원 수"
-          value={people}
-          onChange={e => setPeople(e.target.value)}
-          style={{
-            padding: '0.5rem 0.75rem', border: '1px solid var(--border)',
-            borderRadius: '8px', fontSize: '0.9rem', width: '100px',
-            background: 'var(--bg-card)', color: 'var(--text)', fontFamily: 'var(--font-sans)',
-          }}
-        />
-        <span style={{ color: 'var(--text-muted)' }}>=</span>
-        <span style={{ fontWeight: 700, color: 'var(--purple)', fontSize: '1.1rem' }}>
-          {perPerson > 0 ? `${perPerson.toLocaleString()}원` : '—'}
-        </span>
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ export default function StatusPage() {
             <li>Google Analytics 4: 추적 코드 설정</li>
             <li>Microsoft Clarity: 히트맵 분석 설정</li>
             <li>UptimeRobot: 5분마다 다운 체크 설정</li>
-            <li>Supabase 백업: 주 1회 자동 백업</li>
+            <li>정적 빌드: 매 배포 시 전체 페이지 재생성</li>
             <li>커스텀 도메인: Cloudflare Pages 설정에서 연결</li>
           </ul>
         </div>
