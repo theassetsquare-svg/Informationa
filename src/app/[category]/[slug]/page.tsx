@@ -314,11 +314,14 @@ export default function VenueDetailPage({ params }: Props) {
             </section>
           )}
 
-          {/* 키워드 밀도 보강 (커스텀 콘텐츠용) */}
+          {/* 키워드 밀도 보강 (커스텀 콘텐츠용 — 이름 길이별 조절) */}
           <section className="detail-section">
             <div className="container narrow">
               <p style={{ marginBottom: '1rem' }}>{venue.name}{venue.name.endsWith('다') ? '.' : '을(를)'} 검색해서 여기까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.</p>
-              <p>{venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다. {venue.name}{venue.name.endsWith('다') ? '.' : '은(는)'} 한 번 가본 사람이 다시 찾는 데는 이유가 있다.</p>
+              <p style={{ marginBottom: '1rem' }}>{venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.</p>
+              {venue.name.length <= 8 && (
+                <p>솔직히 {venue.name}{venue.name.endsWith('다') ? '.' : '은(는)'} 호불호가 갈릴 수 있다. 근데 직접 가보기 전에 판단하지 말자. {venue.name}{venue.name.endsWith('다') ? '.' : '이(가)'} 이 동네에서 이야기가 되는 건 다 이유가 있거든.</p>
+              )}
             </div>
           </section>
         </>

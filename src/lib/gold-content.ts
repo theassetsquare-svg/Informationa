@@ -603,9 +603,9 @@ function generateNarrative(venue: Venue, label: string): string {
     `솔직히 ${venue.name}${eunNeun(venue.name)} 호불호가 갈릴 수 있다. 근데 직접 가보기 전에 판단하지 말자. 현장 분위기는 글로 전달하기 어렵다.`,
     `${venue.name}${iGa(venue.name)} 이 동네에서 이야기가 되는 건 다 이유가 있다. 와본 사람한테 물어보면 안다.`,
   ];
-  // 이름 길이 기반 kwBoost 조절 — 짧은 이름은 밀도 초과 방지
+  // 이름 길이 기반 kwBoost 조절 — 밀도 1.5~2.5% 타겟
   const nameLen = venue.name.length;
-  const kwCount = nameLen <= 5 ? 0 : nameLen <= 7 ? 1 : 2;
+  const kwCount = nameLen <= 9 ? 0 : nameLen <= 12 ? 1 : 2;
   const kwBoost = kwCount > 0 ? pick(kwBoostTemplates, venue.slug, kwCount, 8) : [];
 
   /* ── 조합: 모든 파트를 합쳐 1000+ 글자 + 키워드 밀도 1.5~2.5% 보장 ── */
