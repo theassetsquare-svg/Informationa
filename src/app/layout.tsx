@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ScrollProgress from '../components/ScrollProgress';
+import ErrorBoundary from '../components/ErrorBoundary';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -52,7 +53,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ScrollProgress />
         <a href="#main" className="sr-only">본문으로 건너뛰기</a>
         <Header />
-        <main id="main">{children}</main>
+        <ErrorBoundary>
+          <main id="main">{children}</main>
+        </ErrorBoundary>
         <Footer />
       </body>
     </html>
