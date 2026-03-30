@@ -116,6 +116,7 @@ export default function MapClient() {
           <a
             key={cat.slug}
             href={cat.link}
+            target="_blank" rel="noopener noreferrer"
             style={{
               display: 'block',
               padding: '1.25rem 1.5rem',

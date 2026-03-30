@@ -93,6 +93,7 @@ export default function GalleryPage() {
                 <a
                   key={venue.slug}
                   href={`/${venue.cat_slug}/${venue.slug}/`}
+                  target="_blank" rel="noopener noreferrer"
                   style={{
                     display: 'block',
                     borderRadius: '12px',

@@ -40,6 +40,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
   return (
     <a
       href={`/${venue.cat_slug}/${venue.slug}/`}
+      target="_blank" rel="noopener noreferrer"
       className="venue-card"
       style={{ textDecoration: 'none', color: 'inherit', flexDirection: 'row' }}
     >
