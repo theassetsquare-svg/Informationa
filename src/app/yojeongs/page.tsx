@@ -7,9 +7,9 @@ const cat = getCategoryContent('yojeong');
 const venues = getVenuesByCategory('yojeong');
 
 export const metadata: Metadata = {
-  title: '요정 추천 | 전국 1곳 완전 가이드 — 놀쿨', description: cat.description,
+  title: '요정 추천 | 전국 1곳 완전 가이드', description: cat.description,
   alternates: { canonical: SITE_URL + '/yojeongs/' },
-  openGraph: { title: '요정 추천 | 전국 1곳 완전 가이드 — 놀쿨', description: cat.description, url: SITE_URL + '/yojeongs/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/yojeongs.png', width: 1200, height: 1200 }] },
+  openGraph: { title: '요정 추천 | 전국 1곳 완전 가이드', description: cat.description, url: SITE_URL + '/yojeongs/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/yojeongs.png', width: 1200, height: 1200 }] },
 };
 
 export default function YojeongsPage() {

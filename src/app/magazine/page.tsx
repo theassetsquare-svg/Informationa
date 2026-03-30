@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import { SITE_URL, SITE_NAME, getAllVenues } from '@/lib/venues';
 
 export const metadata: Metadata = {
-  title: `읽을거리 — 컬럼과 에세이 모음 | ${SITE_NAME}`,
+  title: '읽을거리 — 컬럼과 에세이 모음',
   description: '초행자 입문 에세이, 업종 차이점 칼럼, 솔로 탐방 수기까지. 외출 전 읽어두면 도움 되는 텍스트 묶음.',
   alternates: { canonical: SITE_URL + '/magazine/' },
   openGraph: {
-    title: `읽을거리 — 컬럼과 에세이 모음 | ${SITE_NAME}`,
+    title: '읽을거리 — 컬럼과 에세이 모음',
     description: '초행자 입문 에세이, 업종 차이점 칼럼, 솔로 탐방 수기까지.',
     url: SITE_URL + '/magazine/',
     siteName: SITE_NAME,

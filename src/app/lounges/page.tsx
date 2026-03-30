@@ -7,9 +7,9 @@ const cat = getCategoryContent('lounge');
 const venues = getVenuesByCategory('lounge');
 
 export const metadata: Metadata = {
-  title: '라운지 추천 | 전국 3곳 완전 가이드 — 놀쿨', description: cat.description,
+  title: '라운지 추천 | 전국 3곳 완전 가이드', description: cat.description,
   alternates: { canonical: SITE_URL + '/lounges/' },
-  openGraph: { title: '라운지 추천 | 전국 3곳 완전 가이드 — 놀쿨', description: cat.description, url: SITE_URL + '/lounges/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/lounges.png', width: 1200, height: 1200 }] },
+  openGraph: { title: '라운지 추천 | 전국 3곳 완전 가이드', description: cat.description, url: SITE_URL + '/lounges/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/lounges.png', width: 1200, height: 1200 }] },
 };
 
 export default function LoungesPage() {

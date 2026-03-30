@@ -7,9 +7,9 @@ const cat = getCategoryContent('night');
 const venues = getVenuesByCategory('night');
 
 export const metadata: Metadata = {
-  title: '나이트 추천 | 전국 58곳 완전 가이드 — 놀쿨', description: cat.description,
+  title: '나이트 추천 | 전국 58곳 완전 가이드', description: cat.description,
   alternates: { canonical: SITE_URL + '/nights/' },
-  openGraph: { title: '나이트 추천 | 전국 58곳 완전 가이드 — 놀쿨', description: cat.description, url: SITE_URL + '/nights/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/nights.png', width: 1200, height: 1200 }] },
+  openGraph: { title: '나이트 추천 | 전국 58곳 완전 가이드', description: cat.description, url: SITE_URL + '/nights/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/nights.png', width: 1200, height: 1200 }] },
 };
 
 export default function NightsPage() {

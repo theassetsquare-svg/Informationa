@@ -3,7 +3,7 @@ import { SITE_URL } from '../../../lib/venues';
 import { SITE_NAME } from '../../../lib/gold-content';
 
 export const metadata: Metadata = {
-  title: `커뮤니티 이용규칙 | ${SITE_NAME}`,
+  title: '커뮤니티 이용규칙',
   description: '커뮤니티 이용규칙과 신고 정책 안내.',
   alternates: { canonical: SITE_URL + '/community/guidelines/' },
 };

@@ -924,7 +924,7 @@ export function generateGoldContent(venue: Venue, venueIndex = 0) {
   // nameWithExtras에 이미 있는 2자+ 단어를 tagline에서 제거
   const nameWords = new Set(nameWithExtras.split(/\s+/).filter(w => w.length >= 2));
   hookShort = hookShort.split(/\s+/).filter(w => w.length < 2 || !nameWords.has(w)).join(' ').replace(/^[,\s·]+/, '').trim();
-  const pageTitle = `${nameWithExtras} — ${hookShort} | ${SITE_NAME}`;
+  const pageTitle = `${nameWithExtras} — ${hookShort}`;
 
   return {
     title: pageTitle,

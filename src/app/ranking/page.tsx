@@ -3,11 +3,11 @@ import { SITE_URL, SITE_NAME } from '@/lib/venues';
 import RankingClient from '@/components/RankingClient';
 
 export const metadata: Metadata = {
-  title: `주간 순위표 — 조회수 기반 집계 | ${SITE_NAME}`,
+  title: '주간 순위표 — 조회수 기반 집계',
   description: '조회수 집계로 산출한 주간 순위표. 장르·기간별 필터를 걸어 확인할 수 있다.',
   alternates: { canonical: SITE_URL + '/ranking/' },
   openGraph: {
-    title: `주간 순위표 — 조회수 기반 집계 | ${SITE_NAME}`,
+    title: '주간 순위표 — 조회수 기반 집계',
     description: '조회수 집계로 산출한 주간 순위표.',
     url: SITE_URL + '/ranking/',
     siteName: SITE_NAME,

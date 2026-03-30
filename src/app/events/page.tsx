@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import { SITE_URL, SITE_NAME } from '@/lib/venues';
 
 export const metadata: Metadata = {
-  title: `캘린더 — 월간 스케줄 바로 확인 | ${SITE_NAME}`,
+  title: '캘린더 — 월간 스케줄 바로 확인',
   description: '월간 스케줄 달력. 금토 오프닝부터 월말 스페셜까지 날짜별 일정 표기.',
   alternates: { canonical: SITE_URL + '/events/' },
   openGraph: {
-    title: `캘린더 — 월간 스케줄 바로 확인 | ${SITE_NAME}`,
+    title: '캘린더 — 월간 스케줄 바로 확인',
     description: '월간 스케줄 달력. 금토 오프닝부터 월말 스페셜까지.',
     url: SITE_URL + '/events/',
     siteName: SITE_NAME,

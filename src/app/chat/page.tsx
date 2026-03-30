@@ -3,11 +3,11 @@ import { SITE_URL, SITE_NAME } from '../../lib/venues';
 import ChatClient from '../../components/ChatClient';
 
 export const metadata: Metadata = {
-  title: `챗봇 어시스턴트 — 맞춤 질의응답 | ${SITE_NAME}`,
+  title: '챗봇 어시스턴트 — 맞춤 질의응답',
   description: '예산·지역·무드 조건을 입력하면 맞춤 답변을 생성하는 챗봇. 준비 중이며 곧 오픈.',
   alternates: { canonical: SITE_URL + '/chat/' },
   openGraph: {
-    title: `챗봇 어시스턴트 — 맞춤 질의응답 | ${SITE_NAME}`,
+    title: '챗봇 어시스턴트 — 맞춤 질의응답',
     description: '예산·지역·분위기 조건을 입력하면 맞춤 답변을 생성하는 챗봇.',
     url: SITE_URL + '/chat/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],

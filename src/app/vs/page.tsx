@@ -3,11 +3,11 @@ import { SITE_URL, SITE_NAME } from '../../lib/venues';
 import VsPageClient from '../../components/VsPageClient';
 
 export const metadata: Metadata = {
-  title: `양자택일 투표 — 승자를 골라보자 | ${SITE_NAME}`,
+  title: '양자택일 투표 — 승자를 골라보자',
   description: '두 곳을 나란히 놓고 투표. 매주 새 대진표가 올라오며 승패 통계를 공개한다.',
   alternates: { canonical: SITE_URL + '/vs/' },
   openGraph: {
-    title: `양자택일 투표 — 승자를 골라보자 | ${SITE_NAME}`,
+    title: '양자택일 투표 — 승자를 골라보자',
     description: '두 곳을 나란히 놓고 투표. 매주 새 대진표.',
     url: SITE_URL + '/vs/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],

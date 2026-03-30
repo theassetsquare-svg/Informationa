@@ -3,11 +3,11 @@ import { SITE_URL, SITE_NAME } from '../../lib/venues';
 import RoulettePageClient from '../../components/RoulettePageClient';
 
 export const metadata: Metadata = {
-  title: `랜덤 뽑기 — 행선지 자동 선정 | ${SITE_NAME}`,
+  title: '랜덤 뽑기 — 행선지 자동 선정',
   description: '버튼 한 번으로 랜덤 행선지를 자동 선정. 선택 장애가 올 때 돌려보자.',
   alternates: { canonical: SITE_URL + '/roulette/' },
   openGraph: {
-    title: `랜덤 뽑기 — 행선지 자동 선정 | ${SITE_NAME}`,
+    title: '랜덤 뽑기 — 행선지 자동 선정',
     description: '버튼 한 번으로 랜덤 행선지를 자동 선정.',
     url: SITE_URL + '/roulette/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],

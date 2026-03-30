@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import { SITE_URL, SITE_NAME, getAllVenues } from '@/lib/venues';
 
 export const metadata: Metadata = {
-  title: `포토 아카이브 — 공간 분위기 미리보기 | ${SITE_NAME}`,
+  title: '포토 아카이브 — 공간 분위기 미리보기',
   description: '업장 내부 컷과 외관 사진을 아카이브로 정리. 분위기 파악에 참고하세요.',
   alternates: { canonical: SITE_URL + '/gallery/' },
   openGraph: {
-    title: `포토 아카이브 — 공간 분위기 미리보기 | ${SITE_NAME}`,
+    title: '포토 아카이브 — 공간 분위기 미리보기',
     description: '업장 내부 컷과 외관 사진을 아카이브로 정리.',
     url: SITE_URL + '/gallery/',
     siteName: SITE_NAME,
