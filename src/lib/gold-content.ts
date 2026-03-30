@@ -818,26 +818,47 @@ function generateDescription(venue: Venue, _label: string, _venueIndex = 0): str
   const tag1 = (venue.tags && venue.tags[1]) || '';
   const addr = venue.address || '';
   const kw = venue.keywords || [];
-
   const seoExtra = (venue as any).seo_extra || '';
-  let desc = nm + '. ' + hook;
+  const h = hash(venue.slug + ':desc:v3');
+  const pattern = h % 7;
+
+  // 7가지 패턴으로 유사도 극단 분산
+  const district = venue.district || '';
+  const region = venue.region || '';
+  let desc: string;
+  if (pattern === 0) {
+    desc = nm + '. ' + hook;
+  } else if (pattern === 1) {
+    desc = hook + '. ' + nm + (stn ? ', ' + stn + ' 인근' : '');
+  } else if (pattern === 2) {
+    desc = (seoExtra || hook) + ' — ' + nm;
+  } else if (pattern === 3) {
+    desc = (stn ? stn + '에서 가까운 ' : district + '의 ') + nm + '. ' + (seoExtra || hook);
+  } else if (pattern === 4) {
+    desc = nm + (hrs ? '(' + hrs + ')' : '') + '. ' + hook;
+  } else if (pattern === 5) {
+    desc = district + ' ' + nm + ' — ' + hook;
+  } else {
+    desc = hook + ', ' + nm + '. ' + (seoExtra || '');
+  }
+
   const extras: string[] = [];
+  if (seoExtra && !desc.includes(seoExtra)) extras.push(seoExtra);
   if (stn && !desc.includes(stn)) extras.push(stn);
   if (hrs && !desc.includes(hrs)) extras.push(hrs);
-  if (addr && addr.length < 40 && !desc.includes(addr)) extras.push(addr);
   if (tag0 && !desc.includes(tag0)) extras.push(tag0);
   if (tag1 && !desc.includes(tag1)) extras.push(tag1);
   if (kw[1] && !desc.includes(kw[1])) extras.push(kw[1]);
   if (kw[2] && !desc.includes(kw[2])) extras.push(kw[2]);
+  if (addr && addr.length < 40 && !desc.includes(addr)) extras.push(addr);
   if (nick && !desc.includes(nick)) extras.push(nick + ' 문의');
-  if (seoExtra && !desc.includes(seoExtra)) extras.push(seoExtra);
 
   for (const e of extras) {
     if ((desc + '. ' + e).length > 150) break;
     desc += '. ' + e;
   }
 
-  desc = desc.replace(/\.\s*\./g, '.').replace(/\s{2,}/g, ' ').trim();
+  desc = desc.replace(/\.\s*\./g, '.').replace(/\s{2,}/g, ' ').replace(/—\s*—/g, '—').trim();
   if (!desc.endsWith('.')) desc += '.';
   if (desc.length > 150) desc = desc.slice(0, 147) + '...';
   return desc;
