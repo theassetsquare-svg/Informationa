@@ -836,26 +836,35 @@ function generateDescription(venue: Venue, _label: string, _venueIndex = 0): str
   const kw = venue.keywords || [];
   const seoExtra = (venue as any).seo_extra || '';
   const h = hash(venue.slug + ':desc:v3');
-  const pattern = h % 7;
+  const pattern = h % 10;
 
-  // 7가지 패턴으로 유사도 극단 분산
+  // 10가지 패턴으로 유사도 극단 분산 (같은 지역도 서로 다르게)
   const district = venue.district || '';
   const region = venue.region || '';
+  // 이름의 고유 부분 추출 (마지막 단어 or 상호명)
+  const nameParts = nm.split(' ');
+  const shortName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nm;
   let desc: string;
   if (pattern === 0) {
     desc = nm + '. ' + hook;
   } else if (pattern === 1) {
-    desc = hook + '. ' + nm + (stn ? ', ' + stn + ' 인근' : '');
+    desc = hook + '. ' + nm;
   } else if (pattern === 2) {
     desc = (seoExtra || hook) + ' — ' + nm;
   } else if (pattern === 3) {
-    desc = (stn ? stn + '에서 가까운 ' : district + '의 ') + nm + '. ' + (seoExtra || hook);
+    desc = (stn ? stn + ' 근처 ' : '') + nm + '. ' + (seoExtra || hook);
   } else if (pattern === 4) {
     desc = nm + (hrs ? '(' + hrs + ')' : '') + '. ' + hook;
   } else if (pattern === 5) {
-    desc = district + ' ' + nm + ' — ' + hook;
+    desc = shortName + ', ' + hook + '. ' + nm;
+  } else if (pattern === 6) {
+    desc = hook + ' — ' + district + ' ' + shortName + '. ' + nm;
+  } else if (pattern === 7) {
+    desc = (seoExtra || shortName) + '. ' + nm + ', ' + hook;
+  } else if (pattern === 8) {
+    desc = nm + ' — ' + (seoExtra || hook) + '. ' + (stn || district);
   } else {
-    desc = hook + ', ' + nm + '. ' + (seoExtra || '');
+    desc = hook + '. ' + (stn ? stn + '에서 가까운 ' : '') + nm;
   }
 
   const extras: string[] = [];
