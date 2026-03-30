@@ -594,13 +594,29 @@ function generateNarrative(venue: Venue, label: string): string {
   /* ── 파트 8: 마무리 훅 (CTA 포함) ── */
   const closing = pick(closingHookPool, venue.slug, 2, 7);
 
-  /* ── 조합: 모든 파트를 합쳐 1000+ 글자 보장 ── */
+  /* ── 파트 9: 키워드 밀도 보강 (가게이름 자연 삽입, 목표 1.5~2.5%) ── */
+  const kwBoostTemplates = [
+    `${venue.name}${eulReul(venue.name)} 검색해서 이 글까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
+    `${venue.name}${eunNeun(venue.name)} 한 번 가본 사람이 다시 찾는 데는 이유가 있다. 재방문율이 높다는 건 그만큼 만족도가 높다는 거다.`,
+    `${venue.name}${eulReul(venue.name)} 처음 가는 거라면 주말보다 평일을 추천한다. 여유롭게 분위기를 파악하기 좋거든.`,
+    `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
+    `솔직히 ${venue.name}${eunNeun(venue.name)} 호불호가 갈릴 수 있다. 근데 직접 가보기 전에 판단하지 말자. 현장 분위기는 글로 전달하기 어렵다.`,
+    `${venue.name}${iGa(venue.name)} 이 동네에서 이야기가 되는 건 다 이유가 있다. 와본 사람한테 물어보면 안다.`,
+  ];
+  // 이름 길이 기반 kwBoost 조절 — 짧은 이름은 밀도 초과 방지
+  const nameLen = venue.name.length;
+  const kwCount = nameLen <= 5 ? 0 : nameLen <= 7 ? 1 : 2;
+  const kwBoost = kwCount > 0 ? pick(kwBoostTemplates, venue.slug, kwCount, 8) : [];
+
+  /* ── 조합: 모든 파트를 합쳐 1000+ 글자 + 키워드 밀도 1.5~2.5% 보장 ── */
   const allParts = [
     introPara,
     ...selectedHooks,
     ...locationParas,
+    ...(kwBoost[0] ? [kwBoost[0]] : []),
     ...expParas,
     ...uniqueParas,
+    ...(kwBoost[1] ? [kwBoost[1]] : []),
     ...timeReco,
     ...ftTip,
     ...closing,
