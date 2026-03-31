@@ -11,7 +11,7 @@ export function InfiniteFeed({ venues }: { venues: any[] }) {
   const [count, setCount] = useState(3);
   const [explored, setExplored] = useState(3);
   const loader = useRef<HTMLDivElement>(null);
-  const loadTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const loadTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     const obs = new IntersectionObserver(entries => {
@@ -96,6 +96,7 @@ export function SlotMachine({ venues }: { venues: any[] }) {
     setSpinning(true); setResult(null);
     // 가변 지연: 기대감 극대화 (1~2.5초)
     const duration = 1000 + Math.random() * 1500;
+    clearTimeout(spinTimer.current);
     spinTimer.current = setTimeout(() => {
       const available = venues.filter(v => !history.includes(v.slug));
       const pool = available.length > 0 ? available : venues;
@@ -237,6 +238,7 @@ export function DailyStreak() {
     localStorage.setItem('streak_count', String(streak));
     setClaimed(true);
     setShowReward(true);
+    clearTimeout(rewardTimer.current);
     rewardTimer.current = setTimeout(() => setShowReward(false), 2000);
   };
 
@@ -708,6 +710,7 @@ export function JackpotHunt({ venues }: { venues: any[] }) {
 
   const spin = () => {
     setSpinning(true); setJackpot(false);
+    clearTimeout(jpTimer.current);
     jpTimer.current = setTimeout(() => {
       const picks = Array.from({ length: 3 }, () => venues[Math.floor(Math.random() * venues.length)]);
       const isJackpot = picks[0].cat_slug === picks[1].cat_slug && picks[1].cat_slug === picks[2].cat_slug;
@@ -1026,6 +1029,7 @@ export function MegaSlot({ venues }: { venues: any[] }) {
   useEffect(() => () => clearTimeout(megaTimer.current), []);
   const spin = () => {
     setSpinning(true); setJackpot(false); setSpins(s => s + 1);
+    clearTimeout(megaTimer.current);
     megaTimer.current = setTimeout(() => {
       const r = [0,1,2].map(() => venues[Math.floor(Math.random() * venues.length)]);
       setResults(r); setJackpot(r[0].cat_slug === r[1].cat_slug && r[1].cat_slug === r[2].cat_slug); setSpinning(false);
@@ -1126,6 +1130,7 @@ export function VenueQuizGame({ venues }: { venues: any[] }) {
   const pick = (name: string) => {
     if (selected) return; setSelected(name); setCorrect(q.answer);
     if (name === q.answer) setScore(s => s + 1);
+    clearTimeout(quizTimer.current);
     quizTimer.current = setTimeout(() => { if (round + 1 < maxRounds) { setRound(r => r + 1); setSelected(null); setCorrect(null); setQ(getQ()); } }, 1500);
   };
   const done = round >= maxRounds - 1 && selected;
