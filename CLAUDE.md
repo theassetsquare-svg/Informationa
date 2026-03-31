@@ -2,6 +2,7 @@
 # NOLCOOL — Nightlife Platform (NOT leisure/kids!)
 - Categories: Night Club / Club / Lounge / Room / Yojeong / Hoppa ONLY
 - DO NOT create: kids cafe, waterpark, amusement park, jjimjilbang, escape room, bowling
+- 가족모임 금지! 나이트라이프 전용!
 
 ## ★★★ CRITICAL: base "/" RULE ★★★
 - vite.config.ts → base: "/"
@@ -19,12 +20,21 @@
 ## SEO — Store Name Ranking (1st Priority!)
 - Store name = Region + Type + Business name (ex: 강남클럽 레이스)
 - title: Store name FIRST. NO "놀쿨" in title! Homepage only!
-- meta description: 150 chars MAX! NOT 500+!
+- seoDescription 150자 MAX! NOT 500+!
 - Keyword density 1.5~2.5% (1000chars=5~7times, 2000chars=8~12times)
 - NO keyword stuffing! Natural flow!
 - Similarity under 10%! Keep working until done!
 - hookTitle: Do NOT repeat words from store name!
 - Show report: density% per page. Don't move to next task until done!
+- og:image must be REAL store photo! Not placeholder!
+- robots.txt + sitemap.xml + llms.txt 필수!
+
+## Dwell Time (체류시간 극대화)
+- 본문 1000자 이상!
+- 다음글 추천 (관련 업소 링크)!
+- 비교표 (vs 경쟁업소)!
+- 이미지 3~4장 본문 중간 삽입!
+- 스크롤 진행률 표시!
 
 ## Images
 - No blank image pages! Search 5 levels deep!
@@ -50,6 +60,17 @@
 - persistSession:true + autoRefreshToken:true!
 - Mobile: 16px font, 44px touch, bottom nav fixed, no bar overlap!
 - PC + Mobile bars must not overlap!
+- All external links: target="_blank"!
+- PageSpeed 100점 목표!
+- 파비콘: 보라색 + B!
 - Verify 3 times + check live in incognito mode!
 - Footer: "놀쿨 NOLCOOL" + KakaoTalk besta12
 - 8 stores without advertiser: NO nickname/phone!
+
+## Quality Checklist (매 Step 끝 6단계 검증!)
+1. seoDescription 150자 이내?
+2. 유사도 10% 미만?
+3. 키워드 밀도 1.5~2.5%?
+4. hookTitle에 가게이름 단어 없음?
+5. 금지단어 0건?
+6. target="_blank" 누락 0건?
