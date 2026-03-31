@@ -54,7 +54,7 @@ export function SlideUpHook() {
   useEffect(() => { const t = setTimeout(() => setShow(true), 180000); return () => clearTimeout(t); }, []);
   if (!show || dismissed) return null;
   return (
-    <div style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '100%', maxWidth: '480px', zIndex: 150,
+    <div style={{ position: 'fixed', bottom: '56px', left: '50%', transform: 'translateX(-50%)', width: '100%', maxWidth: '480px', zIndex: 150,
       background: '#FFFFFF', borderTop: '2px solid #8B5CF6', padding: '1.25rem', boxShadow: '0 -4px 20px rgba(0,0,0,0.1)', animation: 'slideUp 0.5s ease-out' }}>
       <button onClick={() => setDismissed(true)} style={{ position: 'absolute', top: '0.5rem', right: '0.75rem', background: 'none', border: 'none', color: '#666666', fontSize: '1.2rem', cursor: 'pointer' }}>×</button>
       <p style={{ color: '#111111', fontWeight: 700, marginBottom: '0.5rem', fontSize: '0.95rem' }}>더 깊은 정보가 기다리고 있습니다</p>
@@ -76,7 +76,7 @@ export function ScrollBannerHook() {
   }, []);
   if (!show || dismissed) return null;
   return (
-    <div style={{ position: 'fixed', bottom: '80px', left: '50%', transform: 'translateX(-50%)', width: 'calc(100% - 2rem)', maxWidth: '460px', zIndex: 140,
+    <div style={{ position: 'fixed', bottom: '120px', left: '50%', transform: 'translateX(-50%)', width: 'calc(100% - 2rem)', maxWidth: '460px', zIndex: 140,
       background: '#FFFFFF', border: '2px solid #8B5CF6', borderRadius: '16px', padding: '1.25rem', textAlign: 'center',
       boxShadow: '0 4px 20px rgba(0,0,0,0.1)', animation: 'fadeInUp 0.4s ease-out' }}>
       <button onClick={() => setDismissed(true)} style={{ position: 'absolute', top: '0.5rem', right: '0.75rem', background: 'none', border: 'none', color: '#666666', fontSize: '1.2rem', cursor: 'pointer' }}>×</button>

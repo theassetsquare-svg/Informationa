@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import BottomNav from '../components/BottomNav';
 import ScrollProgress from '../components/ScrollProgress';
 import ErrorBoundary from '../components/ErrorBoundary';
 import './globals.css';
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
         </ErrorBoundary>
         <Footer />
+        <BottomNav />
       </body>
     </html>
   );
