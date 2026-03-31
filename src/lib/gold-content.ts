@@ -824,7 +824,7 @@ const descFacts = [
   '화장실 깨끗','거울 넓음','파우더룸 별도','드라이어 구비','세면대 2개','비상구 2곳',
 ];
 
-function generateDescription(venue: Venue, _label: string, _venueIndex = 0): string {
+function generateDescription(venue: Venue, _label: string, venueIndex = 0): string {
   const nm = venue.name;
   const hook = venue.card_hook || '';
   const nick = venue.nickname;
@@ -835,50 +835,73 @@ function generateDescription(venue: Venue, _label: string, _venueIndex = 0): str
   const addr = venue.address || '';
   const kw = venue.keywords || [];
   const seoExtra = (venue as any).seo_extra || '';
-  const h = hash(venue.slug + ':desc:v3');
+  // venueIndex를 해시에 포함 → 이름 비슷한 업소도 다른 패턴
+  const h = hash(venue.slug + ':desc:v4:' + venueIndex);
   const pattern = h % 10;
 
-  // 10가지 패턴으로 유사도 극단 분산 (같은 지역도 서로 다르게)
+  // 10가지 패턴으로 유사도 극단 분산
   const district = venue.district || '';
   const region = venue.region || '';
-  // 이름의 고유 부분 추출 (마지막 단어 or 상호명)
   const nameParts = nm.split(' ');
   const shortName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nm;
+  // 고유 차별화 토큰
+  const addrShort = addr ? addr.split(' ').slice(0, 2).join(' ') : '';
+  // 이름에 공백이 있으면 상호명(마지막 단어)을 주어로 → 접두어 그룹 유사도 급감
+  const hasPrefix = nameParts.length > 1;
+  const brandName = hasPrefix ? shortName : nm; // "레이스", "사운드" 등
+  // hook에서 지역명 접두어 제거 → 유사도 감소
+  let cleanHook = hook.replace(new RegExp('^' + region.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*[,·]?\\s*'), '').trim();
+  if (cleanHook.length < 5) cleanHook = hook; // 너무 짧아지면 원본 유지
   let desc: string;
   if (pattern === 0) {
-    desc = nm + '. ' + hook;
+    desc = nm + '. ' + cleanHook;
   } else if (pattern === 1) {
-    desc = hook + '. ' + nm;
+    desc = cleanHook + ' — ' + nm;
   } else if (pattern === 2) {
-    desc = (seoExtra || hook) + ' — ' + nm;
+    desc = brandName + ', ' + cleanHook + '. ' + (addrShort || district);
   } else if (pattern === 3) {
-    desc = (stn ? stn + ' 근처 ' : '') + nm + '. ' + (seoExtra || hook);
+    desc = (stn ? stn + ' ' : '') + nm + '. ' + cleanHook;
   } else if (pattern === 4) {
-    desc = nm + (hrs ? '(' + hrs + ')' : '') + '. ' + hook;
+    desc = brandName + (hrs ? '(' + hrs + ')' : '') + '. ' + cleanHook + '. ' + nm;
   } else if (pattern === 5) {
-    desc = shortName + ', ' + hook + '. ' + nm;
+    desc = cleanHook + '. ' + (addrShort || region) + ' ' + brandName;
   } else if (pattern === 6) {
-    desc = hook + ' — ' + district + ' ' + shortName + '. ' + nm;
+    desc = (addrShort || district) + ' ' + brandName + '. ' + cleanHook;
   } else if (pattern === 7) {
-    desc = (seoExtra || shortName) + '. ' + nm + ', ' + hook;
+    desc = brandName + '. ' + (stn ? stn + ' 인근. ' : '') + cleanHook;
   } else if (pattern === 8) {
-    desc = nm + ' — ' + (seoExtra || hook) + '. ' + (stn || district);
+    desc = (stn || addrShort || region) + ' ' + brandName + ', ' + cleanHook;
   } else {
-    desc = hook + '. ' + (stn ? stn + '에서 가까운 ' : '') + nm;
+    desc = cleanHook + '. ' + brandName + (hrs ? '. ' + hrs : '');
+  }
+  // 풀네임이 없으면 끝에 추가 (SEO 보장)
+  if (!desc.includes(nm)) {
+    const withName = desc + '. ' + nm;
+    if (withName.length <= 150) desc = withName;
   }
 
-  const extras: string[] = [];
-  if (seoExtra && !desc.includes(seoExtra)) extras.push(seoExtra);
-  if (stn && !desc.includes(stn)) extras.push(stn);
-  if (hrs && !desc.includes(hrs)) extras.push(hrs);
-  if (tag0 && !desc.includes(tag0)) extras.push(tag0);
-  if (tag1 && !desc.includes(tag1)) extras.push(tag1);
-  if (kw[1] && !desc.includes(kw[1])) extras.push(kw[1]);
-  if (kw[2] && !desc.includes(kw[2])) extras.push(kw[2]);
-  if (addr && addr.length < 40 && !desc.includes(addr)) extras.push(addr);
-  if (nick && !desc.includes(nick)) extras.push(nick + ' 문의');
+  // extras 순서도 해시로 셔플 → 같은 데이터라도 다른 순서
+  const allExtras: string[] = [];
+  if (seoExtra && !desc.includes(seoExtra)) allExtras.push(seoExtra);
+  if (stn && !desc.includes(stn)) allExtras.push(stn);
+  if (hrs && !desc.includes(hrs)) allExtras.push(hrs);
+  if (tag0 && !desc.includes(tag0)) allExtras.push(tag0);
+  if (tag1 && !desc.includes(tag1)) allExtras.push(tag1);
+  if (kw[1] && !desc.includes(kw[1])) allExtras.push(kw[1]);
+  if (kw[2] && !desc.includes(kw[2])) allExtras.push(kw[2]);
+  if (addr && addr.length < 40 && !desc.includes(addr)) allExtras.push(addr);
+  if (nick && !desc.includes(nick)) allExtras.push(nick + ' 문의');
+  // 유사도 방지: 이미 desc에 있는 단어와 겹치는 extras 제외
+  const descWords = new Set(desc.split(/[\s,.—·]+/).filter(w => w.length >= 2));
+  const filtered = allExtras.filter(e => {
+    const eWords = e.split(/[\s,.]+/).filter(w => w.length >= 2);
+    const overlap = eWords.filter(w => descWords.has(w)).length;
+    return overlap < eWords.length * 0.5; // 50% 이상 겹치면 제외
+  });
+  // 해시 기반 셔플
+  const shuffled = filtered.map((e, i) => ({ e, s: hash(venue.slug + ':ex:' + i) })).sort((a, b) => a.s - b.s).map(x => x.e);
 
-  for (const e of extras) {
+  for (const e of shuffled) {
     if ((desc + '. ' + e).length > 150) break;
     desc += '. ' + e;
   }
