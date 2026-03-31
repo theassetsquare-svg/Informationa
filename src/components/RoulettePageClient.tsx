@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { getAllVenues, CAT_SLUG_TO_LABEL } from '../lib/venues';
 import type { Venue } from '../lib/venues';
 import Roulette from './Roulette';
@@ -19,6 +19,8 @@ export default function RoulettePageClient() {
   const [catResult, setCatResult] = useState<Venue | null>(null);
   const [catSpinning, setCatSpinning] = useState(false);
   const [activeCat, setActiveCat] = useState<string | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timerRef.current), []);
 
   const spinCategory = (catSlug: string) => {
     const filtered = allVenues.filter(v => v.cat_slug === catSlug);
@@ -26,7 +28,7 @@ export default function RoulettePageClient() {
     setCatSpinning(true);
     setCatResult(null);
     setActiveCat(catSlug);
-    setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       const random = filtered[Math.floor(Math.random() * filtered.length)];
       setCatResult(random);
       setCatSpinning(false);

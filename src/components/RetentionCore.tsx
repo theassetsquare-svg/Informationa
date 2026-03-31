@@ -248,6 +248,12 @@ function BackButtonTrap() {
 function MicroRewardParticles() {
   const [particles, setParticles] = useState<{ id: number; x: number; y: number; text: string }[]>([]);
   const nextId = useRef(0);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   useEffect(() => {
     const texts = ['+1', '+1', '+1', '+2', '+3', '+5', '★', '♥'];
@@ -258,7 +264,11 @@ function MicroRewardParticles() {
         const id = nextId.current++;
         const text = texts[Math.floor(Math.random() * texts.length)];
         setParticles(prev => [...prev, { id, x: e.clientX, y: e.clientY, text }]);
-        setTimeout(() => setParticles(prev => prev.filter(p => p.id !== id)), 1200);
+        setTimeout(() => {
+          if (mountedRef.current) {
+            setParticles(prev => prev.filter(p => p.id !== id));
+          }
+        }, 1200);
       }
     };
     document.addEventListener('click', handler);
@@ -427,16 +437,18 @@ function AchievementSystem() {
       }},
     ];
 
+    let badgeTimer: ReturnType<typeof setTimeout>;
     for (const badge of badges) {
       if (!earned.includes(badge.id) && badge.condition()) {
         earned.push(badge.id);
         localStorage.setItem('earned_badges', JSON.stringify(earned));
         setBadgeCount(earned.length);
         setNewBadge(badge.name);
-        setTimeout(() => setNewBadge(null), 3500);
+        badgeTimer = setTimeout(() => setNewBadge(null), 3500);
         break; // 한 번에 하나씩만
       }
     }
+    return () => clearTimeout(badgeTimer);
   }, []);
 
   if (!newBadge) return null;
@@ -466,6 +478,7 @@ function AchievementSystem() {
 function CuriosityGapTeaser() {
   const [show, setShow] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     let shown = false;
@@ -476,11 +489,11 @@ function CuriosityGapTeaser() {
       if (pct >= 0.3 && pct <= 0.5) {
         shown = true;
         setShow(true);
-        setTimeout(() => setShow(false), 5000);
+        hideTimerRef.current = setTimeout(() => setShow(false), 5000);
       }
     };
     window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
+    return () => { window.removeEventListener('scroll', handler); clearTimeout(hideTimerRef.current); };
   }, [dismissed]);
 
   if (!show || dismissed) return null;
@@ -515,6 +528,7 @@ function CuriosityGapTeaser() {
 function SocialRanking() {
   const [show, setShow] = useState(false);
   const [rank, setRank] = useState('');
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -523,10 +537,10 @@ function SocialRanking() {
         const pct = score >= 200 ? 1 : score >= 100 ? 3 : score >= 50 ? 8 : 15;
         setRank(`상위 ${pct}%`);
         setShow(true);
-        setTimeout(() => setShow(false), 4000);
+        hideTimerRef.current = setTimeout(() => setShow(false), 4000);
       }
     }, 60000); // 1분 후
-    return () => clearTimeout(timer);
+    return () => { clearTimeout(timer); clearTimeout(hideTimerRef.current); };
   }, []);
 
   if (!show) return null;
@@ -552,6 +566,7 @@ function SocialRanking() {
 function LossAversionTimer() {
   const [show, setShow] = useState(false);
   const [bonus, setBonus] = useState(0);
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     // 5분 체류 시 보너스 적립 알림
@@ -560,10 +575,10 @@ function LossAversionTimer() {
       if (earned >= 20) {
         setBonus(earned);
         setShow(true);
-        setTimeout(() => setShow(false), 5000);
+        hideTimerRef.current = setTimeout(() => setShow(false), 5000);
       }
     }, 300000); // 5분
-    return () => clearTimeout(timer);
+    return () => { clearTimeout(timer); clearTimeout(hideTimerRef.current); };
   }, []);
 
   if (!show) return null;
@@ -594,6 +609,7 @@ function LossAversionTimer() {
 function ContentDripReveal() {
   const [unlocked, setUnlocked] = useState(0);
   const [toast, setToast] = useState('');
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     const gates = [
@@ -610,10 +626,11 @@ function ContentDripReveal() {
       if (gate) {
         setUnlocked(u => u + 1);
         setToast(gate.msg);
-        setTimeout(() => setToast(''), 3000);
+        clearTimeout(toastTimerRef.current);
+        toastTimerRef.current = setTimeout(() => setToast(''), 3000);
       }
     }, 1000);
-    return () => clearInterval(iv);
+    return () => { clearInterval(iv); clearTimeout(toastTimerRef.current); };
   }, []);
 
   if (!toast) return null;
@@ -645,6 +662,7 @@ function ReturnVisitWelcome() {
   const [venueCount, setVenueCount] = useState(0);
 
   useEffect(() => {
+    let hideTimer: ReturnType<typeof setTimeout>;
     const last = localStorage.getItem('last_visit_date');
     const today = new Date().toDateString();
 
@@ -657,9 +675,10 @@ function ReturnVisitWelcome() {
       setLastVisit(diff === 1 ? '어제' : `${diff}일 전`);
 
       setShow(true);
-      setTimeout(() => setShow(false), 5000);
+      hideTimer = setTimeout(() => setShow(false), 5000);
     }
     localStorage.setItem('last_visit_date', today);
+    return () => clearTimeout(hideTimer);
   }, []);
 
   if (!show) return null;
@@ -688,6 +707,12 @@ function ReturnVisitWelcome() {
    틱톡 원리: 빠르게 스와이프할수록 보상 → 스크롤 습관 강화 */
 function ScrollVelocityReward() {
   const [reward, setReward] = useState('');
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -704,7 +729,11 @@ function ScrollVelocityReward() {
           setReward('⚡ 고속 스크롤! +3P');
           const s = parseInt(sessionStorage.getItem('engagement_score') || '0');
           sessionStorage.setItem('engagement_score', String(s + 3));
-          setTimeout(() => setReward(''), 2000);
+          setTimeout(() => {
+            if (mountedRef.current) {
+              setReward('');
+            }
+          }, 2000);
         }
       }
       lastY = window.scrollY;

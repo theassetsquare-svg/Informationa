@@ -11,18 +11,20 @@ export function InfiniteFeed({ venues }: { venues: any[] }) {
   const [count, setCount] = useState(3);
   const [explored, setExplored] = useState(3);
   const loader = useRef<HTMLDivElement>(null);
+  const loadTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     const obs = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && count < venues.length) {
-        setTimeout(() => {
+        clearTimeout(loadTimerRef.current);
+        loadTimerRef.current = setTimeout(() => {
           setCount(c => Math.min(c + 3, venues.length));
           setExplored(e => Math.min(e + 3, venues.length));
         }, 300);
       }
     }, { threshold: 0.1 });
     if (loader.current) obs.observe(loader.current);
-    return () => obs.disconnect();
+    return () => { obs.disconnect(); clearTimeout(loadTimerRef.current); };
   }, [count, venues.length]);
 
   return (
@@ -87,12 +89,14 @@ export function SlotMachine({ venues }: { venues: any[] }) {
   const [result, setResult] = useState<any>(null);
   const [streak, setStreak] = useState(0);
   const [history, setHistory] = useState<string[]>([]);
+  const spinTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(spinTimer.current), []);
 
   const spin = () => {
     setSpinning(true); setResult(null);
     // 가변 지연: 기대감 극대화 (1~2.5초)
     const duration = 1000 + Math.random() * 1500;
-    setTimeout(() => {
+    spinTimer.current = setTimeout(() => {
       const available = venues.filter(v => !history.includes(v.slug));
       const pool = available.length > 0 ? available : venues;
       const r = pool[Math.floor(Math.random() * pool.length)];
@@ -226,12 +230,14 @@ export function DailyStreak() {
     else { setStreak(last === new Date(Date.now() - 86400000).toDateString() ? s + 1 : 1); }
   }, []);
 
+  const rewardTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(rewardTimer.current), []);
   const claim = () => {
     localStorage.setItem('streak_last', new Date().toDateString());
     localStorage.setItem('streak_count', String(streak));
     setClaimed(true);
     setShowReward(true);
-    setTimeout(() => setShowReward(false), 2000);
+    rewardTimer.current = setTimeout(() => setShowReward(false), 2000);
   };
 
   const dots = Array.from({ length: 7 }, (_, i) => i < (streak % 7 || 7));
@@ -485,18 +491,20 @@ export function SocialProofToast() {
     (n: string) => `${n}님이 호빠 카테고리를 탐색 중입니다`,
   ];
 
+  const hideTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => {
     const showToast = () => {
       const name = names[Math.floor(Math.random() * names.length)];
       const action = actions[Math.floor(Math.random() * actions.length)];
       setMsg(action(name));
       setShow(true);
-      setTimeout(() => setShow(false), 4000);
+      clearTimeout(hideTimer.current);
+      hideTimer.current = setTimeout(() => setShow(false), 4000);
     };
     // 첫 표시: 45초 후, 이후 60~120초 랜덤
     const first = setTimeout(showToast, 45000);
     const interval = setInterval(showToast, 60000 + Math.random() * 60000);
-    return () => { clearTimeout(first); clearInterval(interval); };
+    return () => { clearTimeout(first); clearInterval(interval); clearTimeout(hideTimer.current); };
   }, []);
 
   if (!show) return null;
@@ -572,8 +580,10 @@ export function SwipeFeed({ venues }: { venues: any[] }) {
   const v = shuffled.current[idx % shuffled.current.length];
   const catColors: Record<string, string> = { club: '#7C3AED', night: '#8B5CF6', lounge: '#8B5CF6', room: '#1E3A5F', yojeong: '#059669', hoppa: '#DC2626' };
 
-  const goNext = () => { setDirection('up'); setTimeout(() => { setIdx(i => i + 1); setDirection(null); }, 200); };
-  const goPrev = () => { if (idx > 0) { setDirection('down'); setTimeout(() => { setIdx(i => i - 1); setDirection(null); }, 200); } };
+  const dirTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(dirTimer.current), []);
+  const goNext = () => { setDirection('up'); clearTimeout(dirTimer.current); dirTimer.current = setTimeout(() => { setIdx(i => i + 1); setDirection(null); }, 200); };
+  const goPrev = () => { if (idx > 0) { setDirection('down'); clearTimeout(dirTimer.current); dirTimer.current = setTimeout(() => { setIdx(i => i - 1); setDirection(null); }, 200); } };
 
   return (
     <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px', border: '1px solid #E5E7EB' }}>
@@ -693,10 +703,12 @@ export function JackpotHunt({ venues }: { venues: any[] }) {
   const [result, setResult] = useState<any[]>([]);
   const [jackpot, setJackpot] = useState(false);
   const [tries, setTries] = useState(0);
+  const jpTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(jpTimer.current), []);
 
   const spin = () => {
     setSpinning(true); setJackpot(false);
-    setTimeout(() => {
+    jpTimer.current = setTimeout(() => {
       const picks = Array.from({ length: 3 }, () => venues[Math.floor(Math.random() * venues.length)]);
       const isJackpot = picks[0].cat_slug === picks[1].cat_slug && picks[1].cat_slug === picks[2].cat_slug;
       setResult(picks);
@@ -1010,9 +1022,11 @@ export function MegaSlot({ venues }: { venues: any[] }) {
   const [results, setResults] = useState<any[]>([]);
   const [jackpot, setJackpot] = useState(false);
   const [spins, setSpins] = useState(0);
+  const megaTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(megaTimer.current), []);
   const spin = () => {
     setSpinning(true); setJackpot(false); setSpins(s => s + 1);
-    setTimeout(() => {
+    megaTimer.current = setTimeout(() => {
       const r = [0,1,2].map(() => venues[Math.floor(Math.random() * venues.length)]);
       setResults(r); setJackpot(r[0].cat_slug === r[1].cat_slug && r[1].cat_slug === r[2].cat_slug); setSpinning(false);
     }, 1500);
@@ -1107,10 +1121,12 @@ export function VenueQuizGame({ venues }: { venues: any[] }) {
     return { hint: ans.card_hook, answer: ans.name, options: opts.sort(() => Math.random() - 0.5).map(o => o.name) };
   }, [venues]);
   const [q, setQ] = useState(() => getQ());
+  const quizTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(quizTimer.current), []);
   const pick = (name: string) => {
     if (selected) return; setSelected(name); setCorrect(q.answer);
     if (name === q.answer) setScore(s => s + 1);
-    setTimeout(() => { if (round + 1 < maxRounds) { setRound(r => r + 1); setSelected(null); setCorrect(null); setQ(getQ()); } }, 1500);
+    quizTimer.current = setTimeout(() => { if (round + 1 < maxRounds) { setRound(r => r + 1); setSelected(null); setCorrect(null); setQ(getQ()); } }, 1500);
   };
   const done = round >= maxRounds - 1 && selected;
   return (
@@ -1151,10 +1167,12 @@ export function RetentionRewards() {
   const [badges, setBadges] = useState<string[]>([]);
   const [toast, setToast] = useState('');
   const ms = [{at:60,msg:'🎯 1분! 탐색 초보',b:'탐색초보'},{at:180,msg:'⭐ 3분! 정보 수집가',b:'수집가'},{at:300,msg:'🔥 5분! 마니아',b:'마니아'},{at:600,msg:'💎 10분! VIP',b:'VIP'},{at:900,msg:'👑 15분! 전설',b:'전설'},{at:1800,msg:'🏆 30분! 밤의 제왕',b:'제왕'}];
+  const toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => { const t = setInterval(() => setSec(s => s + 1), 1000); return () => clearInterval(t); }, []);
   useEffect(() => {
     const m = ms.find(x => x.at === sec);
-    if (m && !badges.includes(m.b)) { setBadges(p => [...p, m.b]); setToast(m.msg); setTimeout(() => setToast(''), 4000); }
+    if (m && !badges.includes(m.b)) { setBadges(p => [...p, m.b]); setToast(m.msg); clearTimeout(toastTimer.current); toastTimer.current = setTimeout(() => setToast(''), 4000); }
+    return () => clearTimeout(toastTimer.current);
   }, [sec]);
   const nx = ms.find(x => x.at > sec);
   if (sec < 30) return null;

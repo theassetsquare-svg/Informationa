@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface Venue { name: string; slug: string; cat_slug: string; region: string; card_hook: string; }
 const catLabels: Record<string, string> = { club: '클럽', night: '나이트', lounge: '라운지', room: '룸', yojeong: '요정', hoppa: '호빠' };
@@ -8,11 +8,13 @@ const catLabels: Record<string, string> = { club: '클럽', night: '나이트', 
 export default function Roulette({ venues }: { venues: Venue[] }) {
   const [result, setResult] = useState<Venue | null>(null);
   const [spinning, setSpinning] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timerRef.current), []);
 
   const spin = () => {
     setSpinning(true);
     setResult(null);
-    setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       setResult(venues[Math.floor(Math.random() * venues.length)]);
       setSpinning(false);
     }, 1500);

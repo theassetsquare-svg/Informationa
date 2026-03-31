@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 /* ═══════════════════════════════════════════════════════════
    95분 체류 글로벌 시스템 — layout.tsx에서 모든 페이지 자동 적용
@@ -27,6 +27,7 @@ function PageChainTracker() {
   const [showBonus, setShowBonus] = useState(false);
 
   useEffect(() => {
+    let bonusTimer: ReturnType<typeof setTimeout>;
     const countKey = 'page_chain_count';
     if (!sessionStorage.getItem('page_chain_session')) {
       sessionStorage.setItem('page_chain_session', '1');
@@ -36,10 +37,11 @@ function PageChainTracker() {
     setChain(count);
     if (count >= 3 && count % 3 === 0) {
       setShowBonus(true);
-      setTimeout(() => setShowBonus(false), 3000);
+      bonusTimer = setTimeout(() => setShowBonus(false), 3000);
     }
     const s = parseInt(sessionStorage.getItem('engagement_score') || '0');
     sessionStorage.setItem('engagement_score', String(s + 10));
+    return () => clearTimeout(bonusTimer);
   }, []);
 
   if (chain < 2) return null;
@@ -79,6 +81,7 @@ function PageChainTracker() {
 function ScrollDepthReward() {
   const [toast, setToast] = useState('');
   const [hit, setHit] = useState<Set<number>>(new Set());
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     const rewards = [
@@ -101,7 +104,8 @@ function ScrollDepthReward() {
               setToast(r.msg);
               const s = parseInt(sessionStorage.getItem('engagement_score') || '0');
               sessionStorage.setItem('engagement_score', String(s + r.d));
-              setTimeout(() => setToast(''), 3000);
+              clearTimeout(toastTimerRef.current);
+              toastTimerRef.current = setTimeout(() => setToast(''), 3000);
               break;
             }
           }
@@ -110,7 +114,10 @@ function ScrollDepthReward() {
       });
     };
     window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
+    return () => {
+      window.removeEventListener('scroll', handler);
+      clearTimeout(toastTimerRef.current);
+    };
   }, [hit]);
 
   if (!toast) return null;
@@ -205,6 +212,7 @@ function TimeGatedUnlock() {
   }, []);
 
   useEffect(() => {
+    let toastTimer: ReturnType<typeof setTimeout>;
     const gates = [
       { at: 120, msg: '🔓 2분 보너스! 숨겨진 추천이 해금됩니다' },
       { at: 300, msg: '🔓 5분 달성! VIP 정보 열쇠 획득' },
@@ -220,8 +228,9 @@ function TimeGatedUnlock() {
       setToast(gate.msg);
       const s = parseInt(sessionStorage.getItem('engagement_score') || '0');
       sessionStorage.setItem('engagement_score', String(s + gate.at / 10));
-      setTimeout(() => setToast(''), 4000);
+      toastTimer = setTimeout(() => setToast(''), 4000);
     }
+    return () => clearTimeout(toastTimer);
   }, [sec, unlocked]);
 
   if (!toast) return null;
