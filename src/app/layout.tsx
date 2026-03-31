@@ -4,6 +4,8 @@ import Footer from '../components/Footer';
 import BottomNav from '../components/BottomNav';
 import ScrollProgress from '../components/ScrollProgress';
 import ErrorBoundary from '../components/ErrorBoundary';
+import RetentionCore from '../components/RetentionCore';
+import GlobalEngagementBoost from '../components/GlobalEngagementBoost';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -58,6 +60,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
         </ErrorBoundary>
         <Footer />
+        <RetentionCore />
+        <GlobalEngagementBoost />
         <BottomNav />
       </body>
     </html>

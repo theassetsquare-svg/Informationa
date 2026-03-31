@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { SITE_URL, SITE_NAME } from '../../lib/venues';
+import { SITE_URL, SITE_NAME, getAllVenues } from '../../lib/venues';
 import RoulettePageClient from '../../components/RoulettePageClient';
+import FeaturePageEngagement from '../../components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
   title: '랜덤 뽑기 — 행선지 자동 선정',
@@ -57,6 +58,8 @@ export default function RoulettePage() {
           </div>
         </div>
       </section>
+
+      <FeaturePageEngagement venues={getAllVenues()} />
     </>
   );
 }

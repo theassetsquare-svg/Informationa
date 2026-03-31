@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getCategories, getAllVenues, SITE_NAME, SITE_URL } from '../lib/venues';
 import VenueCard from '../components/VenueCard';
 import SearchBar from '../components/SearchBar';
+import FeaturePageEngagement from '../components/FeaturePageEngagement';
 
 const cats = getCategories();
 const allVenues = getAllVenues();
@@ -277,6 +278,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FeaturePageEngagement venues={allVenues} />
     </>
   );
 }

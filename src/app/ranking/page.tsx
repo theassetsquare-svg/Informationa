@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { SITE_URL, SITE_NAME } from '@/lib/venues';
+import { SITE_URL, SITE_NAME, getAllVenues } from '@/lib/venues';
 import RankingClient from '@/components/RankingClient';
+import FeaturePageEngagement from '@/components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
   title: '주간 순위표 — 조회수 기반 집계',
@@ -38,6 +39,8 @@ export default function RankingPage() {
           <RankingClient />
         </div>
       </section>
+
+      <FeaturePageEngagement venues={getAllVenues()} />
     </>
   );
 }

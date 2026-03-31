@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SITE_URL, SITE_NAME, getAllVenues } from '@/lib/venues';
+import FeaturePageEngagement from '@/components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
   title: '포토 아카이브 — 공간 분위기 미리보기',
@@ -197,6 +198,8 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+
+      <FeaturePageEngagement venues={allVenues} />
     </>
   );
 }

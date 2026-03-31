@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { SITE_URL, SITE_NAME } from '../../lib/venues';
+import { SITE_URL, SITE_NAME, getAllVenues } from '../../lib/venues';
 import VsPageClient from '../../components/VsPageClient';
+import FeaturePageEngagement from '../../components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
   title: '양자택일 투표 — 승자를 골라보자',
@@ -37,6 +38,8 @@ export default function VsPage() {
           <VsPageClient />
         </div>
       </section>
+
+      <FeaturePageEngagement venues={getAllVenues()} />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { SITE_URL, SITE_NAME } from '../../lib/venues';
+import { SITE_URL, SITE_NAME, getAllVenues } from '../../lib/venues';
 import QuizClient from '../../components/QuizClient';
+import FeaturePageEngagement from '../../components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
   title: '성향 진단 10문항 — 나의 유형 찾기',
@@ -35,6 +36,8 @@ export default function QuizPage() {
           <QuizClient />
         </div>
       </section>
+
+      <FeaturePageEngagement venues={getAllVenues()} />
     </>
   );
 }
