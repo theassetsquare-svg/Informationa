@@ -5,7 +5,7 @@ import { loadVenueContent, stripHtml } from '../../../lib/venue-loader';
 import { getVenueImage, getVenueBodyImages, getVenueGalleryImages } from '../../../lib/venue-images';
 import VenueCard from '../../../components/VenueCard';
 import StickyPhoneBar from '../../../components/StickyPhoneBar';
-import { ViewCounter, SecretReveal, VsVote, DailyFortune, InfiniteRecommend, SwipeGallery } from '../../../components/EngagementSuite';
+import { ViewCounter, SecretReveal, VsVote, DailyFortune, InfiniteRecommend, SwipeGallery, BeforeAfter, TimeAttack, ReviewHighlight, MiniMap } from '../../../components/EngagementSuite';
 
 interface Props { params: { category: string; slug: string } }
 
@@ -242,9 +242,10 @@ export default function VenueDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* 오늘 N명 카운터 */}
+      {/* 오늘 N명 카운터 + Time Attack */}
       <div className="container narrow">
         <ViewCounter slug={venue.slug} />
+        {hasPhone && <TimeAttack slug={venue.slug} />}
       </div>
 
       {/* ═══ 본문 — venue-content 있으면 고유 콘텐츠, 없으면 생성 콘텐츠 ═══ */}
@@ -461,18 +462,11 @@ export default function VenueDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* 찾아가는 길 */}
+      {/* 찾아가는 길 (MiniMap) */}
       {(venue.address || venue.station) && (
         <section className="detail-section">
           <div className="container narrow">
-            <h2>찾아가는 길</h2>
-            {venue.address && <p>{venue.address}</p>}
-            {venue.station && <p style={{ marginTop: '0.5rem' }}>{venue.station}</p>}
-            {venue.map_url && (
-              <p style={{ marginTop: '0.5rem' }}>
-                <a href={venue.map_url} target="_blank" rel="noopener noreferrer">지도에서 보기 →</a>
-              </p>
-            )}
+            <MiniMap venue={venue} />
           </div>
         </section>
       )}
@@ -515,11 +509,25 @@ export default function VenueDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* 스와이프 갤러리 (6장) */}
+      {/* 첫 방문 vs 단골 */}
+      <section className="detail-section">
+        <div className="container narrow">
+          <BeforeAfter catSlug={venue.cat_slug} />
+        </div>
+      </section>
+
+      {/* 스와이프 갤러리 (6장 + 사진별 캡션) */}
       <section className="detail-section">
         <div className="container narrow">
           <h2>사진 갤러리</h2>
-          <SwipeGallery images={galleryImages} name={venue.name} />
+          <SwipeGallery images={galleryImages} name={venue.name} catSlug={venue.cat_slug} />
+        </div>
+      </section>
+
+      {/* 직접 가본 손님의 한마디 */}
+      <section className="detail-section">
+        <div className="container narrow">
+          <ReviewHighlight name={venue.name} catSlug={venue.cat_slug} />
         </div>
       </section>
 
