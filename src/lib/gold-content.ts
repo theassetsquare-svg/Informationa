@@ -614,7 +614,7 @@ function generateNarrative(venue: Venue, label: string): string {
   // kwBoost용: 보수적 추정 (+3) → 부족할 때 더 추가
   const estCount = baseNameCount + 3;
   const estDensity = (estCount * nameLen) / estTotal * 100;
-  const kwCount = estDensity >= 1.5 ? 0 : estDensity >= 1.0 ? 1 : estDensity >= 0.5 ? 2 : 3;
+  const kwCount = estDensity >= 1.8 ? 0 : estDensity >= 1.2 ? 1 : estDensity >= 0.6 ? 2 : 3;
   const kwBoost = kwCount > 0 ? pick(kwBoostTemplates, venue.slug, kwCount, 8) : [];
 
   /* ── 조합: 모든 파트를 합쳐 1000+ 글자 + 키워드 밀도 1.5~2.5% 보장 ── */
@@ -639,8 +639,8 @@ function generateNarrative(venue: Venue, label: string): string {
   const pageTotal = finalText.length + 600;
   const pageCount = narrativeCount + 4;
   const pageDensity = (pageCount * nameLen) / pageTotal * 100;
-  if (pageDensity > 2.5 && narrativeCount > 2) {
-    const targetPage = Math.floor(pageTotal * 0.022 / nameLen);
+  if (pageDensity > 2.3 && narrativeCount > 2) {
+    const targetPage = Math.floor(pageTotal * 0.020 / nameLen);
     const narrativeTarget = Math.max(2, targetPage - 4);
     const toRemove = narrativeCount - narrativeTarget;
     if (toRemove > 0) {
