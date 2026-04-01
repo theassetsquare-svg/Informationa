@@ -137,6 +137,43 @@ export default function VenueDetailPage({ params }: Props) {
   // 무한 추천용 같은 카테고리 업소
   const sameCatVenues = allV.filter(v => v.cat_slug === venue.cat_slug && v.slug !== venue.slug).slice(0, 15);
 
+  // VC 키워드 밀도 적응형 부스터
+  const vcBoosterTexts: string[] = [];
+  if (vc) {
+    const hasJ = (s: string): boolean => { const c = s.charCodeAt(s.length - 1); return c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 !== 0; };
+    const eN = hasJ(venue.name) ? '은' : '는';
+    const iG = hasJ(venue.name) ? '이' : '가';
+    const eR = hasJ(venue.name) ? '을' : '를';
+    const vcTextAll = [
+      vc.prologue && stripHtml(vc.prologue),
+      vc.scene1 && stripHtml(vc.scene1),
+      vc.scene2 && stripHtml(vc.scene2),
+      vc.tipSection && stripHtml(vc.tipSection),
+      vc.dialogueSection && stripHtml(vc.dialogueSection),
+      vc.checklist?.join(' '),
+      vc.aiSummary?.join(' '),
+      vc.outro && stripHtml(vc.outro),
+    ].filter(Boolean).join(' ');
+    const nEsc = venue.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const vcMentions = (vcTextAll.match(new RegExp(nEsc, 'g')) || []).length;
+    const estChars = vcTextAll.length + 800;
+    // 커스텀 FAQ → 이름 미포함(h1만 +1), gc.faq → 이름 포함(h1+FAQ +3)
+    const existing = vcMentions + (vc.faqItems && vc.faqItems.length > 0 ? 1 : 3);
+    const target = Math.ceil(estChars * 0.017 / venue.name.length);
+    const needed = Math.max(0, Math.min(8, target - existing));
+    const pool = [
+      `${venue.name}${eR} 검색해서 여기까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
+      `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
+      `솔직히 ${venue.name}${eN} 호불호가 갈릴 수 있다. 근데 직접 가보기 전에 판단하지 말자.`,
+      `${venue.name}${iG} 이 동네에서 이야기가 되는 건 다 이유가 있다. ${venue.name}${eR} 와본 사람한테 물어보면 안다.`,
+      `${venue.name}${eN} 한 번 가본 사람이 다시 찾는 데는 이유가 있다. ${venue.name}의 재방문율이 높다는 건 만족도가 높다는 거다.`,
+      `${venue.name}${eR} 처음 가는 거라면 주말보다 평일을 추천한다. ${venue.name}${eN} 여유 있을 때 가야 제대로 즐긴다.`,
+      `궁금한 게 있으면 ${venue.name}에 직접 전화해보자. ${venue.name}의 현장 상황을 가장 정확하게 알 수 있는 방법이다.`,
+      `${venue.name}${eN} 사진으로 보는 것과 직접 가보는 것이 완전히 다르다. ${venue.name}의 현장 공기감은 화면으로 전달이 안 된다.`,
+    ];
+    for (let i = 0; i < needed && i < pool.length; i++) vcBoosterTexts.push(pool[i]);
+  }
+
   // JSON-LD
   const localBizLd = {
     '@context': 'https://schema.org', '@type': 'NightClub',
@@ -314,16 +351,16 @@ export default function VenueDetailPage({ params }: Props) {
             </section>
           )}
 
-          {/* 키워드 밀도 보강 (커스텀 콘텐츠용 — 이름 길이별 조절) */}
-          <section className="detail-section">
-            <div className="container narrow">
-              <p style={{ marginBottom: '1rem' }}>{venue.name}{venue.name.endsWith('다') ? '.' : '을(를)'} 검색해서 여기까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.</p>
-              <p style={{ marginBottom: '1rem' }}>{venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.</p>
-              {venue.name.length <= 8 && (
-                <p>솔직히 {venue.name}{venue.name.endsWith('다') ? '.' : '은(는)'} 호불호가 갈릴 수 있다. 근데 직접 가보기 전에 판단하지 말자. {venue.name}{venue.name.endsWith('다') ? '.' : '이(가)'} 이 동네에서 이야기가 되는 건 다 이유가 있거든.</p>
-              )}
-            </div>
-          </section>
+          {/* 키워드 밀도 보강 (커스텀 콘텐츠용 — 적응형) */}
+          {vcBoosterTexts.length > 0 && (
+            <section className="detail-section">
+              <div className="container narrow">
+                {vcBoosterTexts.map((text, i) => (
+                  <p key={i} style={{ marginBottom: '1rem' }}>{text}</p>
+                ))}
+              </div>
+            </section>
+          )}
         </>
       ) : (
         <>

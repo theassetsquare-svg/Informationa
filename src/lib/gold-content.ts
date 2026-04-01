@@ -594,18 +594,27 @@ function generateNarrative(venue: Venue, label: string): string {
   /* ── 파트 8: 마무리 훅 (CTA 포함) ── */
   const closing = pick(closingHookPool, venue.slug, 2, 7);
 
-  /* ── 파트 9: 키워드 밀도 보강 (가게이름 자연 삽입, 목표 1.5~2.5%) ── */
+  /* ── 파트 9: 키워드 밀도 보강 (적응형 — 목표 1.5~2.5%) ── */
   const kwBoostTemplates = [
-    `${venue.name}${eulReul(venue.name)} 검색해서 이 글까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
-    `${venue.name}${eunNeun(venue.name)} 한 번 가본 사람이 다시 찾는 데는 이유가 있다. 재방문율이 높다는 건 그만큼 만족도가 높다는 거다.`,
-    `${venue.name}${eulReul(venue.name)} 처음 가는 거라면 주말보다 평일을 추천한다. 여유롭게 분위기를 파악하기 좋거든.`,
-    `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
-    `솔직히 ${venue.name}${eunNeun(venue.name)} 호불호가 갈릴 수 있다. 근데 직접 가보기 전에 판단하지 말자. 현장 분위기는 글로 전달하기 어렵다.`,
-    `${venue.name}${iGa(venue.name)} 이 동네에서 이야기가 되는 건 다 이유가 있다. 와본 사람한테 물어보면 안다.`,
+    `${venue.name}${eulReul(venue.name)} 검색해서 이 글까지 왔다면, ${venue.name}에 대한 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
+    `${venue.name}${eunNeun(venue.name)} 한 번 가본 사람이 다시 찾는 데는 이유가 있다. ${venue.name}의 재방문율이 높다는 건 만족도가 높다는 거다.`,
+    `${venue.name}${eulReul(venue.name)} 처음 가는 거라면 주말보다 평일을 추천한다. ${venue.name}${eunNeun(venue.name)} 여유 있을 때 가야 제대로 즐긴다.`,
+    `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. ${venue.name} 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
+    `솔직히 ${venue.name}${eunNeun(venue.name)} 호불호가 갈릴 수 있다. 근데 ${venue.name}${eulReul(venue.name)} 직접 가보기 전에 판단하지 말자.`,
+    `${venue.name}${iGa(venue.name)} 이 동네에서 이야기가 되는 건 다 이유가 있다. ${venue.name}${eulReul(venue.name)} 와본 사람한테 물어보면 안다.`,
   ];
-  // 이름 길이 반비례 kwBoost — 밀도 1.5~2.5% 타겟 (긴 이름은 기본 등장만으로 충분)
   const nameLen = venue.name.length;
-  const kwCount = nameLen <= 5 ? 4 : nameLen <= 7 ? 2 : nameLen <= 9 ? 1 : 0;
+  // 적응형: 기본 파트 조합 후 실제 밀도 측정 → 필요한 만큼만 보강
+  const baseParts = [introPara, ...selectedHooks, ...locationParas, ...expParas, ...uniqueParas, ...timeReco, ...ftTip, ...closing];
+  const baseText = baseParts.join('\n\n');
+  const nameEsc = venue.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const baseNameCount = (baseText.match(new RegExp(nameEsc, 'g')) || []).length;
+  // 풀 페이지 추정: 서사 + FAQ/정보 ~600자
+  const estTotal = baseText.length + 600;
+  // kwBoost용: 보수적 추정 (+3) → 부족할 때 더 추가
+  const estCount = baseNameCount + 3;
+  const estDensity = (estCount * nameLen) / estTotal * 100;
+  const kwCount = estDensity >= 1.5 ? 0 : estDensity >= 1.0 ? 1 : estDensity >= 0.5 ? 2 : 3;
   const kwBoost = kwCount > 0 ? pick(kwBoostTemplates, venue.slug, kwCount, 8) : [];
 
   /* ── 조합: 모든 파트를 합쳐 1000+ 글자 + 키워드 밀도 1.5~2.5% 보장 ── */
@@ -620,9 +629,34 @@ function generateNarrative(venue: Venue, label: string): string {
     ...timeReco,
     ...ftTip,
     ...closing,
+    ...(kwBoost[2] ? [kwBoost[2]] : []),
   ];
 
-  return allParts.join('\n\n');
+  let finalText = allParts.join('\n\n');
+
+  // 밀도 > 2.5% → 뒤쪽 이름을 대명사로 교체하여 밀도 조절
+  const narrativeCount = (finalText.match(new RegExp(nameEsc, 'g')) || []).length;
+  const pageTotal = finalText.length + 600;
+  const pageCount = narrativeCount + 4;
+  const pageDensity = (pageCount * nameLen) / pageTotal * 100;
+  if (pageDensity > 2.5 && narrativeCount > 2) {
+    const targetPage = Math.floor(pageTotal * 0.022 / nameLen);
+    const narrativeTarget = Math.max(2, targetPage - 4);
+    const toRemove = narrativeCount - narrativeTarget;
+    if (toRemove > 0) {
+      const pronoun = hasJong(venue.name) ? '이곳' : '여기';
+      const parts = finalText.split(venue.name);
+      const keepCount = Math.max(1, parts.length - 1 - toRemove);
+      const rebuilt: string[] = [];
+      for (let i = 0; i < parts.length; i++) {
+        rebuilt.push(parts[i]);
+        if (i < parts.length - 1) rebuilt.push(i < keepCount ? venue.name : pronoun);
+      }
+      finalText = rebuilt.join('');
+    }
+  }
+
+  return finalText;
 }
 
 /* ═══════════════════════════════════════
