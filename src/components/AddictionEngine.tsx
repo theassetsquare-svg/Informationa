@@ -512,7 +512,7 @@ export function SocialProofToast() {
   if (!show) return null;
   return (
     <div style={{
-      position: 'fixed', bottom: '80px', left: '50%', transform: 'translateX(-50%)',
+      position: 'fixed', bottom: '100px', left: '50%', transform: 'translateX(-50%)',
       maxWidth: '360px', width: 'calc(100% - 2rem)', zIndex: 80,
       background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px',
       padding: '0.75rem 1rem', boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
