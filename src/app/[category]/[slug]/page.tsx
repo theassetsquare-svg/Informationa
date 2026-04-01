@@ -572,10 +572,7 @@ export default function VenueDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* 하단 여백: 전화바(52px) + 하단네비(56px) + 여백 */}
-      <div style={{ paddingBottom: hasPhone ? '140px' : '0' }} />
-
-      {/* StickyPhoneBar */}
+      {/* StickyPhoneBar (광고주 있는 업소만) */}
       {hasPhone && <StickyPhoneBar name={venue.name} nickname={venue.nickname} phone={venue.nickname_phone} />}
     </>
   );
