@@ -158,9 +158,7 @@ export default function VenueDetailPage({ params }: Props) {
     const vcMentions = (vcTextAll.match(new RegExp(nEsc, 'g')) || []).length;
     const estChars = vcTextAll.length + 800;
     // 커스텀 FAQ → 이름 미포함(h1만 +1), gc.faq → 이름 포함(h1+FAQ +3)
-    const existing = vcMentions + (vc.faqItems && vc.faqItems.length > 0 ? 1 : 3);
-    const target = Math.ceil(estChars * 0.017 / venue.name.length);
-    const needed = Math.max(0, Math.min(8, target - existing));
+    const faqExtra = vc.faqItems && vc.faqItems.length > 0 ? 1 : 3;
     const pool = [
       `${venue.name}${eR} 검색해서 여기까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
       `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
@@ -171,7 +169,20 @@ export default function VenueDetailPage({ params }: Props) {
       `궁금한 게 있으면 ${venue.name}에 직접 전화해보자. ${venue.name}의 현장 상황을 가장 정확하게 알 수 있는 방법이다.`,
       `${venue.name}${eN} 사진으로 보는 것과 직접 가보는 것이 완전히 다르다. ${venue.name}의 현장 공기감은 화면으로 전달이 안 된다.`,
     ];
-    for (let i = 0; i < needed && i < pool.length; i++) vcBoosterTexts.push(pool[i]);
+    // 반복 측정: 2.0% 미만이면 추가, 2.5% 초과 방지
+    const nRe = new RegExp(nEsc, 'g');
+    let runText = vcTextAll;
+    for (let i = 0; i < pool.length; i++) {
+      const curCount = (runText.match(nRe) || []).length + faqExtra;
+      const curDensity = (curCount * venue.name.length) / (runText.length + 800) * 100;
+      if (curDensity >= 1.7) break;
+      const candidate = runText + ' ' + pool[i];
+      const nextCount = (candidate.match(nRe) || []).length + faqExtra;
+      const nextDensity = (nextCount * venue.name.length) / (candidate.length + 800) * 100;
+      if (nextDensity > 2.5) break;
+      vcBoosterTexts.push(pool[i]);
+      runText = candidate;
+    }
   }
 
   // JSON-LD

@@ -594,65 +594,56 @@ function generateNarrative(venue: Venue, label: string): string {
   /* ── 파트 8: 마무리 훅 (CTA 포함) ── */
   const closing = pick(closingHookPool, venue.slug, 2, 7);
 
-  /* ── 파트 9: 키워드 밀도 보강 (적응형 — 목표 1.5~2.5%) ── */
+  /* ── 파트 9: 키워드 밀도 보강 (1-mention → 2-mention 순서로 세밀 조절) ── */
   const kwBoostTemplates = [
-    `${venue.name}${eulReul(venue.name)} 검색해서 이 글까지 왔다면, ${venue.name}에 대한 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
+    // 1-mention 템플릿 (세밀 조절용)
+    `${venue.name}${eulReul(venue.name)} 검색해서 이 글까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
+    `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
+    `솔직히 ${venue.name}${eunNeun(venue.name)} 호불호가 갈릴 수 있다. 근데 직접 가보기 전에 판단하지 말자. 현장 분위기는 글로 전달하기 어렵다.`,
+    `${venue.name}${iGa(venue.name)} 이 동네에서 이야기가 되는 건 다 이유가 있다. 와본 사람한테 물어보면 안다.`,
+    // 2-mention 템플릿 (적극 보강용)
     `${venue.name}${eunNeun(venue.name)} 한 번 가본 사람이 다시 찾는 데는 이유가 있다. ${venue.name}의 재방문율이 높다는 건 만족도가 높다는 거다.`,
     `${venue.name}${eulReul(venue.name)} 처음 가는 거라면 주말보다 평일을 추천한다. ${venue.name}${eunNeun(venue.name)} 여유 있을 때 가야 제대로 즐긴다.`,
-    `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. ${venue.name} 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
-    `솔직히 ${venue.name}${eunNeun(venue.name)} 호불호가 갈릴 수 있다. 근데 ${venue.name}${eulReul(venue.name)} 직접 가보기 전에 판단하지 말자.`,
-    `${venue.name}${iGa(venue.name)} 이 동네에서 이야기가 되는 건 다 이유가 있다. ${venue.name}${eulReul(venue.name)} 와본 사람한테 물어보면 안다.`,
   ];
   const nameLen = venue.name.length;
-  // 적응형: 기본 파트 조합 후 실제 밀도 측정 → 필요한 만큼만 보강
-  const baseParts = [introPara, ...selectedHooks, ...locationParas, ...expParas, ...uniqueParas, ...timeReco, ...ftTip, ...closing];
-  const baseText = baseParts.join('\n\n');
   const nameEsc = venue.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const baseNameCount = (baseText.match(new RegExp(nameEsc, 'g')) || []).length;
-  // 풀 페이지 추정: 서사 + FAQ/정보 ~600자
-  const estTotal = baseText.length + 600;
-  // kwBoost용: 보수적 추정 (+3) → 부족할 때 더 추가
-  const estCount = baseNameCount + 3;
-  const estDensity = (estCount * nameLen) / estTotal * 100;
-  const kwCount = estDensity >= 1.8 ? 0 : estDensity >= 1.2 ? 1 : estDensity >= 0.6 ? 2 : 3;
-  const kwBoost = kwCount > 0 ? pick(kwBoostTemplates, venue.slug, kwCount, 8) : [];
+  const nameRe = new RegExp(nameEsc, 'g');
 
-  /* ── 조합: 모든 파트를 합쳐 1000+ 글자 + 키워드 밀도 1.5~2.5% 보장 ── */
-  const allParts = [
-    introPara,
-    ...selectedHooks,
-    ...locationParas,
-    ...(kwBoost[0] ? [kwBoost[0]] : []),
-    ...expParas,
-    ...uniqueParas,
-    ...(kwBoost[1] ? [kwBoost[1]] : []),
-    ...timeReco,
-    ...ftTip,
-    ...closing,
-    ...(kwBoost[2] ? [kwBoost[2]] : []),
-  ];
+  /* ── 밀도 반복 보정 — 1.5~2.5% 범위 내 도달할 때까지 ── */
+  const baseParts = [introPara, ...selectedHooks, ...locationParas, ...expParas, ...uniqueParas, ...timeReco, ...ftTip, ...closing];
+  let finalText = baseParts.join('\n\n');
 
-  let finalText = allParts.join('\n\n');
+  // 밀도 측정 (faqBonus: 추가/삭제에 따라 보수적/공격적 추정)
+  const density = (txt: string, faqBonus: number) => {
+    const cnt = (txt.match(nameRe) || []).length;
+    return ((cnt + faqBonus) * nameLen) / (txt.length + 700) * 100;
+  };
 
-  // 밀도 > 2.5% → 뒤쪽 이름을 대명사로 교체하여 밀도 조절
-  const narrativeCount = (finalText.match(new RegExp(nameEsc, 'g')) || []).length;
-  const pageTotal = finalText.length + 600;
-  const pageCount = narrativeCount + 4;
-  const pageDensity = (pageCount * nameLen) / pageTotal * 100;
-  if (pageDensity > 2.3 && narrativeCount > 2) {
-    const targetPage = Math.floor(pageTotal * 0.020 / nameLen);
-    const narrativeTarget = Math.max(2, targetPage - 4);
-    const toRemove = narrativeCount - narrativeTarget;
-    if (toRemove > 0) {
-      const pronoun = hasJong(venue.name) ? '이곳' : '여기';
-      const parts = finalText.split(venue.name);
-      const keepCount = Math.max(1, parts.length - 1 - toRemove);
-      const rebuilt: string[] = [];
-      for (let i = 0; i < parts.length; i++) {
-        rebuilt.push(parts[i]);
-        if (i < parts.length - 1) rebuilt.push(i < keepCount ? venue.name : pronoun);
+  // 1단계: 밀도 < 2.1% → kwBoost 추가 (FAQ 이름 1개만 → +1/+2)
+  for (let i = 0; i < kwBoostTemplates.length; i++) {
+    if (density(finalText, 1) >= 2.1) break;
+    const candidate = finalText + '\n\n' + kwBoostTemplates[i];
+    if (density(candidate, 2) > 2.4) break;
+    finalText = candidate;
+  }
+
+  // 2단계: 밀도 > 2.4% → 뒤쪽 이름을 대명사로 교체 (+2로 측정)
+  if (density(finalText, 2) > 2.4) {
+    const cnt = (finalText.match(nameRe) || []).length;
+    if (cnt > 2) {
+      const target = Math.max(2, Math.floor((finalText.length + 700) * 0.020 / nameLen) - 2);
+      const toRemove = cnt - target;
+      if (toRemove > 0) {
+        const pronoun = hasJong(venue.name) ? '이곳' : '여기';
+        const parts = finalText.split(venue.name);
+        const keep = Math.max(1, parts.length - 1 - toRemove);
+        const rebuilt: string[] = [];
+        for (let i = 0; i < parts.length; i++) {
+          rebuilt.push(parts[i]);
+          if (i < parts.length - 1) rebuilt.push(i < keep ? venue.name : pronoun);
+        }
+        finalText = rebuilt.join('');
       }
-      finalText = rebuilt.join('');
     }
   }
 
@@ -671,7 +662,7 @@ function generateFaq(venue: Venue, _label: string): { q: string; a: string }[] {
         : '요일에 따라 상이합니다. 방문 전 전화로 확인하시면 정확합니다.',
     },
     {
-      q: `${venue.name} 위치가 어디인가요?`,
+      q: '위치가 어디인가요?',
       a: venue.address
         ? `${venue.address}에 위치합니다.${venue.station ? ' ' + venue.station + '에서 접근 가능합니다.' : ''}`
         : `${venue.district} ${venue.region} 소재입니다.${venue.station ? ' ' + venue.station + '에서 접근 가능합니다.' : ' 정확한 위치는 전화 문의가 빠릅니다.'}`,
@@ -723,7 +714,7 @@ function generateFaq(venue: Venue, _label: string): { q: string; a: string }[] {
         : '전화로 미리 문의하면 시스템과 분위기를 상세히 안내받을 수 있습니다.',
     },
     {
-      q: `${venue.name} 문의 연락처가 어떻게 되나요?`,
+      q: '문의 연락처가 어떻게 되나요?',
       a: venue.nickname && venue.nickname_phone
         ? `담당 ${venue.nickname}(${venue.nickname_phone})에게 연락하시면 됩니다.`
         : venue.phone ? `${venue.phone}으로 전화 문의하시면 됩니다.`
