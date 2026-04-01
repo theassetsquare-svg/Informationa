@@ -518,9 +518,32 @@ function generateNarrative(venue: Venue, label: string): string {
   const introFn = introTemplates[hash(venue.slug + ':intro:v2') % introTemplates.length];
   const introPara = introFn(venue, label).replace(/\s{2,}/g, ' ').trim();
 
+  // 유사도 저감: 모든 풀 문장에 업소별 고유 데이터 주입
+  const locWords = [venue.district, venue.region, loc, venue.name];
+  const injectLocal = (s: string, idx = 0) => {
+    let r = s
+      .replace(/이 동네/g, venue.district)
+      .replace(/이 거리/g, venue.district + ' 거리')
+      .replace(/이 상권/g, venue.district + ' 상권')
+      .replace(/이 지역/g, venue.region + ' 지역')
+      .replace(/이 일대/g, venue.district + ' 일대');
+    // 변환 없으면: 문장 끝에 업소/지역 고유 문구 삽입
+    if (r === s) {
+      const suffixes = [
+        ` ${venue.district}에서 이건 꽤 중요한 포인트다.`,
+        ` ${venue.region} 일대에서 이런 디테일은 보기 드물다.`,
+        ` ${venue.district}의 분위기를 아는 사람은 공감할 거다.`,
+        ` ${venue.region}에서 이 정도면 충분히 인정받을 수준이다.`,
+        ` ${venue.district}를 아는 사람이라면 고개를 끄덕일 이야기다.`,
+      ];
+      r = r.replace(/\.$/, '') + '.' + suffixes[idx % suffixes.length];
+    }
+    return r;
+  };
+
   /* ── 파트 2: 오프닝 훅 (분위기 묘사, 카테고리별 풀에서 선택) ── */
   const catHooks = openingHooks[cat] || openingHooks.night;
-  const selectedHooks = pick(catHooks, venue.slug, 2, 1);
+  const selectedHooks = pick(catHooks, venue.slug, 2, 1).map((s, i) => injectLocal(s, i));
 
   /* ── 파트 3: 지역/위치 맥락 ── */
   const locationParas: string[] = [];
@@ -546,12 +569,12 @@ function generateNarrative(venue: Venue, label: string): string {
     locationParas.push(regionVariants[hash(venue.slug + ':reg:v2') % regionVariants.length]);
   }
 
-  // 일반 위치 맥락 (풀에서 선택)
-  const locCtx = pick(locationContextPool, venue.slug, 1, 2);
+  // 일반 위치 맥락 (풀에서 선택 + 업소별 고유화)
+  const locCtx = pick(locationContextPool, venue.slug, 1, 2).map((s, i) => injectLocal(s, i));
   locationParas.push(...locCtx);
 
-  /* ── 파트 4: 경험 묘사 (풀에서 선택) ── */
-  const expParas = pick(experiencePool, venue.slug, 4, 3);
+  /* ── 파트 4: 경험 묘사 (풀에서 선택 + 고유화) ── */
+  const expParas = pick(experiencePool, venue.slug, 4, 3).map((s, i) => injectLocal(s, i));
 
   /* ── 파트 5: 업소 속성 기반 고유 문단 ── */
   const uniqueParas: string[] = [];
@@ -585,14 +608,14 @@ function generateNarrative(venue: Venue, label: string): string {
     uniqueParas.push(tagParas[hash(venue.slug + ':tp:v2') % tagParas.length]);
   }
 
-  /* ── 파트 6: 시간대 추천 (풀에서 선택) ── */
-  const timeReco = pick(timeRecommendPool, venue.slug, 2, 5);
+  /* ── 파트 6: 시간대 추천 (풀에서 선택 + 고유화) ── */
+  const timeReco = pick(timeRecommendPool, venue.slug, 2, 5).map((s, i) => injectLocal(s, i + 2));
 
-  /* ── 파트 7: 첫 방문자 팁 (풀에서 선택) ── */
-  const ftTip = pick(firstTimerTipPool, venue.slug, 2, 6);
+  /* ── 파트 7: 첫 방문자 팁 (풀에서 선택 + 고유화) ── */
+  const ftTip = pick(firstTimerTipPool, venue.slug, 2, 6).map((s, i) => injectLocal(s, i + 3));
 
-  /* ── 파트 8: 마무리 훅 (CTA 포함) ── */
-  const closing = pick(closingHookPool, venue.slug, 2, 7);
+  /* ── 파트 8: 마무리 훅 (CTA 포함, 고유화) ── */
+  const closing = pick(closingHookPool, venue.slug, 2, 7).map((s, i) => injectLocal(s, i + 4));
 
   /* ── 파트 9: 키워드 밀도 보강 (1-mention → 2-mention 순서로 세밀 조절) ── */
   const kwBoostTemplates = [
@@ -669,7 +692,7 @@ function generateFaq(venue: Venue, _label: string): { q: string; a: string }[] {
     },
     {
       q: '입장 연령 기준이 있나요?',
-      a: '만 19세 이상만 출입 가능합니다. 신분증(주민등록증, 운전면허증, 여권)을 반드시 지참하세요.',
+      a: `만 19세 이상만 출입 가능합니다. ${venue.district} 일대 대부분의 업소가 동일하며 신분증(주민등록증, 운전면허증, 여권)을 반드시 지참하세요.`,
     },
     {
       q: '사전 예약이 필요한가요?',
@@ -691,7 +714,7 @@ function generateFaq(venue: Venue, _label: string): { q: string; a: string }[] {
     },
     {
       q: '결제 방법은 어떻게 되나요?',
-      a: '카드 결제 가능합니다. 다만 일부 서비스는 현금만 되는 경우도 있으니 소액 현금을 준비하세요.',
+      a: `${venue.district}에서는 카드 결제가 가능합니다. 다만 일부 서비스는 현금만 되는 경우도 있으니 소액 현금을 준비하세요.`,
     },
     {
       q: '복장 규정이 있나요?',
@@ -721,8 +744,8 @@ function generateFaq(venue: Venue, _label: string): { q: string; a: string }[] {
         : '상단 기본 정보에 기재된 연락처를 참고하세요.',
     },
     {
-      q: '주변에 식사할 곳이 있나요?',
-      a: `${venue.district} 인근에 여러 음식점이 있습니다. 저녁 식사 후 방문하면 자연스러운 코스가 됩니다.`,
+      q: `${venue.district} 근처에 식사할 곳이 있나요?`,
+      a: `${venue.district} 인근에 여러 음식점이 있습니다. ${venue.region}에서 저녁 식사 후 방문하면 자연스러운 코스가 됩니다.`,
     },
   ];
   return pick(allFaq, venue.slug, 7, 10);
@@ -969,9 +992,17 @@ export function generateGoldContent(venue: Venue, venueIndex = 0) {
   const nameWithExtras = deduped.join(' ');
   // "가게이름 — 후킹제목 | 놀쿨" 형식 (tagline에서 이름 중복단어 제거)
   let hookShort = tagline.length > 30 ? tagline.slice(0, 28) + '…' : tagline;
-  // nameWithExtras에 이미 있는 2자+ 단어를 tagline에서 제거
-  const nameWords = new Set(nameWithExtras.split(/\s+/).filter(w => w.length >= 2));
-  hookShort = hookShort.split(/\s+/).filter(w => w.length < 2 || !nameWords.has(w)).join(' ').replace(/^[,\s·]+/, '').trim();
+  // 이름 파트의 모든 단어를 수집 (nameWithExtras + 이름 내부 서브워드)
+  const usedWords = new Set(nameWithExtras.split(/[\s,·—]+/).filter(w => w.length >= 2));
+  // 훅에서: 이름에 이미 있는 단어 제거 + 훅 내부 중복 제거
+  const hookUsed = new Set<string>();
+  hookShort = hookShort.split(/\s+/).filter(w => {
+    const clean = w.replace(/[,·]/g, '');
+    if (clean.length < 2) return true;
+    if (usedWords.has(clean) || hookUsed.has(clean)) return false;
+    hookUsed.add(clean);
+    return true;
+  }).join(' ').replace(/^[,\s·]+/, '').trim();
   const pageTitle = `${nameWithExtras} — ${hookShort}`;
 
   return {
