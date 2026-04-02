@@ -890,6 +890,26 @@ function generateDescription(venue: Venue, _label: string, venueIndex = 0): stri
   // 10가지 패턴으로 유사도 극단 분산
   const district = venue.district || '';
   const region = venue.region || '';
+  // region/district가 이름과 한국어 겹치면 desc에서 별도 사용 안 함
+  const _descKBG = (s: string): Set<string> => {
+    const set = new Set<string>();
+    for (const p of (s.match(/[가-힣]+/g) || [])) {
+      if (p.length >= 2) set.add(p);
+      for (let i = 0; i <= p.length - 2; i++) set.add(p.slice(i, i + 2));
+    }
+    return set;
+  };
+  const nmBG = _descKBG(nm);
+  const regionSafe = (() => {
+    const rBG = _descKBG(region);
+    for (const bg of rBG) if (bg.length >= 2 && nmBG.has(bg)) return '';
+    return region;
+  })();
+  const districtSafe = (() => {
+    const dBG = _descKBG(district);
+    for (const bg of dBG) if (bg.length >= 2 && nmBG.has(bg)) return '';
+    return district;
+  })();
   const nameParts = nm.split(' ');
   const shortName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nm;
   // 고유 차별화 토큰
@@ -897,28 +917,34 @@ function generateDescription(venue: Venue, _label: string, venueIndex = 0): stri
   // 이름에 공백이 있으면 상호명(마지막 단어)을 주어로 → 접두어 그룹 유사도 급감
   const hasPrefix = nameParts.length > 1;
   const brandName = hasPrefix ? shortName : nm; // "레이스", "사운드" 등
-  // hook에서 지역명 접두어 제거 → 유사도 감소
-  let cleanHook = hook.replace(new RegExp('^' + region.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*[,·]?\\s*'), '').trim();
-  if (cleanHook.length < 5) cleanHook = hook; // 너무 짧아지면 원본 유지
+  // hook에서 지역명/구명 접두어 제거 (동/구/시/역 접미사 포함) → 유사도 감소
+  const escRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  let cleanHook = hook.replace(new RegExp('^' + escRe(region) + '(?:동|구|시|역)?\\s*[,·]?\\s*'), '').trim();
+  if (district && district !== region) cleanHook = cleanHook.replace(new RegExp('^' + escRe(district) + '(?:동|구|시|역)?\\s*[,·]?\\s*'), '').trim();
+  // hook 내부에서도 region/district+접미사 단어 제거 (접두어가 아닌 경우)
+  cleanHook = cleanHook.replace(new RegExp('(?:^|\\s)' + escRe(region) + '(?:동|구|시|역)?(?=\\s|,|$)', 'g'), '').trim();
+  if (district) cleanHook = cleanHook.replace(new RegExp('(?:^|\\s)' + escRe(district) + '(?:동|구|시|역)?(?=\\s|,|$)', 'g'), '').trim();
+  cleanHook = cleanHook.replace(/^[,·\s]+/, '').trim();
+  if (cleanHook.length < 5) cleanHook = hook;
   let desc: string;
   if (pattern === 0) {
     desc = nm + '. ' + cleanHook;
   } else if (pattern === 1) {
     desc = cleanHook + ' — ' + nm;
   } else if (pattern === 2) {
-    desc = brandName + ', ' + cleanHook + '. ' + (addrShort || district);
+    desc = brandName + ', ' + cleanHook + (districtSafe ? '. ' + districtSafe : '');
   } else if (pattern === 3) {
     desc = (stn ? stn + ' ' : '') + nm + '. ' + cleanHook;
   } else if (pattern === 4) {
     desc = brandName + (hrs ? '(' + hrs + ')' : '') + '. ' + cleanHook + '. ' + nm;
   } else if (pattern === 5) {
-    desc = cleanHook + '. ' + (addrShort || region) + ' ' + brandName;
+    desc = cleanHook + '. ' + ((addrShort || regionSafe) ? (addrShort || regionSafe) + ' ' : '') + brandName;
   } else if (pattern === 6) {
-    desc = (addrShort || district) + ' ' + brandName + '. ' + cleanHook;
+    desc = ((addrShort || districtSafe) ? (addrShort || districtSafe) + ' ' : '') + brandName + '. ' + cleanHook;
   } else if (pattern === 7) {
     desc = brandName + '. ' + (stn ? stn + ' 인근. ' : '') + cleanHook;
   } else if (pattern === 8) {
-    desc = (stn || addrShort || region) + ' ' + brandName + ', ' + cleanHook;
+    desc = ((stn || addrShort || regionSafe) ? (stn || addrShort || regionSafe) + ' ' : '') + brandName + ', ' + cleanHook;
   } else {
     desc = cleanHook + '. ' + brandName + (hrs ? '. ' + hrs : '');
   }
@@ -939,12 +965,27 @@ function generateDescription(venue: Venue, _label: string, venueIndex = 0): stri
   if (kw[2] && !desc.includes(kw[2])) allExtras.push(kw[2]);
   if (addr && addr.length < 40 && !desc.includes(addr)) allExtras.push(addr);
   if (nick && !desc.includes(nick)) allExtras.push(nick + ' 문의');
-  // 유사도 방지: 이미 desc에 있는 단어와 겹치는 extras 제외
+  // 유사도 방지: 이미 desc에 있는 단어와 겹치는 extras 제외 (바이그램 부분문자열 포함)
+  const korBigramsD = (s: string): Set<string> => {
+    const set = new Set<string>();
+    const parts = s.match(/[가-힣]+/g) || [];
+    for (const p of parts) {
+      if (p.length >= 2) set.add(p);
+      for (let i = 0; i <= p.length - 2; i++) set.add(p.slice(i, i + 2));
+    }
+    return set;
+  };
+  const descBG = korBigramsD(desc);
   const descWords = new Set(desc.split(/[\s,.—·]+/).filter(w => w.length >= 2));
   const filtered = allExtras.filter(e => {
     const eWords = e.split(/[\s,.]+/).filter(w => w.length >= 2);
-    const overlap = eWords.filter(w => descWords.has(w)).length;
-    return overlap < eWords.length * 0.5; // 50% 이상 겹치면 제외
+    const overlap = eWords.filter(w => {
+      if (descWords.has(w)) return true;
+      const wBG = korBigramsD(w);
+      for (const bg of wBG) if (bg.length >= 2 && descBG.has(bg)) return true;
+      return false;
+    }).length;
+    return overlap < eWords.length * 0.5;
   });
   // 해시 기반 셔플
   const shuffled = filtered.map((e, i) => ({ e, s: hash(venue.slug + ':ex:' + i) })).sort((a, b) => a.s - b.s).map(x => x.e);
@@ -955,6 +996,27 @@ function generateDescription(venue: Venue, _label: string, venueIndex = 0): stri
   }
 
   desc = desc.replace(/\.\s*\./g, '.').replace(/\s{2,}/g, ' ').replace(/—\s*—/g, '—').trim();
+
+  // ── 최종 문장 단위 중복 제거: 이미 등장한 한국어 2글자 바이그램이 50%+ 겹치는 문장 삭제 ──
+  const dSentences = desc.split(/(?<=\.)\s+/).filter(s => s.trim().length > 0);
+  const seenBG = new Set<string>();
+  const dedupSentences: string[] = [];
+  for (const sent of dSentences) {
+    const parts = sent.match(/[가-힣]+/g) || [];
+    const bgs: string[] = [];
+    for (const p of parts) {
+      if (p.length >= 2) bgs.push(p);
+      for (let i = 0; i <= p.length - 2; i++) bgs.push(p.slice(i, i + 2));
+    }
+    if (bgs.length === 0) { dedupSentences.push(sent); continue; }
+    const overlap = bgs.filter(b => seenBG.has(b)).length;
+    if (overlap / bgs.length < 0.5) {
+      dedupSentences.push(sent);
+      for (const b of bgs) seenBG.add(b);
+    }
+  }
+  desc = dedupSentences.join(' ');
+
   if (!desc.endsWith('.')) desc += '.';
   if (desc.length > 150) desc = desc.slice(0, 147) + '...';
   return desc;
@@ -974,35 +1036,87 @@ export function generateGoldContent(venue: Venue, venueIndex = 0) {
   const timeSlots = generateTimeSlots(venue);
   const guide = generateGuide(venue);
 
-  // 제목: 풀네임 + (region·label 중 name에 없는 것만 추가) + 단어 중복 제거
+  // ── 한국어 2글자 바이그램 추출 → 합성어 내부 겹침까지 감지 ──
+  const korBigrams = (s: string): Set<string> => {
+    const set = new Set<string>();
+    const parts = s.match(/[가-힣]+/g) || [];
+    for (const p of parts) {
+      if (p.length >= 2) set.add(p);
+      for (let i = 0; i <= p.length - 2; i++) set.add(p.slice(i, i + 2));
+    }
+    return set;
+  };
+  const korOverlap = (a: string, b: string): boolean => {
+    const aB = korBigrams(a);
+    const bB = korBigrams(b);
+    for (const x of aB) if (x.length >= 2 && bB.has(x)) return true;
+    return false;
+  };
+
+  // 제목: 풀네임만 사용 (region·label이 이름과 한글 겹치면 추가 안 함)
   const namePart = venue.name;
   const extras: string[] = [];
-  if (venue.region && !namePart.includes(venue.region)) extras.push(venue.region);
-  if (label && !namePart.includes(label)) extras.push(label);
-  const rawTitle = [namePart, ...extras].join(' ');
-  // 단어 단위 중복 제거 (2글자 이상 단어 기준, 첫 등장만 유지)
-  const titleWords = rawTitle.split(/\s+/);
-  const seen = new Set<string>();
-  const deduped = titleWords.filter(w => {
-    if (w.length < 2) return true;
-    if (seen.has(w)) return false;
-    seen.add(w);
-    return true;
-  });
-  const nameWithExtras = deduped.join(' ');
-  // "가게이름 — 후킹제목 | 놀쿨" 형식 (tagline에서 이름 중복단어 제거)
-  let hookShort = tagline.length > 30 ? tagline.slice(0, 28) + '…' : tagline;
-  // 이름 파트의 모든 단어를 수집 (nameWithExtras + 이름 내부 서브워드)
+  if (venue.region && !namePart.includes(venue.region) && !korOverlap(namePart, venue.region)) extras.push(venue.region);
+  if (label && !namePart.includes(label) && !korOverlap(namePart, label)) extras.push(label);
+  const nameWithExtras = [namePart, ...extras].join(' ');
+
+  // 이름 바이그램 수집 (hook 필터용)
+  const nameBG = korBigrams(nameWithExtras);
   const usedWords = new Set(nameWithExtras.split(/[\s,·—]+/).filter(w => w.length >= 2));
-  // 훅에서: 이름에 이미 있는 단어 제거 + 훅 내부 중복 제거
+
+  // "가게이름 — 후킹제목" 형식 (tagline에서 이름과 겹치는 한국어 단어 제거)
+  let hookShort = tagline.length > 30 ? tagline.slice(0, 28) + '…' : tagline;
   const hookUsed = new Set<string>();
   hookShort = hookShort.split(/\s+/).filter(w => {
     const clean = w.replace(/[,·]/g, '');
     if (clean.length < 2) return true;
     if (usedWords.has(clean) || hookUsed.has(clean)) return false;
+    // 바이그램 겹침 체크: "청담동" ↔ "청담H2O나이트" → "청담" 공유 → 제거
+    const wBG = korBigrams(clean);
+    for (const bg of wBG) if (bg.length >= 2 && nameBG.has(bg)) return false;
     hookUsed.add(clean);
     return true;
   }).join(' ').replace(/^[,\s·]+/, '').trim();
+  // hook 끝이 수식어+조사로 끝나면 (유일의, 최고의 등) 마지막 단어 제거
+  hookShort = hookShort.replace(/\s+\S*[의에은는을를과와]$/, '').trim();
+  // 그래도 너무 짧으면 (3단어 미만) 카테고리 풀에서 대체 tagline 시도
+  if (hookShort.split(/\s+/).filter(w => w.length >= 2).length < 3) {
+    const pools: Record<string, string[]> = {
+      club: clubTaglines, night: nightTaglines, lounge: loungeTaglines,
+      room: roomTaglines, yojeong: yojeongTaglines, hoppa: hoppaTaglines,
+    };
+    const pool = pools[venue.cat_slug] || clubTaglines;
+    for (let attempt = 0; attempt < 10; attempt++) {
+      const candidate = pool[hash(venue.slug + ':tl:fb:' + attempt) % pool.length];
+      let cShort = candidate.length > 30 ? candidate.slice(0, 28) + '…' : candidate;
+      const cFiltered = cShort.split(/\s+/).filter(w => {
+        const clean = w.replace(/[,·]/g, '');
+        if (clean.length < 2) return true;
+        const wBG = korBigrams(clean);
+        for (const bg of wBG) if (bg.length >= 2 && nameBG.has(bg)) return false;
+        return true;
+      }).join(' ').replace(/^[,\s·]+/, '').trim();
+      if (cFiltered.split(/\s+/).filter(w => w.length >= 2).length >= 3) {
+        hookShort = cFiltered;
+        break;
+      }
+    }
+  }
+  // hook 내부 한국어 단어 중복 제거 (비밀/비밀로 → 비밀로만 유지)
+  const hookWords = hookShort.split(/\s+/);
+  const hookSeen = new Set<string>();
+  const hookFinal = hookWords.filter(w => {
+    const k = w.match(/[가-힣]{2,}/g) || [];
+    for (const kw of k) {
+      for (const seen of hookSeen) {
+        if (kw.includes(seen) || seen.includes(kw)) return false;
+      }
+    }
+    for (const kw of k) hookSeen.add(kw);
+    return true;
+  }).join(' ');
+  hookShort = hookFinal || hookShort;
+
   const pageTitle = `${nameWithExtras} — ${hookShort}`;
 
   return {
