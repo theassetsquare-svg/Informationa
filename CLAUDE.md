@@ -27,22 +27,30 @@ Do NOT ask. Just fix. Report all titles when done.
 - Core Web Vitals: LCP<2.5s, INP<200ms, CLS<0.1
 - E-E-A-T: real experience tone. Canonical URL. NEVER duplicate title/content across domains!. og:image 1200x1200 (1:1) every page!
 
-★★★ CRITICAL: CROSS-SITE UNIQUENESS — 0% TITLE/CONTENT MATCH! ★★★
-This domain is DIFFERENT from other sites. Every title and body must be 100% unique.
+★★★★★ CRITICAL: CROSS-DOMAIN DUPLICATE = SEO DEATH! ★★★★★
+Same prompt on different domains = same title = Google DUPLICATE PENALTY!
+Every site, every page = COMPLETELY UNIQUE title + content!
 Similarity between ANY two sites must be under 10%!
+
 [How to make unique]
-- Each site = different hook angle for the same store
-- Site A angle: experience/review ("직접 가봤다")
-- Site B angle: guide/info ("완벽 가이드")
-- Site C angle: comparison/ranking ("TOP 비교")
-- Body text: completely rewrite from scratch! Do NOT reuse sentences!
-- Check: compare this site's titles with all other sites. 0% match!
-[Example — 3 landing sites for "일산명월관요정"]
-Site 1: "일산명월관요정 — 직접 가본 사람만 아는 진짜 이야기"
-Site 2: "일산명월관요정 — 첫 방문자를 위한 완벽 가이드"
-Site 3: "일산명월관요정 — 일산 요정 중 여기를 1순위로 꼽는 이유"
-= 3개 전부 다른 제목! 다른 본문! 다른 각도!
-If ANY title matches another site = FAIL! Rewrite immediately!
+1. Title: NEVER copy from other sites! Create NEW title every time!
+   - Same store, different domain → different hook, different angle
+   - Site A: "일산명월관요정 — 30년 전통의 진짜 이야기"
+   - Site B: "일산명월관요정 — 직접 가본 사람만 아는 것들"
+   - Site C: "일산명월관요정 — 예약 전에 꼭 읽어야 할 글"
+   → 3개 전부 다른 제목!
+2. Content: Same topic, different perspective!
+   - Site A: "분위기 중심" 글 / Site B: "음식 중심" 글 / Site C: "예약/가격 가이드" 글
+   → 같은 가게여도 글 내용이 완전히 다름!
+3. meta description: 전부 다르게!
+4. H2 소제목: 전부 다르게!
+5. Body text: 같은 문장 1개도 겹치면 안 됨!
+
+[Check before writing]
+grep -rn "title" src/ — If ANY title matches another site = CHANGE immediately!
+Google duplicate content = ALL sites drop ranking = 0 traffic = disaster!
+Do NOT reuse any title, description, or body text from other sites!
+Every single word must be freshly written!
 Do NOT ask. Just make it unique. Report all titles when done.
 
 ## NEVER
