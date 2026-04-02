@@ -24,12 +24,12 @@ const top5 = allVenues.filter(v => {
 }).slice(0, 5);
 
 export const metadata: Metadata = {
-  title: '전국 나이트·클럽 114곳 — 단골들만 아는 현장 리스트',
-  description: '전국 나이트, 클럽, 라운지, 룸, 요정, 호빠 114곳을 직접 돌며 정리했다. 분위기·가격대·복장 규정·시간대별 추천까지 한 페이지에 전부. 출발 전에 읽어라.',
+  title: '놀쿨 — 전국 밤문화 114곳, 가기 전에 반드시 읽어라',
+  description: '나이트·클럽·라운지·룸·요정·호빠 114곳을 직접 돌며 현장 정리했다. 분위기·가격대·복장 규정·시간대별 꿀팁까지 한 페이지에 전부 담았다. 출발 전 필독.',
   alternates: { canonical: SITE_URL + '/' },
   openGraph: {
-    title: '전국 나이트·클럽 114곳 — 단골들만 아는 현장 리스트',
-    description: '전국 나이트·클럽·라운지 114곳을 직접 돌며 정리한 현장 리스트. 출발 전에 읽어라.',
+    title: '놀쿨 — 전국 밤문화 114곳, 가기 전에 반드시 읽어라',
+    description: '나이트·클럽·라운지·룸·요정·호빠 114곳 현장 정리. 분위기·가격·복장·시간대 꿀팁 한 페이지 집약. 출발 전 필독.',
     url: SITE_URL + '/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
@@ -41,7 +41,7 @@ export default function HomePage() {
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'WebSite',
     name: SITE_NAME, url: SITE_URL,
-    description: '전국 나이트·클럽·라운지·룸·요정·호빠 114곳을 직접 돌며 정리한 현장 리스트.',
+    description: '나이트·클럽·라운지·룸·요정·호빠 114곳을 직접 돌며 현장 정리한 밤문화 가이드.',
     potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/search?q={search_term_string}`, 'query-input': 'required name=search_term_string' },
   };
 
