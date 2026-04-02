@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/generate-og-images.js && next build && rm -rf dist && mv out dist",
+    "build": "next build && rm -rf dist && mv out dist",
+    "build:og": "node scripts/generate-og-images.js",
     "start": "next start"
   },
   "dependencies": {
