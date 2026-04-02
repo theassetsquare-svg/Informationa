@@ -18,7 +18,17 @@ RIGHT: "장안동호빠 — 직접 가본 사람만 아는 진짜 이야기"
 meta description: 150 chars. Store name + hooking. NO duplicate words!
 Check EVERY page title. Same word appears twice = DELETE immediately!
 Do NOT ask. Just fix. Report all titles when done.
-- react-helmet-async for unique title/meta per page! SPA bots fix!
+- Next.js Metadata API for unique title/meta per page! (metadata export or generateMetadata)
+
+★★★ SPA SEO — 봇이 읽는 title/meta 페이지마다 다르게! ★★★
+Next.js static export = each page gets own HTML with unique head tags.
+Every page component MUST export unique metadata (title + description + og:image).
+- Category pages: export const metadata: Metadata = { title, description, openGraph }
+- Dynamic venue pages: export function generateMetadata() with unique per-venue data
+- Cloudflare Workers (_middleware.ts): add X-Robots-Tag for bot access
+[Verify] curl -A "Googlebot" https://site.com/clubs/ → must show unique title in HTML
+[Verify] Facebook debugger: each URL must show different title/image
+Same title on 2 pages = SEO disaster! Fix immediately!
 ## SEO 2026
 - title: Store name + hook. Under 60 chars
 - meta: 150 chars. H1+H2 with store name 3+ times
