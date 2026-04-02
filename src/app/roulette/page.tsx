@@ -4,12 +4,12 @@ import RoulettePageClient from '../../components/RoulettePageClient';
 import FeaturePageEngagement from '../../components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
-  title: '랜덤 뽑기 — 행선지 자동 선정',
-  description: '버튼 한 번으로 랜덤 행선지를 자동 선정. 선택 장애가 올 때 돌려보자.',
+  title: '오늘 밤 행선지 룰렛 — 선택 장애 해결사',
+  description: '어디 갈지 못 정하겠으면 돌려라. 버튼 한 번으로 오늘 밤 행선지를 운명에 맡긴다.',
   alternates: { canonical: SITE_URL + '/roulette/' },
   openGraph: {
-    title: '랜덤 뽑기 — 행선지 자동 선정',
-    description: '버튼 한 번으로 랜덤 행선지를 자동 선정.',
+    title: '오늘 밤 행선지 룰렛 — 선택 장애 해결사',
+    description: '어디 갈지 못 정하겠으면 돌려라. 운명이 정해준다.',
     url: SITE_URL + '/roulette/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },

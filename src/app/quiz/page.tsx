@@ -4,12 +4,12 @@ import QuizClient from '../../components/QuizClient';
 import FeaturePageEngagement from '../../components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
-  title: '성향 진단 10문항 — 나의 유형 찾기',
-  description: '10문항 객관식으로 6가지 유형 중 본인 성향을 진단. 결과표와 함께 어울리는 장소를 알려준다.',
+  title: '나에게 맞는 유형 찾기 — 성향 테스트 10문항',
+  description: '10개 객관식 질문에 답하면 6가지 유형 중 나에게 맞는 밤 문화 스타일을 진단. 결과에 맞는 장소도 추천한다.',
   alternates: { canonical: SITE_URL + '/quiz/' },
   openGraph: {
-    title: '성향 진단 10문항 — 나의 유형 찾기',
-    description: '10문항 객관식으로 여섯 유형 중 본인 성향을 진단.',
+    title: '나에게 맞는 유형 찾기 — 성향 테스트 10문항',
+    description: '10개 질문으로 나에게 맞는 밤 문화 유형을 진단한다.',
     url: SITE_URL + '/quiz/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },

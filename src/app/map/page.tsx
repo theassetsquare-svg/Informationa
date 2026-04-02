@@ -3,12 +3,12 @@ import { SITE_URL, SITE_NAME } from '@/lib/venues';
 import MapClient from '@/components/MapClient';
 
 export const metadata: Metadata = {
-  title: '위치 탐색 — 반경 필터로 근처 검색',
-  description: '반경 설정 후 근처 스팟을 핀으로 표시. 업종 필터와 거리순 정렬을 지원한다.',
+  title: '내 근처 스팟 지도 — 반경 설정으로 바로 검색',
+  description: '현재 위치 기준 반경을 설정하면 근처 업소가 핀으로 표시된다. 업종 필터와 거리순 정렬 지원.',
   alternates: { canonical: SITE_URL + '/map/' },
   openGraph: {
-    title: '위치 탐색 — 반경 필터로 근처 검색',
-    description: '반경 설정 후 근처 스팟을 핀으로 표시.',
+    title: '내 근처 스팟 지도 — 반경 설정으로 바로 검색',
+    description: '현재 위치 기준 반경 설정으로 근처 업소를 검색한다.',
     url: SITE_URL + '/map/',
     siteName: SITE_NAME,
     locale: 'ko_KR',

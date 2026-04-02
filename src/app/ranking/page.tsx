@@ -4,12 +4,12 @@ import RankingClient from '@/components/RankingClient';
 import FeaturePageEngagement from '@/components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
-  title: '주간 순위표 — 조회수 기반 집계',
-  description: '조회수 집계로 산출한 주간 순위표. 장르·기간별 필터를 걸어 확인할 수 있다.',
+  title: '이번 주 인기 순위 TOP 20 — 조회수 실시간 집계',
+  description: '지금 가장 주목받는 밤 문화 업소 TOP 20. 카테고리별·기간별 필터로 순위 변동을 확인한다.',
   alternates: { canonical: SITE_URL + '/ranking/' },
   openGraph: {
-    title: '주간 순위표 — 조회수 기반 집계',
-    description: '조회수 집계로 산출한 주간 순위표.',
+    title: '이번 주 인기 순위 TOP 20 — 조회수 실시간 집계',
+    description: '지금 가장 주목받는 밤 문화 업소 TOP 20.',
     url: SITE_URL + '/ranking/',
     siteName: SITE_NAME,
     locale: 'ko_KR',

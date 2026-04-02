@@ -24,12 +24,12 @@ const top5 = allVenues.filter(v => {
 }).slice(0, 5);
 
 export const metadata: Metadata = {
-  title: '놀쿨 — 전국 나이트·클럽·라운지·룸·요정·호빠 가이드',
-  description: '전국 114곳 나이트, 클럽, 라운지, 룸, 요정, 호빠 현장 정보를 바로 확인. 지역별·카테고리별 완전 가이드.',
+  title: '전국 나이트·클럽 114곳 총정리 — 이 글 하나면 끝난다',
+  description: '현장 경험자가 전국 나이트, 클럽, 라운지, 룸, 요정, 호빠 114곳을 직접 돌며 정리한 현장 리포트. 지역별 맞춤 추천, 시간대별 가이드, 복장 규정까지 이 한 페이지에 전부 담았다.',
   alternates: { canonical: SITE_URL + '/' },
   openGraph: {
-    title: '놀쿨 — 전국 나이트·클럽·라운지·룸·요정·호빠 가이드',
-    description: '전국 114곳 나이트, 클럽, 라운지, 룸, 요정, 호빠 현장 정보를 바로 확인.',
+    title: '전국 나이트·클럽 114곳 총정리 — 이 글 하나면 끝난다',
+    description: '현장 경험자가 전국 114곳을 직접 돌며 정리한 현장 리포트. 지역별 추천부터 복장 규정까지 전부 담았다.',
     url: SITE_URL + '/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },
@@ -41,7 +41,7 @@ export default function HomePage() {
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'WebSite',
     name: SITE_NAME, url: SITE_URL,
-    description: '전국 114곳 나이트·클럽·라운지·룸·요정·호빠 현장 가이드.',
+    description: '현장 경험자가 전국 114곳 나이트·클럽·라운지·룸·요정·호빠를 직접 돌며 정리한 현장 리포트.',
     potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/search?q={search_term_string}`, 'query-input': 'required name=search_term_string' },
   };
 
@@ -70,10 +70,10 @@ export default function HomePage() {
             놀쿨 GUIDE
           </p>
           <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.4rem)', marginBottom: '0.5rem', color: '#111', lineHeight: 1.3 }}>
-            전국 나이트·클럽·라운지<br />룸·요정·호빠 완전 가이드
+            전국 나이트·클럽·라운지<br />룸·요정·호빠 현장 리포트
           </h1>
           <p style={{ color: '#555', marginBottom: '1.25rem', fontSize: '0.95rem' }}>
-            전국 {allVenues.length}곳 · {year}년 현장 정보
+            전국 {allVenues.length}곳 · {year}년 직접 확인한 현장 정보
           </p>
           <SearchBar venues={allVenues} />
         </div>

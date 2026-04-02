@@ -3,12 +3,12 @@ import { SITE_URL, SITE_NAME, getAllVenues } from '@/lib/venues';
 import FeaturePageEngagement from '@/components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
-  title: '포토 아카이브 — 공간 분위기 미리보기',
-  description: '업장 내부 컷과 외관 사진을 아카이브로 정리. 분위기 파악에 참고하세요.',
+  title: '현장 분위기 사진 아카이브 — 가기 전에 미리보기',
+  description: '전국 밤 문화 업소의 내부 컷과 외관 사진을 모아둔 아카이브. 방문 전 분위기를 눈으로 확인하자.',
   alternates: { canonical: SITE_URL + '/gallery/' },
   openGraph: {
-    title: '포토 아카이브 — 공간 분위기 미리보기',
-    description: '업장 내부 컷과 외관 사진을 아카이브로 정리.',
+    title: '현장 분위기 사진 아카이브 — 가기 전에 미리보기',
+    description: '전국 밤 문화 업소의 내부 컷과 외관 사진 아카이브.',
     url: SITE_URL + '/gallery/',
     siteName: SITE_NAME,
     locale: 'ko_KR',

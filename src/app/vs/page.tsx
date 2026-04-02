@@ -4,12 +4,12 @@ import VsPageClient from '../../components/VsPageClient';
 import FeaturePageEngagement from '../../components/FeaturePageEngagement';
 
 export const metadata: Metadata = {
-  title: '양자택일 투표 — 승자를 골라보자',
-  description: '두 곳을 나란히 놓고 투표. 매주 새 대진표가 올라오며 승패 통계를 공개한다.',
+  title: '업소 대결 투표 — 두 곳 중 어디가 더 나을까',
+  description: '매주 새 대진표로 두 업소를 나란히 비교. 투표하고 다른 사람들의 선택 통계를 확인한다.',
   alternates: { canonical: SITE_URL + '/vs/' },
   openGraph: {
-    title: '양자택일 투표 — 승자를 골라보자',
-    description: '두 곳을 나란히 놓고 투표. 매주 새 대진표.',
+    title: '업소 대결 투표 — 두 곳 중 어디가 더 나을까',
+    description: '매주 새 대진표로 두 업소를 나란히 비교 투표.',
     url: SITE_URL + '/vs/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },

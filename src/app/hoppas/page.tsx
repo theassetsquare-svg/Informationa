@@ -7,9 +7,9 @@ const cat = getCategoryContent('hoppa');
 const venues = getVenuesByCategory('hoppa');
 
 export const metadata: Metadata = {
-  title: '호빠 추천 | 전국 15곳 완전 가이드', description: cat.description,
+  title: '호빠 15곳 비교 — 여성을 위한 프리미엄 선택지', description: cat.description,
   alternates: { canonical: SITE_URL + '/hoppas/' },
-  openGraph: { title: '호빠 추천 | 전국 15곳 완전 가이드', description: cat.description, url: SITE_URL + '/hoppas/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/hoppas.png', width: 1200, height: 1200 }] },
+  openGraph: { title: '호빠 15곳 비교 — 여성을 위한 프리미엄 선택지', description: cat.description, url: SITE_URL + '/hoppas/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/hoppas.png', width: 1200, height: 1200 }] },
 };
 
 export default function HoppasPage() {

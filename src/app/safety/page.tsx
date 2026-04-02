@@ -3,12 +3,12 @@ import { SITE_URL, SITE_NAME } from '../../lib/venues';
 import SafetyClient from '../../components/SafetyClient';
 
 export const metadata: Metadata = {
-  title: '귀가 수칙 — 알코올 계산기·긴급번호',
-  description: '혈중농도 측정기, 긴급 전화번호부, 택시 호출 팁, 위치 공유 설정법. 무사 귀환을 위한 수칙.',
+  title: '무사 귀가 체크리스트 — 음주량 계산기·긴급번호 포함',
+  description: '혈중알코올농도 측정, 긴급 연락처 모음, 심야 택시 확보법, 위치 공유 설정 가이드. 즐기되 안전하게 돌아오는 법.',
   alternates: { canonical: SITE_URL + '/safety/' },
   openGraph: {
-    title: '귀가 수칙 — 알코올 계산기·긴급번호',
-    description: '혈중농도 측정기, 긴급 전화번호부, 택시 호출 팁.',
+    title: '무사 귀가 체크리스트 — 음주량 계산기·긴급번호 포함',
+    description: '혈중알코올농도 측정, 긴급 연락처, 심야 택시 확보법.',
     url: SITE_URL + '/safety/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },

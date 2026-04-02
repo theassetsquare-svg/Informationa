@@ -4,12 +4,12 @@ import { SITE_NAME } from '../../lib/gold-content';
 import CommunityBoard from '../../components/CommunityBoard';
 
 export const metadata: Metadata = {
-  title: '게시판 — 자유글·동행모집·질문답변',
-  description: '자유글, 동행 모집, 질문 답변 게시판. 경험담을 올리고 댓글로 소통하는 열린 마당.',
+  title: '경험담 나누는 게시판 — 후기·동행모집·솔직 질문',
+  description: '방문 후기, 동행 모집, 궁금한 거 질문까지. 직접 다녀온 사람들이 경험을 나누는 공간.',
   alternates: { canonical: SITE_URL + '/community/' },
   openGraph: {
-    title: '게시판 — 자유글·동행모집·질문답변',
-    description: '자유글, 동행 모집, 질문 답변 게시판.',
+    title: '경험담 나누는 게시판 — 후기·동행모집·솔직 질문',
+    description: '방문 후기, 동행 모집, 궁금한 거 질문까지.',
     url: SITE_URL + '/community/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
     images: [{ url: SITE_URL + '/og/home.png', width: 1200, height: 1200 }],
   },

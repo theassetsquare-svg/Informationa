@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import { SITE_URL, SITE_NAME, getAllVenues } from '@/lib/venues';
 
 export const metadata: Metadata = {
-  title: '읽을거리 — 컬럼과 에세이 모음',
-  description: '초행자 입문 에세이, 업종 차이점 칼럼, 솔로 탐방 수기까지. 외출 전 읽어두면 도움 되는 텍스트 묶음.',
+  title: '나가기 전에 읽는 칼럼 — 초행자부터 단골까지',
+  description: '처음 가는 사람을 위한 입문 안내서, 클럽과 나이트 차이점 분석, 솔로 방문 실전 후기까지. 현장 경험에서 나온 텍스트만 모았다.',
   alternates: { canonical: SITE_URL + '/magazine/' },
   openGraph: {
-    title: '읽을거리 — 컬럼과 에세이 모음',
-    description: '초행자 입문 에세이, 업종 차이점 칼럼, 솔로 탐방 수기까지.',
+    title: '나가기 전에 읽는 칼럼 — 초행자부터 단골까지',
+    description: '처음 가는 사람을 위한 입문 안내서부터 솔로 방문 실전 후기까지.',
     url: SITE_URL + '/magazine/',
     siteName: SITE_NAME,
     locale: 'ko_KR',

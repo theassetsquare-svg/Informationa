@@ -7,9 +7,9 @@ const cat = getCategoryContent('club');
 const venues = getVenuesByCategory('club');
 
 export const metadata: Metadata = {
-  title: '클럽 추천 | 전국 35곳 완전 가이드', description: cat.description,
+  title: '클럽 35곳 사운드 현장 비교 — 좋은 플로어만 골랐다', description: cat.description,
   alternates: { canonical: SITE_URL + '/clubs/' },
-  openGraph: { title: '클럽 추천 | 전국 35곳 완전 가이드', description: cat.description, url: SITE_URL + '/clubs/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/clubs.png', width: 1200, height: 1200 }] },
+  openGraph: { title: '클럽 35곳 사운드 현장 비교 — 좋은 플로어만 골랐다', description: cat.description, url: SITE_URL + '/clubs/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/clubs.png', width: 1200, height: 1200 }] },
 };
 
 export default function ClubsPage() {

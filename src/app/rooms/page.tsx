@@ -7,9 +7,9 @@ const cat = getCategoryContent('room');
 const venues = getVenuesByCategory('room');
 
 export const metadata: Metadata = {
-  title: '룸 추천 | 전국 2곳 완전 가이드', description: cat.description,
+  title: '프라이빗 룸 엄선 2곳 — 문 닫으면 우리만의 공간', description: cat.description,
   alternates: { canonical: SITE_URL + '/rooms/' },
-  openGraph: { title: '룸 추천 | 전국 2곳 완전 가이드', description: cat.description, url: SITE_URL + '/rooms/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/rooms.png', width: 1200, height: 1200 }] },
+  openGraph: { title: '프라이빗 룸 엄선 2곳 — 문 닫으면 우리만의 공간', description: cat.description, url: SITE_URL + '/rooms/', siteName: SITE_NAME, locale: 'ko_KR', type: 'website', images: [{ url: SITE_URL + '/og/rooms.png', width: 1200, height: 1200 }] },
 };
 
 export default function RoomsPage() {
