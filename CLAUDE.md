@@ -32,6 +32,5 @@ Do NOT ask. Just fix. Report all titles when done.
 - NEVER use shared content pools! Write UNIQUE 1000+ chars per venue! Takes time = OK! SEO = #1 priority!
 - Time does not matter! Write UNIQUE 1000+ chars per venue! SEO > speed!
 ## NEVER
-- NEVER use shared content pools/arrays! DELETE all shared pools! Time does NOT matter, SEO matters! Write UNIQUE content for EVERY page even if it takes hours! 130 venues x 1000 chars each!
 - Auto page transition. Next.js. Change URLs
 - Brand path. Stuffing. Baby/family/kids images. No family content (parents birthday/family gathering/reunion/anniversary = DELETE!). Banned adult words (adult/prostitution/illegal = DELETE ALL!). Adult words
