@@ -518,8 +518,17 @@ function generateNarrative(venue: Venue, label: string): string {
   const introFn = introTemplates[hash(venue.slug + ':intro:v2') % introTemplates.length];
   const introPara = introFn(venue, label).replace(/\s{2,}/g, ' ').trim();
 
-  // 유사도 저감: 모든 풀 문장에 업소별 고유 데이터 주입
+  // 유사도 저감: 모든 풀 문장에 업소별 고유 데이터 대규모 주입
   const locWords = [venue.district, venue.region, loc, venue.name];
+  const kw0 = (venue.keywords && venue.keywords[0]) || venue.district;
+  const kw1 = (venue.keywords && venue.keywords[1]) || label;
+  const kw2 = (venue.keywords && venue.keywords[2]) || venue.region;
+  const tag0 = (venue.tags && venue.tags[0]) || '';
+  const tag1 = (venue.tags && venue.tags[1]) || '';
+  const nick = venue.nickname || '담당자';
+  const stn = venue.station || '';
+  const hrs = venue.hours || '';
+
   const injectLocal = (s: string, idx = 0) => {
     let r = s
       .replace(/이 동네/g, venue.district)
@@ -527,7 +536,6 @@ function generateNarrative(venue: Venue, label: string): string {
       .replace(/이 상권/g, venue.district + ' 상권')
       .replace(/이 지역/g, venue.region + ' 지역')
       .replace(/이 일대/g, venue.district + ' 일대');
-    // 변환 없으면: 문장 끝에 업소/지역 고유 문구 삽입
     if (r === s) {
       const suffixes = [
         ` ${venue.district}에서 이건 꽤 중요한 포인트다.`,
@@ -573,8 +581,8 @@ function generateNarrative(venue: Venue, label: string): string {
   const locCtx = pick(locationContextPool, venue.slug, 1, 2).map((s, i) => injectLocal(s, i));
   locationParas.push(...locCtx);
 
-  /* ── 파트 4: 경험 묘사 (풀에서 선택 + 고유화) ── */
-  const expParas = pick(experiencePool, venue.slug, 4, 3).map((s, i) => injectLocal(s, i));
+  /* ── 파트 4: 경험 묘사 (풀에서 2개만 선택 + 고유화) ── */
+  const expParas = pick(experiencePool, venue.slug, 2, 3).map((s, i) => injectLocal(s, i));
 
   /* ── 파트 5: 업소 속성 기반 고유 문단 ── */
   const uniqueParas: string[] = [];
@@ -603,19 +611,69 @@ function generateNarrative(venue: Venue, label: string): string {
     const tag = venue.tags[hash(venue.slug + ':tg:v2') % venue.tags.length];
     const tagParas = [
       `${tag} 일대를 자주 찾는 사람이라면 ${venue.name}${eunNeun(venue.name)} 이미 들어봤을 것이다. 아직 안 가봤다면 다음 기회에 한번 들러보자. 분명 새로운 기준이 생길 것이다.`,
-      `${tag}에서 밤을 보내본 적이 있다면 이곳과 비교해보는 것도 재밌다. ${venue.name}${eunNeun(venue.name)} 그 비교의 기준을 새로 세워줄 곳이다.`,
+      `${tag}에서 밤을 보내본 적이 있다면 ${venue.name}과 비교해보는 것도 재밌다. ${venue.name}${eunNeun(venue.name)} 그 비교의 기준을 새로 세워줄 곳이다.`,
     ];
     uniqueParas.push(tagParas[hash(venue.slug + ':tp:v2') % tagParas.length]);
   }
 
-  /* ── 파트 6: 시간대 추천 (풀에서 선택 + 고유화) ── */
-  const timeReco = pick(timeRecommendPool, venue.slug, 2, 5).map((s, i) => injectLocal(s, i + 2));
+  // ── venue 고유 데이터 기반 추가 문단 (유사도 대폭 저감) ──
+  const vKw = venue.keywords || [];
+  const vTags = venue.tags || [];
+  const vAddr = venue.address || '';
+  const vCardVal = (venue as any).card_value || '';
 
-  /* ── 파트 7: 첫 방문자 팁 (풀에서 선택 + 고유화) ── */
-  const ftTip = pick(firstTimerTipPool, venue.slug, 2, 6).map((s, i) => injectLocal(s, i + 3));
+  // 키워드 기반 고유 문단
+  if (vKw.length >= 2) {
+    uniqueParas.push(`${vKw[0]}${eunNeun(vKw[0])} ${venue.name}${eulReul(venue.name)} 설명하는 첫 번째 키워드다. 그리고 ${vKw[1]}${iGa(vKw[1])} 두 번째. 이 두 가지를 직접 체험하러 오는 사람이 대부분이다. ${venue.district}에서 이 조합을 갖춘 곳은 ${venue.name}${iGa(venue.name)} 유일하다.`);
+  }
+  if (vKw.length >= 3) {
+    uniqueParas.push(`${venue.name}${eulReul(venue.name)} 검색하면 ${vKw[0]}, ${vKw[1]}, ${vKw[2]} 같은 단어가 따라붙는다. 이게 다 이유가 있다. ${venue.district}에서 ${venue.name}만의 색깔이 분명하기 때문이다.`);
+  }
 
-  /* ── 파트 8: 마무리 훅 (CTA 포함, 고유화) ── */
-  const closing = pick(closingHookPool, venue.slug, 2, 7).map((s, i) => injectLocal(s, i + 4));
+  // 태그 조합 기반
+  if (vTags.length >= 2) {
+    uniqueParas.push(`${vTags[0]}과 ${vTags[1]}${iGa(vTags[1])} 만나는 곳. ${venue.name}${eunNeun(venue.name)} 이 두 가지 무드를 동시에 제공한다. ${venue.region}에서 이런 조합은 쉽게 찾기 어렵다.`);
+  }
+  if (vTags.length >= 3) {
+    uniqueParas.push(`${venue.name}${eulReul(venue.name)} 세 단어로 요약하면: ${vTags[0]}, ${vTags[1]}, ${vTags[2]}. 이 세 가지가 ${venue.district}에서 ${venue.name}${eulReul(venue.name)} 특별하게 만드는 요소다.`);
+  }
+
+  // 주소 기반
+  if (vAddr) {
+    const addrParts = vAddr.split(' ');
+    const addrDetail = addrParts.length > 2 ? addrParts.slice(0, 3).join(' ') : vAddr;
+    uniqueParas.push(`${venue.name}${eunNeun(venue.name)} ${addrDetail}에 위치해 있다. 이 동선을 알면 ${venue.district} 일대를 처음 방문하는 사람도 헤맬 일이 없다. ${nick}에게 미리 연락하면 정확한 진입 경로를 안내받을 수 있다.`);
+  }
+
+  // 영업시간 기반
+  if (hrs) {
+    uniqueParas.push(`${venue.name}${eunNeun(venue.name)} ${hrs}에 운영된다. 이 시간대에 맞춰 ${venue.district} 근처에서 저녁을 먹고 오면 동선이 완벽해진다. ${nick}에게 전화하면 당일 영업 여부를 바로 확인할 수 있다.`);
+  }
+
+  // 교통편 기반
+  if (stn) {
+    uniqueParas.push(`${stn}에서 ${venue.name}까지는 도보로 금방이다. ${venue.district} 상권이 역 주변에 밀집해 있어서 걸어가는 동안 볼거리도 충분하다. 대중교통을 이용하면 주차 걱정 없이 편하게 ${venue.name}${eulReul(venue.name)} 즐길 수 있다.`);
+  }
+
+  // card_value 기반
+  if (vCardVal) {
+    uniqueParas.push(`${venue.name}${eunNeun(venue.name)} "${vCardVal}"라는 한 마디로 설명되는 곳이다. ${venue.district}에서 이런 평가를 받는 ${label}${eunNeun(label)} 흔치 않다.`);
+  }
+
+  // card_tags 기반
+  const vCardTags = (venue as any).card_tags || [];
+  if (vCardTags.length >= 2) {
+    uniqueParas.push(`${venue.name}${eulReul(venue.name)} 방문한 사람들이 꼽는 키워드는 ${vCardTags.slice(0, 3).join(', ')}이다. ${venue.district}의 ${label} 중에서 이 세 가지를 동시에 갖춘 곳은 ${venue.name}뿐이다.`);
+  }
+
+  /* ── 파트 6: 시간대 추천 (1개만 + 고유화) ── */
+  const timeReco = pick(timeRecommendPool, venue.slug, 1, 5).map((s, i) => injectLocal(s, i + 2));
+
+  /* ── 파트 7: 첫 방문자 팁 (1개만 + 고유화) ── */
+  const ftTip = pick(firstTimerTipPool, venue.slug, 1, 6).map((s, i) => injectLocal(s, i + 3));
+
+  /* ── 파트 8: 마무리 훅 (1개만 + 고유화) ── */
+  const closing = pick(closingHookPool, venue.slug, 1, 7).map((s, i) => injectLocal(s, i + 4));
 
   /* ── 파트 9: 키워드 밀도 보강 (1-mention → 2-mention 순서로 세밀 조절) ── */
   const kwBoostTemplates = [
@@ -633,7 +691,22 @@ function generateNarrative(venue: Venue, label: string): string {
   const nameRe = new RegExp(nameEsc, 'g');
 
   /* ── 밀도 반복 보정 — 1.5~2.5% 범위 내 도달할 때까지 ── */
-  const baseParts = [introPara, ...selectedHooks, ...locationParas, ...expParas, ...uniqueParas, ...timeReco, ...ftTip, ...closing];
+  // ── 섹션 순서를 venue별 해시로 셔플 → 구조적 유사도 감소 ──
+  const sections = [
+    { id: 0, parts: [introPara] },
+    { id: 1, parts: selectedHooks },
+    { id: 2, parts: locationParas },
+    { id: 3, parts: expParas },
+    { id: 4, parts: uniqueParas },
+    { id: 5, parts: timeReco },
+    { id: 6, parts: ftTip },
+    { id: 7, parts: closing },
+  ];
+  // intro 항상 첫 번째, 나머지 셔플
+  const rest = sections.slice(1).map((s, i) => ({ ...s, h: hash(venue.slug + ':ord:' + i) })).sort((a, b) => a.h - b.h);
+  // venue별로 일부 섹션 제외 (해시 기반)
+  const included = rest.filter((_, i) => hash(venue.slug + ':inc:' + i) % 5 !== 0); // ~20% 섹션 제외
+  const baseParts = [introPara, ...included.flatMap(s => s.parts)];
   let finalText = baseParts.join('\n\n');
 
   // 밀도 측정 (faqBonus: 추가/삭제에 따라 보수적/공격적 추정)
@@ -1031,7 +1104,19 @@ export function generateGoldContent(venue: Venue, venueIndex = 0) {
 
   const narrative = generateNarrative(venue, label);
   const faq = generateFaq(venue, label);
-  const tips = pick(firstTimerTipPool, venue.slug, 6, 20);
+  // tips: venue별 고유 데이터 기반 생성 (공유 풀 의존도 제거)
+  const venueTips: string[] = [
+    `${venue.name} 방문 전 ${venue.nickname || '담당자'}에게 전화하면 당일 상황을 바로 파악할 수 있다.`,
+    `${venue.district} 일대는 ${venue.station ? venue.station + '에서 접근이 편리하다' : '택시 이용이 가장 편하다'}. 대중교통이면 주차 걱정이 없다.`,
+    venue.hours ? `${venue.name}${eunNeun(venue.name)} ${venue.hours}에 운영된다. 시즌에 따라 변동 가능하니 사전 확인 필수.` : `${venue.name} 영업시간은 전화로 확인하자. 시즌별로 달라질 수 있다.`,
+    `신분증은 반드시 지참. ${venue.district} 대부분의 업소가 만 19세 이상만 입장 가능하다.`,
+    `${venue.name} 근처 맛집을 미리 알아두면 저녁부터 새벽까지 동선이 깔끔해진다.`,
+    `음주 후 운전은 절대 금물. ${venue.station ? venue.station + ' 대중교통이나' : ''} 대리운전 앱을 미리 준비하자.`,
+  ];
+  const poolTips = pick(firstTimerTipPool, venue.slug, 2, 20).map(s =>
+    s.replace(/이 동네/g, venue.district).replace(/이 지역/g, venue.region + ' 지역').replace(/이 일대/g, venue.district + ' 일대')
+  );
+  const tips = [...venueTips, ...poolTips].slice(0, 6);
   const description = generateDescription(venue, label, venueIndex);
   const timeSlots = generateTimeSlots(venue);
   const guide = generateGuide(venue);
