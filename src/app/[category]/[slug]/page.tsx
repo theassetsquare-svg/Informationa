@@ -194,49 +194,84 @@ export default function VenueDetailPage({ params }: Props) {
   // 무한 추천용 같은 카테고리 업소
   const sameCatVenues = allV.filter(v => v.cat_slug === venue.cat_slug && v.slug !== venue.slug).slice(0, 15);
 
-  // VC 키워드 밀도 적응형 부스터
-  const vcBoosterTexts: string[] = [];
+  // ═══ KEYWORD DENSITY CONTROLLER — target 1.5-2.5% ═══
+  const _nEsc = venue.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const _nRe = new RegExp(_nEsc, 'g');
+  const _nLen = venue.name.length;
+  const _hJ = (s: string): boolean => { const c = s.charCodeAt(s.length - 1); return c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 !== 0; };
+  const _eN = _hJ(venue.name) ? '은' : '는';
+  const _iG = _hJ(venue.name) ? '이' : '가';
+  const _eR = _hJ(venue.name) ? '을' : '를';
+  const _pn = _hJ(venue.name) ? '이곳' : '여기';
+
+  // Collect ALL page text (without H2 name additions)
+  const _tp: string[] = [venue.name, catLabel, venue.name, vc?.heroTagline || gc.tagline, venue.region];
+  if (venue.hours) _tp.push(venue.hours);
+  if (hasPhone) _tp.push(venue.nickname);
   if (vc) {
-    const hasJ = (s: string): boolean => { const c = s.charCodeAt(s.length - 1); return c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 !== 0; };
-    const eN = hasJ(venue.name) ? '은' : '는';
-    const iG = hasJ(venue.name) ? '이' : '가';
-    const eR = hasJ(venue.name) ? '을' : '를';
-    const vcTextAll = [
-      vc.prologue && stripHtml(vc.prologue),
-      vc.scene1 && stripHtml(vc.scene1),
-      vc.scene2 && stripHtml(vc.scene2),
-      vc.tipSection && stripHtml(vc.tipSection),
-      vc.dialogueSection && stripHtml(vc.dialogueSection),
-      vc.checklist?.join(' '),
-      vc.aiSummary?.join(' '),
-      vc.outro && stripHtml(vc.outro),
-    ].filter(Boolean).join(' ');
-    const nEsc = venue.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const vcMentions = (vcTextAll.match(new RegExp(nEsc, 'g')) || []).length;
-    const estChars = vcTextAll.length + 800;
-    // 커스텀 FAQ → 이름 미포함(h1만 +1), gc.faq → 이름 포함(h1+FAQ +3)
-    const faqExtra = vc.faqItems && vc.faqItems.length > 0 ? 1 : 3;
-    const pool = [
-      `검색해서 여기까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
-      `방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
-      `솔직히 호불호가 갈릴 수 있다. 근데 직접 가보기 전에 판단하지 말자. 현장 분위기는 글로 전달하기 어렵다.`,
-      `이 동네에서 이야기가 되는 건 다 이유가 있다. 와본 사람한테 물어보면 안다.`,
+    [vc.prologue, vc.scene1, vc.scene2, vc.tipSection, vc.dialogueSection].forEach(s => s && _tp.push(stripHtml(s)));
+    if (vc.checklist) _tp.push(vc.checklist.join(' '));
+    if (vc.aiSummary) _tp.push(vc.aiSummary.join(' '));
+    if (vc.outro) _tp.push(stripHtml(vc.outro));
+  } else {
+    _tp.push(gc.narrative, gc.guide.intro);
+    gc.guide.tips.forEach(t => _tp.push(t));
+    gc.tips.forEach(t => _tp.push(t));
+  }
+  faqItems.forEach(f => { _tp.push(f.q); _tp.push(typeof f.a === 'string' ? f.a : ''); });
+  gc.timeSlots.forEach(t => _tp.push(`${t.time} ${t.level}`));
+  _tp.push(venue.name); // comparison table header
+  _tp.push('기본 정보', '자주 묻는 질문', '인기 시간대', '바로 비교', '사진 갤러리', '다음에 읽을 글');
+  if (venue.address) _tp.push(venue.address);
+  if (venue.station) _tp.push(venue.station);
+  const _bt = _tp.join(' ');
+  const _bc = (_bt.match(_nRe) || []).length;
+  const _bl = _bt.length;
+
+  // Determine H2 name count (max 3, reduce if density > 2.5%)
+  let h2Count = 0;
+  for (let n = 3; n >= 0; n--) {
+    if (((_bc + n) * _nLen) / (_bl + n * (_nLen + 1)) * 100 <= 2.5) { h2Count = n; break; }
+  }
+
+  // Booster for VC pages (if total density < 1.5%)
+  const vcBoosterTexts: string[] = [];
+  let _rc = _bc + h2Count;
+  let _rl = _bl + h2Count * (_nLen + 1);
+  if (vc && (_rc * _nLen) / _rl * 100 < 1.5) {
+    const _pool = [
+      `${venue.name}${_eR} 검색해서 여기까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
+      `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
+      `솔직히 ${venue.name}${_eN} 호불호가 갈릴 수 있다. 근데 직접 가보기 전에 판단하지 말자. 현장 분위기는 글로 전달하기 어렵다.`,
+      `${venue.name}${_iG} 이 동네에서 이야기가 되는 건 다 이유가 있다. 와본 사람한테 물어보면 안다.`,
+      `${venue.name}${_eN} 한 번 가본 사람이 다시 찾는다. 재방문율이 높다는 건 만족도가 높다는 거다.`,
+      `${venue.name}${_eR} 처음 가는 거라면 주말보다 평일을 추천한다. 여유 있을 때 가야 제대로 즐긴다.`,
+      `${venue.name}에서의 경험은 글로 전하기 어렵다. 분위기, 소리, 조명 — 직접 가봐야 안다.`,
+      `${venue.name}에 한 번 가면 기준이 바뀐다. 다른 데 가면 비교하게 되니까.`,
+      `${venue.name}${_eN} 사진보다 실물이 낫다. ${venue.district}에서 이 정도 공간감은 쉽게 찾기 어렵다.`,
+      `${venue.name}에 갔다 온 사람들 후기가 하나같이 같다. "또 가고 싶다." 그 이유를 직접 확인해봐라.`,
     ];
-    // 반복 측정: 전체 페이지 밀도 고려하여 보수적 (1.0% 미만일 때만 추가, 1.5% 초과 방지)
-    const nRe = new RegExp(nEsc, 'g');
-    let runText = vcTextAll;
-    for (let i = 0; i < pool.length; i++) {
-      const curCount = (runText.match(nRe) || []).length + faqExtra;
-      const curDensity = (curCount * venue.name.length) / (runText.length + 800) * 100;
-      if (curDensity >= 1.0) break;
-      const candidate = runText + ' ' + pool[i];
-      const nextCount = (candidate.match(nRe) || []).length + faqExtra;
-      const nextDensity = (nextCount * venue.name.length) / (candidate.length + 800) * 100;
-      if (nextDensity > 1.5) break;
-      vcBoosterTexts.push(pool[i]);
-      runText = candidate;
+    for (const p of _pool) {
+      if ((_rc * _nLen) / _rl * 100 >= 1.5) break;
+      const m = (p.match(_nRe) || []).length;
+      if (((_rc + m) * _nLen) / (_rl + p.length) * 100 > 2.5) break;
+      vcBoosterTexts.push(p);
+      _rc += m;
+      _rl += p.length;
     }
   }
+
+  // Density reducer: replace name with pronoun in body sections if > 2.5%
+  let _surplus = ((_rc * _nLen) / _rl * 100 > 2.5) ? _rc - Math.max(2, Math.floor(_rl * 0.025 / _nLen)) : 0;
+  const _rd = (html: string): string => {
+    if (_surplus <= 0 || !html) return html;
+    const pts = html.split(venue.name);
+    if (pts.length <= 1) return html;
+    const rm = Math.min(pts.length - 2, _surplus);
+    _surplus -= rm;
+    const kp = pts.length - 1 - rm;
+    return pts.map((p, i) => i < pts.length - 1 ? p + (i < kp ? venue.name : _pn) : p).join('');
+  };
 
   // JSON-LD
   const localBizLd = {
@@ -294,14 +329,18 @@ export default function VenueDetailPage({ params }: Props) {
             {venue.hours && <span>{venue.hours}</span>}
           </div>
 
-          {/* 히어로 썸네일 (1:1) */}
-          <div style={{ marginTop: '1.25rem' }}>
+          {/* 히어로 썸네일 (1:1) — 다크 이미지 + 화이트 텍스트 오버레이 */}
+          <div style={{ marginTop: '1.25rem', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
             <img
               src={thumbSrc}
               alt={venue.name}
-              style={{ width: '100%', borderRadius: '12px', aspectRatio: '1/1', objectFit: 'cover', background: '#E5E7EB' }}
+              style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', background: '#E5E7EB', display: 'block' }}
               loading="eager"
             />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2rem 1rem 1rem', background: 'linear-gradient(transparent, rgba(0,0,0,0.7))', color: '#fff', textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
+              <span style={{ fontSize: '1.1rem', fontWeight: 700 }}>{venue.name}</span>
+              {hasPhone && <span style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, marginTop: '0.25rem', opacity: 0.9 }}>담당: {venue.nickname}</span>}
+            </div>
           </div>
         </div>
       </section>
@@ -319,7 +358,7 @@ export default function VenueDetailPage({ params }: Props) {
           <section className="detail-section">
             <div className="container narrow">
               <h2>{vc.prologueTitle || `${year}년 방문 가이드`}</h2>
-              <div dangerouslySetInnerHTML={{ __html: vc.prologue }} />
+              <div dangerouslySetInnerHTML={{ __html: _rd(vc.prologue) }} />
             </div>
           </section>
 
@@ -333,7 +372,7 @@ export default function VenueDetailPage({ params }: Props) {
             <section className="detail-section">
               <div className="container narrow">
                 <h2>{vc.scene1Title || '현장 스케치'}</h2>
-                <div dangerouslySetInnerHTML={{ __html: vc.scene1 }} />
+                <div dangerouslySetInnerHTML={{ __html: _rd(vc.scene1) }} />
               </div>
             </section>
           )}
@@ -348,7 +387,7 @@ export default function VenueDetailPage({ params }: Props) {
             <section className="detail-section">
               <div className="container narrow">
                 <h2>{vc.scene2Title || '더 알아야 할 것'}</h2>
-                <div dangerouslySetInnerHTML={{ __html: vc.scene2 }} />
+                <div dangerouslySetInnerHTML={{ __html: _rd(vc.scene2) }} />
               </div>
             </section>
           )}
@@ -358,7 +397,7 @@ export default function VenueDetailPage({ params }: Props) {
             <section className="detail-section" style={{ background: '#F7F7F8', padding: '2rem 0' }}>
               <div className="container narrow">
                 <h2>{vc.tipTitle || '실전 팁'}</h2>
-                <div dangerouslySetInnerHTML={{ __html: vc.tipSection }} />
+                <div dangerouslySetInnerHTML={{ __html: _rd(vc.tipSection) }} />
               </div>
             </section>
           )}
@@ -373,7 +412,7 @@ export default function VenueDetailPage({ params }: Props) {
             <section className="detail-section">
               <div className="container narrow">
                 <h2>{vc.dialogueTitle || '이런 대화가 오간다'}</h2>
-                <div dangerouslySetInnerHTML={{ __html: vc.dialogueSection }} />
+                <div dangerouslySetInnerHTML={{ __html: _rd(vc.dialogueSection) }} />
               </div>
             </section>
           )}
@@ -411,7 +450,7 @@ export default function VenueDetailPage({ params }: Props) {
             <section className="detail-section">
               <div className="container narrow">
                 <h2>{vc.outroTitle || '마무리'}</h2>
-                <div dangerouslySetInnerHTML={{ __html: vc.outro }} />
+                <div dangerouslySetInnerHTML={{ __html: _rd(vc.outro) }} />
               </div>
             </section>
           )}
@@ -434,7 +473,7 @@ export default function VenueDetailPage({ params }: Props) {
             <div className="container narrow">
               <h2>{year}년 방문 가이드</h2>
               {gc.narrative.split('\n\n').map((p, i) => (
-                <p key={i} style={{ marginBottom: '1.25rem' }}>{p}</p>
+                <p key={i} style={{ marginBottom: '1.25rem' }}>{_rd(p)}</p>
               ))}
             </div>
           </section>
@@ -448,7 +487,7 @@ export default function VenueDetailPage({ params }: Props) {
           <section className="detail-section" style={{ background: '#F7F7F8', padding: '2rem 0' }}>
             <div className="container narrow">
               <h2>처음 방문하세요?</h2>
-              <p style={{ marginBottom: '1rem' }}>{gc.guide.intro}</p>
+              <p style={{ marginBottom: '1rem' }}>{_rd(gc.guide.intro)}</p>
               <ul className="checklist">
                 <li>신분증 지참 (주민등록증·면허증·여권)</li>
                 {gc.guide.tips.map((tip, i) => <li key={i}>{tip}</li>)}
@@ -482,7 +521,7 @@ export default function VenueDetailPage({ params }: Props) {
       {/* 기본 정보 */}
       <section className="detail-section">
         <div className="container narrow">
-          <h2>기본 정보</h2>
+          <h2>{h2Count >= 1 ? venue.name + ' ' : ''}기본 정보</h2>
           <table className="info-table">
             <tbody>
               {venue.address && <tr><th>주소</th><td>{venue.address}</td></tr>}
@@ -498,7 +537,7 @@ export default function VenueDetailPage({ params }: Props) {
       {/* FAQ */}
       <section className="detail-section">
         <div className="container narrow">
-          <h2>Q&amp;A</h2>
+          <h2>{h2Count >= 2 ? venue.name + ' ' : ''}자주 묻는 질문</h2>
           {faqItems.map((f, i) => (
             <div key={i} className="faq-item">
               <p className="faq-q">Q. {f.q}</p>
@@ -511,7 +550,7 @@ export default function VenueDetailPage({ params }: Props) {
       {/* 인기 시간대 */}
       <section className="detail-section" style={{ background: '#F7F7F8', padding: '2rem 0' }}>
         <div className="container narrow">
-          <h2>인기 시간대</h2>
+          <h2>{h2Count >= 3 ? venue.name + ' ' : ''}인기 시간대</h2>
           <div style={{ display: 'grid', gap: '0.75rem' }}>
             {gc.timeSlots.map(t => (
               <div key={t.time} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>

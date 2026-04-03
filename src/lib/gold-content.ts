@@ -330,7 +330,12 @@ function generateNarrative(venue: Venue, label: string): string {
   const nameEsc = venue.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const nameRe = new RegExp(nameEsc, 'g');
 
-  /* ── 밀도 반복 보정 — 1.5~2.5% 범위 내 도달할 때까지 ── */
+  /* ── 밀도 반복 보정 — 전체 페이지 1.5~2.5% 범위 ── */
+  // H1(1) + H2(3) + FAQ(~1) + breadcrumb(1) + comparison(1) + guide(1) = 8
+  const extraMentions = 8;
+  // Non-narrative: FAQ + guide + tips + H2 labels + info + time + misc
+  const extraChars = 1200;
+
   // ── 섹션 순서를 venue별 해시로 셔플 → 구조적 유사도 감소 ──
   const sections = [
     { id: 0, parts: [introPara] },
@@ -344,30 +349,32 @@ function generateNarrative(venue: Venue, label: string): string {
   ];
   // intro 항상 첫 번째, 나머지 셔플
   const rest = sections.slice(1).map((s, i) => ({ ...s, h: hash(venue.slug + ':ord:' + i) })).sort((a, b) => a.h - b.h);
-  // venue별로 일부 섹션 제외 (해시 기반)
-  const included = rest.filter((_, i) => hash(venue.slug + ':inc:' + i) % 5 !== 0); // ~20% 섹션 제외
+  // 긴 이름(8자+)은 전체 섹션 유지 (밀도 희석 필요), 짧은 이름은 ~20% 제외
+  const needAllSections = nameLen >= 8;
+  const included = needAllSections ? rest : rest.filter((_, i) => hash(venue.slug + ':inc:' + i) % 5 !== 0);
   const baseParts = [introPara, ...included.flatMap(s => s.parts)];
   let finalText = baseParts.join('\n\n');
 
-  // 밀도 측정
-  const density = (txt: string, faqBonus: number) => {
+  // 전체 페이지 밀도 측정 (본문 + 구조적 요소)
+  const totalDensity = (txt: string) => {
     const cnt = (txt.match(nameRe) || []).length;
-    return ((cnt + faqBonus) * nameLen) / (txt.length + 700) * 100;
+    return ((cnt + extraMentions) * nameLen) / (txt.length + extraChars) * 100;
   };
 
-  // 1단계: 밀도 < 1.2% → kwBoost 추가 (전체 페이지 밀도 고려하여 본문은 낮게)
+  // 1단계: 전체 밀도 < 1.5% → kwBoost 추가
   for (let i = 0; i < kwBoostTemplates.length; i++) {
-    if (density(finalText, 1) >= 1.2) break;
+    if (totalDensity(finalText) >= 1.5) break;
     const candidate = finalText + '\n\n' + kwBoostTemplates[i];
-    if (density(candidate, 2) > 1.5) break;
+    if (totalDensity(candidate) > 2.5) break;
     finalText = candidate;
   }
 
-  // 2단계: 밀도 > 1.5% → 뒤쪽 이름을 대명사로 교체 (FAQ·Tips·Guide에도 이름 있으므로 본문은 1.5% 이하)
-  if (density(finalText, 2) > 1.5) {
+  // 2단계: 전체 밀도 > 2.5% → 뒤쪽 이름을 대명사로 교체
+  if (totalDensity(finalText) > 2.5) {
     const cnt = (finalText.match(nameRe) || []).length;
-    if (cnt > 2) {
-      const target = Math.max(2, Math.floor((finalText.length + 700) * 0.012 / nameLen) - 2);
+    if (cnt > 1) {
+      const targetTotal = Math.floor((finalText.length + extraChars) * 0.025 / nameLen);
+      const target = Math.max(1, targetTotal - extraMentions);
       const toRemove = cnt - target;
       if (toRemove > 0) {
         const pronoun = hasJong(venue.name) ? '이곳' : '여기';

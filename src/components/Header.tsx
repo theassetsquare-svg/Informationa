@@ -8,7 +8,7 @@ export default function Header() {
       <header className="header">
         <div className="header-inner">
           <div className="header-top">
-            <a href="/" className="logo" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', fontSize: '1.25rem', fontWeight: 800, color: '#4F46E5' }}>
+            <a href="/" className="logo" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', fontSize: '1.25rem', fontWeight: 300, letterSpacing: '0.05em', color: '#4F46E5' }}>
               놀쿨
             </a>
             <span className="logo-tagline">밤문화 완전 가이드</span>
