@@ -1,5 +1,6 @@
 # NOLCOOL Sub — Single Store Nightlife Site
 ## MUST
+- DELETE all shared content pools! Write UNIQUE content for EACH venue! Time does not matter! SEO is #1!
 - base: "/" ONLY. BrowserRouter ONLY. No # in URL
 - Store name FIRST in title. No "놀쿨" in title!
 - Keyword density 1.5-2.5% (1000c=5-7x, 2000c=8-12x)
@@ -27,6 +28,10 @@ Do NOT ask. Just fix. Report all titles when done.
 - sitemap.xml + robots.txt + llms.txt
 - Core Web Vitals: LCP<2.5s, INP<200ms, CLS<0.1
 - E-E-A-T: real experience tone. Canonical URL. NEVER duplicate title/content across domains!. og:image 1200x1200 (1:1) every page!
+
+- NEVER use shared content pools! Write UNIQUE 1000+ chars per venue! Takes time = OK! SEO = #1 priority!
+- Time does not matter! Write UNIQUE 1000+ chars per venue! SEO > speed!
 ## NEVER
+- NEVER use shared content pools/arrays! DELETE all shared pools! Time does NOT matter, SEO matters! Write UNIQUE content for EVERY page even if it takes hours! 130 venues x 1000 chars each!
 - Auto page transition. Next.js. Change URLs
 - Brand path. Stuffing. Baby/family/kids images. No family content (parents birthday/family gathering/reunion/anniversary = DELETE!). Banned adult words (adult/prostitution/illegal = DELETE ALL!). Adult words
