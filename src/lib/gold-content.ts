@@ -355,19 +355,19 @@ function generateNarrative(venue: Venue, label: string): string {
     return ((cnt + faqBonus) * nameLen) / (txt.length + 700) * 100;
   };
 
-  // 1단계: 밀도 < 2.1% → kwBoost 추가
+  // 1단계: 밀도 < 1.2% → kwBoost 추가 (전체 페이지 밀도 고려하여 본문은 낮게)
   for (let i = 0; i < kwBoostTemplates.length; i++) {
-    if (density(finalText, 1) >= 2.1) break;
+    if (density(finalText, 1) >= 1.2) break;
     const candidate = finalText + '\n\n' + kwBoostTemplates[i];
-    if (density(candidate, 2) > 2.4) break;
+    if (density(candidate, 2) > 1.5) break;
     finalText = candidate;
   }
 
-  // 2단계: 밀도 > 2.4% → 뒤쪽 이름을 대명사로 교체
-  if (density(finalText, 2) > 2.4) {
+  // 2단계: 밀도 > 1.5% → 뒤쪽 이름을 대명사로 교체 (FAQ·Tips·Guide에도 이름 있으므로 본문은 1.5% 이하)
+  if (density(finalText, 2) > 1.5) {
     const cnt = (finalText.match(nameRe) || []).length;
     if (cnt > 2) {
-      const target = Math.max(2, Math.floor((finalText.length + 700) * 0.020 / nameLen) - 2);
+      const target = Math.max(2, Math.floor((finalText.length + 700) * 0.012 / nameLen) - 2);
       const toRemove = cnt - target;
       if (toRemove > 0) {
         const pronoun = hasJong(venue.name) ? '이곳' : '여기';
@@ -730,16 +730,16 @@ export function generateGoldContent(venue: Venue, venueIndex = 0) {
   const narrative = generateNarrative(venue, label);
   const faq = generateFaq(venue, label);
   const nick = venue.nickname || '담당자';
-  // tips: venue별 고유 데이터 기반 생성 (공유 풀 없음)
+  // tips: venue별 고유 데이터 기반 생성 (이름 사용 최소화 → 밀도 제어)
   const venueTips: string[] = [
-    `${venue.name} 방문 전 ${nick}에게 전화하면 당일 상황을 바로 파악할 수 있다.`,
+    `방문 전 ${nick}에게 전화하면 당일 상황을 바로 파악할 수 있다.`,
     `${venue.district} 일대는 ${venue.station ? venue.station + '에서 접근이 편리하다' : '택시 이용이 가장 편하다'}. 대중교통이면 주차 걱정이 없다.`,
-    venue.hours ? `${venue.name}${eunNeun(venue.name)} ${venue.hours}에 운영된다. 시즌에 따라 변동 가능하니 사전 확인 필수.` : `${venue.name} 영업시간은 전화로 확인하자. 시즌별로 달라질 수 있다.`,
+    venue.hours ? `영업시간은 ${venue.hours}이다. 시즌에 따라 변동 가능하니 사전 확인 필수.` : `영업시간은 전화로 확인하자. 시즌별로 달라질 수 있다.`,
     `신분증은 반드시 지참. ${venue.district} 대부분의 업소가 만 19세 이상만 입장 가능하다.`,
-    `${venue.name} 근처 맛집을 미리 알아두면 저녁부터 새벽까지 동선이 깔끔해진다.`,
+    `근처 맛집을 미리 알아두면 저녁부터 새벽까지 동선이 깔끔해진다.`,
     `음주 후 운전은 절대 금물. ${venue.station ? venue.station + ' 대중교통이나' : ''} 대리운전 앱을 미리 준비하자.`,
-    `${venue.name} 방문 시 보조배터리를 꼭 챙기자. ${venue.district}에서 새벽에 배터리가 방전되면 귀가가 어렵다.`,
-    `${venue.name}에서 복장은 깔끔하게. ${venue.district}에서 첫인상이 입장 여부를 좌우하는 곳도 있다.`,
+    `방문 시 보조배터리를 꼭 챙기자. ${venue.district}에서 새벽에 배터리가 방전되면 귀가가 어렵다.`,
+    `복장은 깔끔하게. ${venue.district}에서 첫인상이 입장 여부를 좌우하는 곳도 있다.`,
   ];
   const tips = pick(venueTips, venue.slug, 6, 20);
   const description = generateDescription(venue, label, venueIndex);
