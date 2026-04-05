@@ -262,6 +262,26 @@ export default function VenueDetailPage({ params }: Props) {
     }
   }
 
+  // Density diluter: when density > 2.5%, add non-name filler to bring it down
+  const densityDiluterTexts: string[] = [];
+  if ((_rc * _nLen) / _rl * 100 > 2.5) {
+    const _dilPool = [
+      `${venue.district}에서 이 정도 분위기를 갖춘 곳은 손에 꼽는다. 현장의 공기, 조명, 사운드가 ���들어내는 경���은 글로 전달하기 어렵다. 직접 가봐야 이해되는 종류다.`,
+      `방문 전에 전화 한 통이면 당일 상황을 바로 파악할 수 있다. 좌석 여부, 대기 시간, 특별 이벤트까지 확인 가능하다. 이 5분이 ���패 없는 저녁을 만들어준다.`,
+      `${venue.district} ��대는 저녁이 되면 분위기가 확 달라진다. 주변 ��권과 연계하면 1차부터 3차까지 자연스러운 동선이 만들어진다. ��사부터 시작하면 더 좋다.`,
+      `신분��은 반드시 지참하자. 만 19�� 이상만 입장 가능하며, 주민등록증이나 운전면허증, 여권이 필요하다. 없으면 입장 자체가 불가능하다.`,
+      `새벽 시간대에는 택시 잡기가 쉽지 않을 수 있다. 호출 앱을 미리 설치하거나 대리운전 번호를 저장해두면 귀가가 수월하다. ��중교통 막차 시간도 ���크하자.`,
+      `처음 방문이라면 주말보다 평일을 추천한다. 여유 있을 때 가야 공간을 제대로 살펴볼 수 있고, 직원 응대도 한결 세심���진다. 편하게 즐기자.`,
+    ];
+    for (const p of _dilPool) {
+      if ((_rc * _nLen) / _rl * 100 <= 2.5) break;
+      const m = (p.match(_nRe) || []).length;
+      densityDiluterTexts.push(p);
+      _rc += m;
+      _rl += p.length;
+    }
+  }
+
   // Density reducer: replace name with pronoun in body sections if > 2.5%
   let _surplus = ((_rc * _nLen) / _rl * 100 > 2.5) ? _rc - Math.max(2, Math.floor(_rl * 0.025 / _nLen)) : 0;
   const _rd = (html: string): string => {
@@ -469,6 +489,17 @@ export default function VenueDetailPage({ params }: Props) {
               </div>
             </section>
           )}
+
+          {/* 키워드 밀도 희석 (긴 이름 업소용 — 2.5% 이하로) */}
+          {densityDiluterTexts.length > 0 && (
+            <section className="detail-section">
+              <div className="container narrow">
+                {densityDiluterTexts.map((text, i) => (
+                  <p key={i} style={{ marginBottom: '1rem' }}>{text}</p>
+                ))}
+              </div>
+            </section>
+          )}
         </>
       ) : (
         <>
@@ -519,6 +550,17 @@ export default function VenueDetailPage({ params }: Props) {
           <div className="container narrow" style={{ margin: '1.5rem auto' }}>
             <img src={bodyImages[2]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
           </div>
+
+          {/* 키워드 밀도 희석 (긴 이름 업소용 — 2.5% 이하로) */}
+          {densityDiluterTexts.length > 0 && (
+            <section className="detail-section">
+              <div className="container narrow">
+                {densityDiluterTexts.map((text, i) => (
+                  <p key={i} style={{ marginBottom: '1rem' }}>{text}</p>
+                ))}
+              </div>
+            </section>
+          )}
         </>
       )}
 
