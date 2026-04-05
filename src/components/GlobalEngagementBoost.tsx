@@ -124,7 +124,7 @@ function ScrollDepthReward() {
 
   return (
     <div style={{
-      position: 'fixed', bottom: '120px', left: '50%', transform: 'translateX(-50%)',
+      position: 'fixed', bottom: '148px', left: '50%', transform: 'translateX(-50%)',
       zIndex: 180, background: '#111', color: '#FFF',
       padding: '0.6rem 1.25rem', borderRadius: '50px',
       fontSize: '0.8rem', fontWeight: 600,
@@ -297,7 +297,7 @@ function SmartNextPage() {
 
   return (
     <div style={{
-      position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)',
+      position: 'fixed', bottom: '92px', left: '50%', transform: 'translateX(-50%)',
       width: '100%', maxWidth: '480px', zIndex: 160,
       background: 'linear-gradient(135deg, #111, #1E1B4B)',
       borderTop: '2px solid #8B5CF6', padding: '1rem 1.25rem', color: '#FFF',
@@ -350,7 +350,7 @@ function SessionScore() {
   return (
     <>
       <button onClick={() => setShowDetail(!showDetail)} style={{
-        position: 'fixed', bottom: '140px', left: '8px', zIndex: 85,
+        position: 'fixed', bottom: '196px', left: '8px', zIndex: 85,
         background: 'rgba(255,255,255,0.95)', border: '1px solid #E5E7EB',
         borderRadius: '16px', padding: '0.4rem 0.6rem',
         fontSize: '0.6rem', cursor: 'pointer', fontFamily: 'var(--font-sans)',
@@ -360,7 +360,7 @@ function SessionScore() {
       </button>
       {showDetail && (
         <div style={{
-          position: 'fixed', bottom: '180px', left: '8px', zIndex: 86,
+          position: 'fixed', bottom: '236px', left: '8px', zIndex: 86,
           background: '#FFF', border: '1px solid #E5E7EB', borderRadius: '16px',
           padding: '1rem', boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
           width: '180px', animation: 'fadeIn 0.3s',

@@ -61,7 +61,7 @@ export default function StickyHighlight({ name, catSlug }: { name: string; catSl
 
   return (
     <div style={{
-      position: 'fixed', bottom: '80px', left: '50%', transform: 'translateX(-50%)',
+      position: 'fixed', bottom: '100px', left: '50%', transform: 'translateX(-50%)',
       zIndex: 170, maxWidth: '420px', width: '90%',
       background: 'linear-gradient(135deg, #1E1B4B, #312E81)',
       borderRadius: '16px', padding: '1rem 1.25rem',
