@@ -10,6 +10,17 @@
 - 룸 (2곳): https://informationa.pages.dev/rooms/
 - 요정 (1곳): https://informationa.pages.dev/yojeongs/
 - 호빠 (15곳): https://informationa.pages.dev/hoppas/
+- 퀴즈: https://informationa.pages.dev/quiz/
+- 랭킹: https://informationa.pages.dev/ranking/
+- VS 대결: https://informationa.pages.dev/vs/
+- 룰렛: https://informationa.pages.dev/roulette/
+- 지도: https://informationa.pages.dev/map/
+- 갤러리: https://informationa.pages.dev/gallery/
+- 매거진: https://informationa.pages.dev/magazine/
+- 드레스코드: https://informationa.pages.dev/dress-code/
+- 안전 가이드: https://informationa.pages.dev/safety/
+- 커뮤니티: https://informationa.pages.dev/community/
+- 이벤트: https://informationa.pages.dev/events/
 - 사이트맵: https://informationa.pages.dev/sitemap.xml
 
 ## FAQ
