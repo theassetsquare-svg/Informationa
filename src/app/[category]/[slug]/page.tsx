@@ -5,6 +5,7 @@ import { loadVenueContent, stripHtml } from '../../../lib/venue-loader';
 import { getVenueImage, getVenueBodyImages, getVenueGalleryImages } from '../../../lib/venue-images';
 import VenueCard from '../../../components/VenueCard';
 import StickyPhoneBar from '../../../components/StickyPhoneBar';
+import StickyHighlight from '../../../components/StickyHighlight';
 import { ViewCounter, SecretReveal, VsVote, DailyFortune, InfiniteRecommend, SwipeGallery, BeforeAfter, TimeAttack, ReviewHighlight, MiniMap } from '../../../components/EngagementSuite';
 
 interface Props { params: { category: string; slug: string } }
@@ -221,7 +222,7 @@ export default function VenueDetailPage({ params }: Props) {
   faqItems.forEach(f => { _tp.push(f.q); _tp.push(typeof f.a === 'string' ? f.a : ''); });
   gc.timeSlots.forEach(t => _tp.push(`${t.time} ${t.level}`));
   _tp.push(venue.name); // comparison table header
-  _tp.push('기본 정보', '자주 묻는 질문', '인기 시간대', '바로 비교', '사진 갤러리', '다음에 읽을 글');
+  _tp.push('기본 정보', '자주 묻는 질문', '인기 시간대', '이 곳 vs 비슷한 곳', '사진 갤러리', '다음에 읽을 글');
   if (venue.address) _tp.push(venue.address);
   if (venue.station) _tp.push(venue.station);
   const _bt = _tp.join(' ');
@@ -345,8 +346,11 @@ export default function VenueDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* 오늘 N명 카운터 + Time Attack */}
+      {/* 읽는 시간 + 오늘 N명 카운터 + Time Attack */}
       <div className="container narrow">
+        <div style={{ textAlign: 'center', padding: '0.5rem', fontSize: '0.85rem', color: '#666', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}>
+          <span style={{ fontSize: '1rem' }}>⏱</span> 읽는 시간: {Math.max(3, Math.round(_bl / 500))}분
+        </div>
         <ViewCounter slug={venue.slug} />
         {hasPhone && <TimeAttack slug={venue.slug} />}
       </div>
@@ -585,11 +589,11 @@ export default function VenueDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* 비교표 */}
+      {/* 비교표 — 이 곳 vs 비슷한 곳 */}
       {related.length > 0 && (
         <section className="detail-section">
           <div className="container narrow">
-            <h2>바로 비교</h2>
+            <h2>이 곳 vs 비슷한 곳</h2>
             <div style={{ overflowX: 'auto' }}>
               <table className="info-table" style={{ minWidth: '320px' }}>
                 <thead>
@@ -682,6 +686,9 @@ export default function VenueDetailPage({ params }: Props) {
           </div>
         </section>
       )}
+
+      {/* 50% 스크롤 시 숨겨진 장점 스티키 카드 */}
+      <StickyHighlight name={venue.name} catSlug={venue.cat_slug} />
 
       {/* StickyPhoneBar (광고주 있는 업소만) */}
       {hasPhone && <StickyPhoneBar name={venue.name} nickname={venue.nickname} phone={venue.nickname_phone} />}

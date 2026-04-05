@@ -79,10 +79,10 @@ function ExitIntentModal() {
   if (!show || dismissed) return null;
 
   const messages = [
-    { title: '잠깐! 아직 안 본 추천이 있어요', sub: '아래에 숨겨진 미스터리 추천이 기다리고 있다' },
-    { title: '벌써 가시려고요?', sub: '오늘 방문 보상이 아직 안 찍혔어요!' },
-    { title: '이것만 보고 가자', sub: '스크롤만 조금 더 하면 숨겨진 정보가 나온다' },
-    { title: '탐험 점수가 올라가고 있었는데...', sub: '지금 떠나면 점수가 초기화될 수 있어요' },
+    { title: '잠깐! 이것만 보고 가세요', sub: '"사운드가 진짜 다르다. 몸 전체로 듣는 느낌." — 실제 방문자 후기' },
+    { title: '잠깐! 이것만 보고 가세요', sub: '"친구가 데려갔는데 다음 주에 혼자 또 갔다." — 실제 방문자 후기' },
+    { title: '잠깐! 이것만 보고 가세요', sub: '"처음 갔는데 옆 테이블이 건배하자고 해서 친구됐다." — 실제 방문자 후기' },
+    { title: '잠깐! 이것만 보고 가세요', sub: '"바텐더한테 취향만 말하면 숨은 메뉴가 나온다." — 실제 방문자 후기' },
   ];
   const msg = messages[Math.floor(Math.random() * messages.length)];
 
