@@ -118,11 +118,11 @@ export default function HomePage() {
                     <p style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.25rem' }}>{v.name}</p>
                     <p style={{ fontSize: '0.8rem', color: '#555' }}>{v.card_hook}</p>
                   </a>
-                  <a href="https://theassetsquare.com/" target="_blank" rel="noopener noreferrer"
+                  <a href="tel:010-3695-4929" target="_blank" rel="noopener noreferrer"
                     style={{ display: 'block', background: '#15803D', color: '#FFF', fontWeight: 700,
                       fontSize: '0.8rem', padding: '0.5rem 1rem', borderRadius: '8px', textDecoration: 'none',
                       marginTop: '0.75rem' }}>
-                    신실장 
+                    신실장 010-3695-4929
                   </a>
                 </div>
               ))}
