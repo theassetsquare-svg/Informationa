@@ -107,7 +107,7 @@ A: 아닙니다. 만 19세 이상 성인 대상입니다.
   https://informationa.pages.dev/night/cheongdam-h2o-night/
 - 강남줄리아나나이트 (서울강남)
   https://informationa.pages.dev/night/gangnam-juliana-night/
-- 신림그랑프리나이트 (서울신림) — 담당: 태양
+- 신림그랑프리나이트 (서울신림)
   https://informationa.pages.dev/night/sillim-grandprix-night/
 - 상봉동한국관나이트 (서울상봉)
   https://informationa.pages.dev/night/sangbong-hangukgwan-night/
@@ -131,7 +131,7 @@ A: 아닙니다. 만 19세 이상 성인 대상입니다.
   https://informationa.pages.dev/night/ilsan-shampoo-night/
 - 일산물나이트 (일산)
   https://informationa.pages.dev/night/ilsan-mul-night/
-- 파주야당스카이돔나이트 (파주) — 담당: 막내
+- 파주야당스카이돔나이트 (파주) — 담당: 딸기
   https://informationa.pages.dev/night/paju-yadang-skydome-night/
 - 화정한국관나이트 (화정)
   https://informationa.pages.dev/night/hwajeong-hangukgwan-night/
@@ -143,7 +143,7 @@ A: 아닙니다. 만 19세 이상 성인 대상입니다.
   https://informationa.pages.dev/night/guri-hobak-night/
 - 의정부한국관나이트 (의정부)
   https://informationa.pages.dev/night/uijeongbu-hangukgwan-night/
-- 수원찬스돔나이트 (수원) — 담당: 강호동
+- 수원찬스돔나이트 (수원) — 담당: 박찬호
   https://informationa.pages.dev/night/suwon-chancedom-night/
 - 수원코리아나이트 (수원)
   https://informationa.pages.dev/night/suwon-korea-night/
@@ -153,7 +153,7 @@ A: 아닙니다. 만 19세 이상 성인 대상입니다.
   https://informationa.pages.dev/night/seongnam-gukbingwan-night/
 - 인덕원국빈관나이트 (인덕원)
   https://informationa.pages.dev/night/indeogwon-gukbingwan-night/
-- 성남샴푸나이트 (성남) — 담당: 박찬호
+- 성남샴푸나이트 (성남) — 담당: 이쁜이
   https://informationa.pages.dev/night/seongnam-shampoo-night/
 - 분당퐁퐁나이트 (분당)
   https://informationa.pages.dev/night/bundang-pongpong-night/
@@ -197,11 +197,11 @@ A: 아닙니다. 만 19세 이상 성인 대상입니다.
   https://informationa.pages.dev/night/daegu-totoga-night/
 - 구미호박나이트 (구미)
   https://informationa.pages.dev/night/gumi-hobak-night/
-- 부산연산동물나이트 (부산연산동) — 담당: 따봉
+- 부산연산동물나이트 (부산연산동)
   https://informationa.pages.dev/night/busan-yeonsandong-mul-night/
 - 부산아시아드나이트 (부산)
   https://informationa.pages.dev/night/busan-asiad-night/
-- 부산물나이트 (부산) — 담당: 따봉
+- 부산물나이트 (부산)
   https://informationa.pages.dev/night/busan-mul-night/
 - 울산뉴월드나이트 (울산)
   https://informationa.pages.dev/night/ulsan-newworld-night/
@@ -229,13 +229,13 @@ A: 아닙니다. 만 19세 이상 성인 대상입니다.
   https://informationa.pages.dev/lounge/apgujeong-idiot-lounge/
 
 ## 룸 (2곳)
-- 일산룸 (일산) — 담당: 신실장
+- 일산룸 (일산)
   https://informationa.pages.dev/room/ilsan-room/
 - 해운대고구려 (부산해운대)
   https://informationa.pages.dev/room/haeundae-goguryeo/
 
 ## 요정 (1곳)
-- 일산명월관요정 (일산) — 담당: 신실장
+- 일산명월관요정 (일산)
   https://informationa.pages.dev/yojeong/ilsan-myeongwolgwan-yojeong/
 
 ## 호빠 (15곳)

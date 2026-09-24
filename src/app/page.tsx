@@ -98,7 +98,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ PREMIUM — 신실장 직통 상담 ═══ */}
+      {/* ═══ PREMIUM ═══ */}
       <section style={{ padding: '1.5rem 0' }}>
         <div className="container">
           <div style={{ background: 'linear-gradient(135deg, #FEF3C7, #FDE68A)', border: '2px solid #F59E0B',
@@ -106,7 +106,7 @@ export default function HomePage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
               <span style={{ background: '#F59E0B', color: '#111', fontSize: '0.7rem', fontWeight: 700,
                 padding: '0.2rem 0.6rem', borderRadius: '4px' }}>PREMIUM</span>
-              <span style={{ fontSize: '0.85rem', color: '#92400E', fontWeight: 600 }}>신실장 직통 상담</span>
+              <span style={{ fontSize: '0.85rem', color: '#92400E', fontWeight: 600 }}>광고문의 카톡 besta12</span>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
               {premiumVenues.map(v => (
@@ -117,12 +117,6 @@ export default function HomePage() {
                     style={{ textDecoration: 'none', color: '#111', flex: 1 }}>
                     <p style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.25rem' }}>{v.name}</p>
                     <p style={{ fontSize: '0.8rem', color: '#555' }}>{v.card_hook}</p>
-                  </a>
-                  <a href="tel:010-3695-4929" target="_blank" rel="noopener noreferrer"
-                    style={{ display: 'block', background: '#15803D', color: '#FFF', fontWeight: 700,
-                      fontSize: '0.8rem', padding: '0.5rem 1rem', borderRadius: '8px', textDecoration: 'none',
-                      marginTop: '0.75rem' }}>
-                    신실장 010-3695-4929
                   </a>
                 </div>
               ))}

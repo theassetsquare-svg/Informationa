@@ -32,8 +32,8 @@
       "룸"
     ],
     "source_urls": [],
-    "nickname": "신실장",
-    "nickname_phone": "010-3695-4929",
+    "nickname": "",
+    "nickname_phone": "",
     "seo_extra": "접대 코스의 시작점이자 마무리. 문 닫고 조용히 얘기하기 좋은 룸이다."
   },
   {
@@ -107,8 +107,8 @@
       "요정"
     ],
     "source_urls": [],
-    "nickname": "신실장",
-    "nickname_phone": "010-3695-4929",
+    "nickname": "",
+    "nickname_phone": "",
     "seo_extra": "국악 선율 위에 한정식 코스가 올라온다. 풍류를 아는 자리에 어울린다."
   },
   {
@@ -212,8 +212,8 @@
       "나이트"
     ],
     "source_urls": [],
-    "nickname": "태양",
-    "nickname_phone": "010-4241-3748",
+    "nickname": "",
+    "nickname_phone": "",
     "seo_extra": "그랑프리급 속도로 테이블이 돌아간다. 신림 로터리 옆."
   },
   {
@@ -633,7 +633,7 @@
       "파주"
     ],
     "map_url": "",
-    "card_hook": "야당역 1분, 파주 유일의 돔형 스테이지 막내 상담.",
+    "card_hook": "야당역 1분, 파주 유일의 돔형 스테이지.",
     "card_value": "",
     "card_tags": [
       "파주",
@@ -645,8 +645,8 @@
       "나이트"
     ],
     "source_urls": [],
-    "nickname": "막내",
-    "nickname_phone": "010-8255-3509",
+    "nickname": "딸기",
+    "nickname_phone": "010-3447-0963",
     "seo_extra": "야당역 스카이돔. 파주에서 유일한 대형 무대."
   },
   {
@@ -865,8 +865,8 @@
       "나이트"
     ],
     "source_urls": [],
-    "nickname": "강호동",
-    "nickname_phone": "010-9354-1323",
+    "nickname": "박찬호",
+    "nickname_phone": "010-7117-5077",
     "seo_extra": "찬스돔. 수원 권선구 3층 통유리 구조 나이트."
   },
   {
@@ -1049,8 +1049,8 @@
       "나이트"
     ],
     "source_urls": [],
-    "nickname": "박찬호",
-    "nickname_phone": "010-3987-6885",
+    "nickname": "이쁜이",
+    "nickname_phone": "010-3432-4758",
     "seo_extra": "성남 샴푸. 야탑역 상권 2층 초대형 홀 보유."
   },
   {
@@ -1844,7 +1844,7 @@
       "부산"
     ],
     "map_url": "",
-    "card_hook": "연산동 따봉이 책임지는 부산 으뜸 부킹 무대 따봉 상담.",
+    "card_hook": "연산동 부산 으뜸 부킹 무대.",
     "card_value": "",
     "card_tags": [
       "좌석문화",
@@ -1857,9 +1857,9 @@
       "나이트"
     ],
     "source_urls": [],
-    "nickname": "따봉",
-    "nickname_phone": "010-7942-9076",
-    "seo_extra": "연산동 따봉이 무대. 부산 부킹 씬의 시작."
+    "nickname": "",
+    "nickname_phone": "",
+    "seo_extra": "부산 부킹 씬의 시작."
   },
   {
     "name": "부산아시아드나이트",
@@ -1929,8 +1929,8 @@
       "나이트"
     ],
     "source_urls": [],
-    "nickname": "따봉",
-    "nickname_phone": "010-7942-9076",
+    "nickname": "",
+    "nickname_phone": "",
     "seo_extra": "부산 물나이트. 서면 상권 한복판."
   },
   {
