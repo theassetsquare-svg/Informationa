@@ -4,7 +4,9 @@
  */
 
 export function getVenueImage(catSlug: string, slug: string): string {
-  return `/og/${catSlug}-${slug}.png`;
+  const k = `${catSlug}-${slug}`;
+  /* 2026-09-24 광고주정리 — 옛 닉네임 든 카드를 새 카드(-v2)로 · 옛 파일은 둔다 */
+  return `/og/${['night-busan-yeonsandong-mul-night', 'night-suwon-chancedom-night', 'night-busan-mul-night'].includes(k) ? k + '-v2' : k}.png`;
 }
 
 export function getVenueBodyImages(catSlug: string, slug: string, count = 4): string[] {

@@ -840,7 +840,7 @@ export function generateGoldContent(venue: Venue, venueIndex = 0) {
     description,
     tagline,
     narrative,
-    ogImage: `${SITE_URL}/og/${venue.cat_slug}-${venue.slug}.png`,
+    ogImage: `${SITE_URL}/og/${['night-busan-yeonsandong-mul-night', 'night-suwon-chancedom-night', 'night-busan-mul-night'].includes(`${venue.cat_slug}-${venue.slug}`) ? `${venue.cat_slug}-${venue.slug}-v2` : `${venue.cat_slug}-${venue.slug}`}.png`,
     guide,
     tips,
     faq,
