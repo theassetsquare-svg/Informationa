@@ -2,7 +2,7 @@
 import re
 from pathlib import Path
 
-SITE_URL = "https://informationa.pages.dev"
+SITE_URL = "https://hh.nolcool.com"
 DATE = "2026-02-03"
 DATE_TIME = "2026-02-03T00:00:00+09:00"
 
@@ -184,7 +184,7 @@ def update_head(html, name, slug, area):
   }},
   \"publisher\": {{
     \"@type\": \"Organization\",
-    \"name\": \"informationa.pages.dev\",
+    \"name\": \"hh.nolcool.com\",
     \"url\": \"{SITE_URL}/\"
   }},
   \"mainEntityOfPage\": {{

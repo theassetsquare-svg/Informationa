@@ -12,7 +12,7 @@ function makeSvg(title, subtitle, accent = '#8B5CF6') {
   <rect x="40" y="40" width="1120" height="550" rx="20" fill="#F9FAFB" stroke="${accent}" stroke-width="2" opacity="0.5"/>
   <text x="600" y="260" text-anchor="middle" font-family="Arial,sans-serif" font-size="52" font-weight="700" fill="#111111">${esc(title)}</text>
   <text x="600" y="330" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" fill="#555555">${esc(subtitle)}</text>
-  <text x="600" y="510" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="${accent}" opacity="0.7">informationa.pages.dev</text>
+  <text x="600" y="510" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="${accent}" opacity="0.7">hh.nolcool.com</text>
   <line x1="460" y1="370" x2="740" y2="370" stroke="${accent}" stroke-width="2" opacity="0.3"/>
 </svg>`;
 }

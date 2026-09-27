@@ -59,7 +59,7 @@ async function run() {
     bg: '#8B5CF6',
     lines: ['BAMKEY'],
     sub: '밤키 — 전국 클럽 · 나이트 · 라운지 · 룸 · 요정 · 호빠',
-    footer: 'informationa.pages.dev',
+    footer: 'hh.nolcool.com',
   });
   await sharp(Buffer.from(mainSvg)).png({ quality: 90 }).toFile(path.join(OG_DIR, 'home.png'));
   n++;
@@ -72,7 +72,7 @@ async function run() {
       bg: catColors[slug],
       lines: [catLabels[slug] + ' 전체보기'],
       sub: '밤키 BAMKEY',
-      footer: 'informationa.pages.dev',
+      footer: 'hh.nolcool.com',
     });
     await sharp(Buffer.from(s)).png({ quality: 90 }).toFile(path.join(OG_DIR, file + '.png'));
     n++;

@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { title, description, ogImage = '/images/og-thumb.jpg', jsonLd } = Astro.props;
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://informationa.pages.dev';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://hh.nolcool.com';
 const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 ---

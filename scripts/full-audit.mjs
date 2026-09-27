@@ -6,7 +6,7 @@ import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 const DIST = new URL('../dist/', import.meta.url).pathname;
-const SITE = 'https://informationa.pages.dev';
+const SITE = 'https://hh.nolcool.com';
 const BANNED = ['해당', '이곳', '공간', '매장', '감도', '기준'];
 const PHONE_RE = /\b0\d{1,2}[-.\s]?\d{3,4}[-.\s]?\d{4}\b/g;
 

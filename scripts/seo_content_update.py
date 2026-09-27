@@ -4,7 +4,7 @@ import re
 
 DATE = "2026-02-03"
 DATE_TIME = "2026-02-03T00:00:00+09:00"
-SITE = "https://informationa.pages.dev"
+SITE = "https://hh.nolcool.com"
 
 PAGES = {
     "f/index.html": {
@@ -336,7 +336,7 @@ def update_head(html, page):
   }},
   \"publisher\": {{
     \"@type\": \"Organization\",
-    \"name\": \"informationa.pages.dev\",
+    \"name\": \"hh.nolcool.com\",
     \"url\": \"{SITE}/\"
   }},
   \"mainEntityOfPage\": {{

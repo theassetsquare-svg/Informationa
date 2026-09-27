@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import venues from '../data/venues.json';
 import { venueDetailPath } from '../lib/slug-utils';
 
-const SITE = (import.meta.env.SITE ?? 'https://informationa.pages.dev').replace(/\/$/, '');
+const SITE = (import.meta.env.SITE ?? 'https://hh.nolcool.com').replace(/\/$/, '');
 const TODAY = new Date().toISOString().slice(0, 10);
 
 function urlEntry(loc: string, priority: string): string {

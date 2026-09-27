@@ -43,4 +43,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://informationa.pages.dev/sitemap.xml
+Sitemap: https://hh.nolcool.com/sitemap.xml

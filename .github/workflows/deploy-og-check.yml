@@ -10,7 +10,7 @@ permissions:
   deployments: write
 
 env:
-  SITE_URL: https://informationa.pages.dev
+  SITE_URL: https://hh.nolcool.com
 
 jobs:
   deploy:
@@ -68,13 +68,13 @@ jobs:
           curl -s -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json" \
             -d '{
-              "host": "informationa.pages.dev",
+              "host": "hh.nolcool.com",
               "key": "b4d7f2e1a3c5d6e7f8a9b0c1d2e3f4a5",
               "urlList": [
-                "https://informationa.pages.dev/",
-                "https://informationa.pages.dev/clubs/",
-                "https://informationa.pages.dev/nights/",
-                "https://informationa.pages.dev/lounges/",
-                "https://informationa.pages.dev/sitemap.xml"
+                "https://hh.nolcool.com/",
+                "https://hh.nolcool.com/clubs/",
+                "https://hh.nolcool.com/nights/",
+                "https://hh.nolcool.com/lounges/",
+                "https://hh.nolcool.com/sitemap.xml"
               ]
             }' || true

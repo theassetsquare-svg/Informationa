@@ -64,8 +64,8 @@ export function getRelatedVenues(venue: Venue, limit = 2): Venue[] {
 }
 
 export const SITE_NAME = '놀쿨';
-export const SITE_URL = 'https://informationa.pages.dev';
-export const MAIN_SITE_URL = 'https://informationa.pages.dev';
+export const SITE_URL = 'https://hh.nolcool.com';
+export const MAIN_SITE_URL = 'https://hh.nolcool.com';
 
 export const CAT_SLUG_TO_LABEL: Record<string, string> = {
   club: '클럽', night: '나이트', lounge: '라운지',

@@ -110,7 +110,7 @@ def check_url(url, user_agent):
 
 def main():
     parser = argparse.ArgumentParser(description="OG tag checker (Naver UA aware)")
-    parser.add_argument("--site-url", default="https://informationa.pages.dev")
+    parser.add_argument("--site-url", default="https://hh.nolcool.com")
     parser.add_argument("--sitemap-url", default=None)
     parser.add_argument("--log-dir", default=".og-check")
     parser.add_argument("--retries", type=int, default=20)

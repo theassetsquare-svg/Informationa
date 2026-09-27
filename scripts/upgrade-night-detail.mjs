@@ -44,7 +44,7 @@ for (const file of files) {
     const mapMatch = code.match(/const mapUrl\s*=\s*"([^"]+)"/);
 
     if (storeMatch && ogMatch) {
-      const siteUrl = 'https://informationa.pages.dev';
+      const siteUrl = 'https://hh.nolcool.com';
 
       // Find the closing of @graph array to insert LocalBusiness before it
       // Pattern: look for the last ] before the closing }; of jsonLd

@@ -3,7 +3,7 @@
  * URL path deduplication guard + canonical builder
  */
 
-const SITE = 'https://informationa.pages.dev';
+const SITE = 'https://hh.nolcool.com';
 
 /**
  * Normalize a slug: lowercase, trim, remove duplicate tokens.

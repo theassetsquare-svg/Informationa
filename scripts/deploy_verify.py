@@ -50,7 +50,7 @@ def write_summary(lines):
 
 def main():
     parser = argparse.ArgumentParser(description="Verify deploy completion via public URL")
-    parser.add_argument("--site-url", default="https://informationa.pages.dev")
+    parser.add_argument("--site-url", default="https://hh.nolcool.com")
     parser.add_argument("--sitemap-url", default=None)
     parser.add_argument("--retries", type=int, default=20)
     parser.add_argument("--retry-wait", type=int, default=15)

@@ -69,7 +69,7 @@ function makeOverlaySvg({ w, h, title, subtitle, nickLine, fontSize, accentColor
   <text x="${w / 2}" y="${h * 0.45}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="${fontSize}" font-weight="800" fill="white" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))">${escapeXml(title)}</text>
   <text x="${w / 2}" y="${h * 0.53}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="${Math.round(fontSize * 0.5)}" fill="white" opacity="0.9">${escapeXml(subtitle)}</text>
   ${nick}
-  <text x="${w / 2}" y="${h * 0.92}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="${Math.round(fontSize * 0.35)}" fill="white" opacity="0.5">informationa.pages.dev</text>
+  <text x="${w / 2}" y="${h * 0.92}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="${Math.round(fontSize * 0.35)}" fill="white" opacity="0.5">hh.nolcool.com</text>
 </svg>`;
 }
 
@@ -160,7 +160,7 @@ const galleryLabels = ['입구 전경', '무대와 공연', '라운지 공간', 
       fontSize: 80, accentColor: '#8B5CF6',
     });
   } else {
-    await genFallback(path.join(OG_DIR, 'home.png'), { bg: '#8B5CF6', bg2: '#6D28D9', title: '놀쿨 NOLCOOL', subtitle: '전국 클럽·나이트·라운지·룸·요정·호빠', footer: 'informationa.pages.dev' });
+    await genFallback(path.join(OG_DIR, 'home.png'), { bg: '#8B5CF6', bg2: '#6D28D9', title: '놀쿨 NOLCOOL', subtitle: '전국 클럽·나이트·라운지·룸·요정·호빠', footer: 'hh.nolcool.com' });
   }
   console.log('✓ home.png');
 
@@ -174,7 +174,7 @@ const galleryLabels = ['입구 전경', '무대와 공연', '라운지 공간', 
         fontSize: 80, accentColor: catColors[cat],
       });
     } else {
-      await genFallback(path.join(OG_DIR, catPlurals[cat] + '.png'), { bg: catColors[cat], bg2: catColors[cat], title: `${label} 가이드`, subtitle: `전국 ${cnt}곳 완전 정리`, footer: 'informationa.pages.dev' });
+      await genFallback(path.join(OG_DIR, catPlurals[cat] + '.png'), { bg: catColors[cat], bg2: catColors[cat], title: `${label} 가이드`, subtitle: `전국 ${cnt}곳 완전 정리`, footer: 'hh.nolcool.com' });
     }
   }
   console.log('✓ 카테고리 6종');
@@ -197,7 +197,7 @@ const galleryLabels = ['입구 전경', '무대와 공연', '라운지 공간', 
     } else {
       await genFallback(path.join(OG_DIR, `${cat}-${v.slug}.png`), {
         bg, bg2: bg, title: nm, subtitle: `${v.region} ${catLabels[cat] || ''}`,
-        footer: 'informationa.pages.dev', nickLine, fontSize: fs2,
+        footer: 'hh.nolcool.com', nickLine, fontSize: fs2,
       });
     }
 

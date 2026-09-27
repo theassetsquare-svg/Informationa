@@ -5,7 +5,7 @@ import IntroBlock from '../components/IntroBlock.astro';
 import venues from '../data/venues.json';
 import { venueDetailPath } from '../lib/slug-utils';
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? "https://informationa.pages.dev";
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? "https://hh.nolcool.com";
 
 const itemListElements = venues.map((v, i) => ({
   "@type": "ListItem",

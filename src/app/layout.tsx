@@ -9,7 +9,7 @@ import GlobalEngagementBoost from '../components/GlobalEngagementBoost';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://informationa.pages.dev'),
+  metadataBase: new URL('https://hh.nolcool.com'),
   icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
   verification: {
     google: 'HJjm7MRxykCQ7d_9L7glaTeeaWrmJIzAKY0BcNcfm88',
