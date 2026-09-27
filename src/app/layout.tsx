@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
   verification: {
     google: 'HJjm7MRxykCQ7d_9L7glaTeeaWrmJIzAKY0BcNcfm88',
-    other: { 'naver-site-verification': '1179edfcfa456f3ab7573e53979cfe0932a148d3' },
+    other: { 'naver-site-verification': ['1179edfcfa456f3ab7573e53979cfe0932a148d3', 'b9e9ebff09f3a18fa54ecf3ed2887fe05cdcfb16'] },
   },
   robots: {
     index: true,
