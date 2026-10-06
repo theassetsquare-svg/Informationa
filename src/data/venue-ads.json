@@ -1,0 +1,16 @@
+{
+  "sillim-grandprix-night": {
+    "nickname": "쌍코피",
+    "phone": "010-7352-1606",
+    "card": "/og/sillim-grandprix-night-51fe59b1.png",
+    "address": "서울 관악구 신림로 340",
+    "address_region": "서울",
+    "address_locality": "관악구",
+    "address_street": "신림로 340",
+    "confirmed": "2026-10-06",
+    "hide_thumbs": [
+      "ilsan-room",
+      "ilsan-myeongwolgwan-yojeong"
+    ]
+  }
+}

@@ -3,6 +3,7 @@ import { getAllVenues, getVenueBySlug, getRelatedVenues, SITE_URL, CAT_SLUG_TO_L
 import { generateGoldContent, SITE_NAME } from '../../../lib/gold-content';
 import { loadVenueContent, stripHtml } from '../../../lib/venue-loader';
 import { getVenueImage, getVenueBodyImages, getVenueGalleryImages } from '../../../lib/venue-images';
+import { getVenueAd, adAlt, adTel, adTelIntl } from '../../../lib/venue-ads';
 import VenueCard from '../../../components/VenueCard';
 import StickyPhoneBar from '../../../components/StickyPhoneBar';
 import StickyHighlight from '../../../components/StickyHighlight';
@@ -143,6 +144,9 @@ export function generateMetadata({ params }: Props): Metadata {
   const vIdx = allV.findIndex(v => v.slug === params.slug);
   const gc = generateGoldContent(venue, vIdx);
   const url = `${SITE_URL}/${venue.cat_slug}/${venue.slug}/`;
+  /* 광고 칸(venue-ads.json)이 있는 가게만 — og·twitter 그림을 4줄 카드로 · alt 는 규격 글자 */
+  const ad = getVenueAd(venue.slug);
+  const ogImage = ad ? `${SITE_URL}${ad.card}` : gc.ogImage;
   return {
     title: gc.title,
     description: gc.description,
@@ -150,9 +154,9 @@ export function generateMetadata({ params }: Props): Metadata {
     openGraph: {
       title: gc.title, description: gc.description, url,
       siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
-      images: [{ url: gc.ogImage, width: 1200, height: 1200 }],
+      images: [ad ? { url: ogImage, width: 1200, height: 1200, alt: adAlt(venue.name, ad) } : { url: gc.ogImage, width: 1200, height: 1200 }],
     },
-    twitter: { card: 'summary_large_image', title: gc.title, description: gc.description, images: [gc.ogImage] },
+    twitter: { card: 'summary_large_image', title: gc.title, description: gc.description, images: [ogImage] },
   };
 }
 
@@ -174,6 +178,10 @@ export default function VenueDetailPage({ params }: Props) {
   const catLabel = CAT_SLUG_TO_LABEL[venue.cat_slug] || venue.category;
   const catPath = catPaths[venue.cat_slug] || '/';
   const hasPhone = !!(venue.nickname && venue.nickname_phone);
+  /* 광고 칸(src/data/venue-ads.json) — 있는 가게에만 아래 ad 갈래가 걸린다(없으면 지금 꼴 그대로) */
+  const ad = getVenueAd(venue.slug);
+  const adCardAlt = ad ? adAlt(venue.name, ad) : '';
+  const adHideThumbs = ad?.hide_thumbs || [];
 
   // venue-content JSON 로드 (고유 콘텐츠)
   const contentSlug = findContentSlug(venue.slug);
@@ -298,7 +306,10 @@ export default function VenueDetailPage({ params }: Props) {
   const localBizLd = {
     '@context': 'https://schema.org', '@type': 'NightClub',
     name: venue.name,
-    address: { '@type': 'PostalAddress', streetAddress: venue.address || undefined, addressLocality: venue.district, addressRegion: venue.region, addressCountry: 'KR' },
+    ...(ad ? { image: `${SITE_URL}${ad.card}`, telephone: adTelIntl(ad) } : {}),
+    address: ad
+      ? { '@type': 'PostalAddress', streetAddress: ad.address_street, addressLocality: ad.address_locality, addressRegion: ad.address_region, addressCountry: 'KR' }
+      : { '@type': 'PostalAddress', streetAddress: venue.address || undefined, addressLocality: venue.district, addressRegion: venue.region, addressCountry: 'KR' },
     openingHours: venue.hours || undefined,
     url: `${SITE_URL}/${venue.cat_slug}/${venue.slug}/`,
   };
@@ -338,11 +349,21 @@ export default function VenueDetailPage({ params }: Props) {
       <section className="detail-hero">
         <div className="container">
           {venue.badge && <span className="venue-card-badge" style={{ marginBottom: '0.75rem' }}>{venue.badge}</span>}
+          {ad && (
+            <p className="ad-label" style={{ fontSize: '0.8rem', color: '#9B1C1C', fontWeight: 700, marginBottom: '0.5rem' }}>
+              <span style={{ display: 'inline-block', background: '#222', color: '#FFF', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '4px', marginRight: '6px' }}>광고</span>19세 미만 출입 금지
+            </p>
+          )}
           <h1>{venue.name}</h1>
-          <p className="detail-tagline">{vc?.heroTagline || gc.tagline}</p>
+          {(!ad || vc?.heroTagline) && <p className="detail-tagline">{vc?.heroTagline || gc.tagline}</p>}
           {hasPhone && (
             <p style={{ color: '#4F46E5', fontWeight: 700, marginBottom: '0.5rem', fontSize: '0.95rem' }}>
               담당: {venue.nickname}
+            </p>
+          )}
+          {ad && (
+            <p style={{ marginBottom: '0.5rem' }}>
+              <a href={`tel:${adTel(ad)}`} style={{ color: '#4F46E5', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none' }}>{`담당 ${ad.nickname} ${ad.phone}`}</a>
             </p>
           )}
           <div className="detail-meta">
@@ -350,8 +371,22 @@ export default function VenueDetailPage({ params }: Props) {
             {venue.hours && <span>{venue.hours}</span>}
           </div>
 
+          {/* 광고 칸이 있는 쪽 — 4줄 카드(1200×1200)를 그대로 싣는다(글자 덧씌움 없음) */}
+          {ad && (
+            <div style={{ marginTop: '1.25rem', borderRadius: '12px', overflow: 'hidden' }}>
+              <img
+                src={ad.card}
+                alt={adCardAlt}
+                width={1200}
+                height={1200}
+                style={{ width: '100%', height: 'auto', aspectRatio: '1/1', objectFit: 'cover', background: '#E5E7EB', display: 'block' }}
+                loading="eager"
+              />
+            </div>
+          )}
+
           {/* 히어로 썸네일 (1:1) — 다크 이미지 + 화이트 텍스트 오버레이 */}
-          <div style={{ marginTop: '1.25rem', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+          {!ad && <div style={{ marginTop: '1.25rem', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
             <img
               src={thumbSrc}
               alt={venue.name}
@@ -362,7 +397,7 @@ export default function VenueDetailPage({ params }: Props) {
               <span style={{ fontSize: '1.1rem', fontWeight: 700 }}>{venue.name}</span>
               {hasPhone && <span style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, marginTop: '0.25rem', opacity: 0.9 }}>담당: {venue.nickname}</span>}
             </div>
-          </div>
+          </div>}
         </div>
       </section>
 
@@ -371,8 +406,9 @@ export default function VenueDetailPage({ params }: Props) {
         <div style={{ textAlign: 'center', padding: '0.5rem', fontSize: '0.85rem', color: '#666', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}>
           <span style={{ fontSize: '1rem' }}>⏱</span> 읽는 시간: {Math.max(3, Math.round(_bl / 500))}분
         </div>
-        <ViewCounter slug={venue.slug} />
-        {hasPhone && <TimeAttack slug={venue.slug} />}
+        {/* 광고 칸이 있는 쪽 — 방문자 수·문의 수(지어낸 숫자) 칸을 싣지 않는다 */}
+        {!ad && <ViewCounter slug={venue.slug} />}
+        {hasPhone && !ad && <TimeAttack slug={venue.slug} />}
       </div>
 
       {/* ═══ 본문 — venue-content 있으면 고유 콘텐츠, 없으면 생성 콘텐츠 ═══ */}
@@ -571,9 +607,11 @@ export default function VenueDetailPage({ params }: Props) {
           <table className="info-table">
             <tbody>
               {venue.address && <tr><th>주소</th><td>{venue.address}</td></tr>}
+              {ad && !venue.address && <tr><th>주소</th><td>{ad.address}</td></tr>}
               {venue.hours && <tr><th>영업시간</th><td>{venue.hours}</td></tr>}
               {venue.station && <tr><th>교통</th><td>{venue.station}</td></tr>}
               {hasPhone && <tr><th>담당</th><td>{venue.nickname}</td></tr>}
+              {ad && <tr><th>담당</th><td>{ad.nickname}</td></tr>}
               {filteredTags.length > 0 && <tr><th>태그</th><td>{filteredTags.join(', ')}</td></tr>}
             </tbody>
           </table>
@@ -593,8 +631,8 @@ export default function VenueDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* 인기 시간대 */}
-      <section className="detail-section" style={{ background: '#F7F7F8', padding: '2rem 0' }}>
+      {/* 인기 시간대 — 광고 칸이 있는 쪽에는 싣지 않는다(확인 안 된 붐빔 지표) */}
+      {!ad && <section className="detail-section" style={{ background: '#F7F7F8', padding: '2rem 0' }}>
         <div className="container narrow">
           <h2>{h2Count >= 3 ? venue.name + ' ' : ''}인기 시간대</h2>
           <div style={{ display: 'grid', gap: '0.75rem' }}>
@@ -609,7 +647,7 @@ export default function VenueDetailPage({ params }: Props) {
             ))}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* 찾아가는 길 (MiniMap) */}
       {(venue.address || venue.station) && (
@@ -673,15 +711,15 @@ export default function VenueDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* 직접 가본 손님의 한마디 */}
-      <section className="detail-section">
+      {/* 직접 가본 손님의 한마디 — 광고 칸이 있는 쪽에는 싣지 않는다(지어낸 인용) */}
+      {!ad && <section className="detail-section">
         <div className="container narrow">
           <ReviewHighlight name={venue.name} catSlug={venue.cat_slug} />
         </div>
-      </section>
+      </section>}
 
-      {/* VS 투표 */}
-      {related.length >= 2 && (
+      {/* VS 투표 — 광고 칸이 있는 쪽에는 싣지 않는다(지어낸 투표 %) */}
+      {!ad && related.length >= 2 && (
         <div className="container narrow">
           <VsVote a={venue} b={related[0]} />
         </div>
@@ -714,7 +752,9 @@ export default function VenueDetailPage({ params }: Props) {
             <h2>다음에 읽을 글</h2>
             <p style={{ color: '#555', marginBottom: '1rem', fontSize: '0.9rem' }}>이 글을 읽은 사람이 많이 본 곳</p>
             <div className="venue-grid">
-              {related.map(v => <VenueCard key={v.slug} venue={v} />)}
+              {related.map(v => adHideThumbs.includes(v.slug)
+                ? <VenueCard key={v.slug} venue={v} hideThumb />
+                : <VenueCard key={v.slug} venue={v} />)}
             </div>
           </div>
         </section>
@@ -724,7 +764,18 @@ export default function VenueDetailPage({ params }: Props) {
       {sameCatVenues.length > 0 && (
         <section className="detail-section">
           <div className="container narrow">
-            <InfiniteRecommend venues={sameCatVenues} />
+            {ad
+              ? <InfiniteRecommend venues={sameCatVenues.map(v => ({ ...v, nickname: '', nickname_phone: '' }))} />
+              : <InfiniteRecommend venues={sameCatVenues} />}
+          </div>
+        </section>
+      )}
+
+      {/* 관계 고지 — 광고 칸이 있는 쪽 본문 끝 */}
+      {ad && (
+        <section className="detail-section">
+          <div className="container narrow">
+            <p style={{ fontSize: '14px', color: '#555' }}>{`이 페이지는 광고이며, 업소 제공 정보를 받아 실었습니다(담당 ${ad.nickname}). 확인일 ${ad.confirmed}. 실린 내용은 사정에 따라 바뀔 수 있습니다.`}</p>
           </div>
         </section>
       )}
@@ -734,6 +785,7 @@ export default function VenueDetailPage({ params }: Props) {
 
       {/* StickyPhoneBar (광고주 있는 업소만) */}
       {hasPhone && <StickyPhoneBar name={venue.name} nickname={venue.nickname} phone={venue.nickname_phone} />}
+      {ad && <StickyPhoneBar name={venue.name} nickname={ad.nickname} phone={ad.phone} tel={adTel(ad)} label={`${venue.name} 예약 · ${ad.nickname} ${ad.phone}`} />}
     </>
   );
 }

@@ -6,6 +6,7 @@ import ScrollProgress from '../components/ScrollProgress';
 import ErrorBoundary from '../components/ErrorBoundary';
 import RetentionCore from '../components/RetentionCore';
 import GlobalEngagementBoost from '../components/GlobalEngagementBoost';
+import HideOnAdPath from '../components/HideOnAdPath';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -40,8 +41,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
         </ErrorBoundary>
         <Footer />
-        <RetentionCore />
-        <GlobalEngagementBoost />
+        {/* 광고주 쪽에서는 체류 위젯(가짜 후기 인용 · 점수 · 뒤로가기 가로채기)을 띄우지 않는다 — 다른 쪽은 그대로 */}
+        <HideOnAdPath>
+          <RetentionCore />
+          <GlobalEngagementBoost />
+        </HideOnAdPath>
         <BottomNav />
       </body>
     </html>

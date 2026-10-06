@@ -1,3 +1,5 @@
+import NoAffiliationNote from './NoAffiliationNote';
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -58,9 +60,9 @@ export default function Footer() {
 
           <p style={{ fontSize: '1rem', fontWeight: 700, color: '#111', marginBottom: '0.5rem' }}>놀쿨 NOLCOOL</p>
           <p>&copy; {year} 놀쿨. 만 19세 이상 이용 가능.</p>
-          <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#444' }}>
-            본 사이트는 정보 제공 목적이며 업소와 직접적인 제휴 관계가 없습니다.
-          </p>
+          {/* 광고주 쪽(광고 고지가 있는 쪽)에서는 「제휴 관계가 없습니다」 줄을 그리지 않는다 — 다른 쪽은 그대로.
+              문장은 NoAffiliationNote 안에 있다(children 으로 넘기면 광고주 쪽 스크립트 자료에 글자가 실린다) */}
+          <NoAffiliationNote />
         </div>
       </footer>
     </>

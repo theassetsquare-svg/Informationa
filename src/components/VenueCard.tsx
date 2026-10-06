@@ -28,7 +28,8 @@ function shouldShowMeta(venue: Venue): string | null {
   return `${venue.region} · ${labels[venue.cat_slug]}`;
 }
 
-export default function VenueCard({ venue }: { venue: Venue }) {
+/* hideThumb — 광고주 쪽에서 다른 담당 닉네임이 그려진 옛 축소판을 걷을 때만 쓴다(없으면 지금 꼴 그대로) */
+export default function VenueCard({ venue, hideThumb }: { venue: Venue; hideThumb?: boolean }) {
   const [imgErr, setImgErr] = useState(false);
   const meta = shouldShowMeta(venue);
   const bg = catColors[venue.cat_slug] || '#4F46E5';
@@ -51,7 +52,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         padding: '0.5rem', overflow: 'hidden', position: 'relative',
       }}>
-        {!imgErr ? (
+        {!imgErr && !hideThumb ? (
           <img
             src={thumbSrc}
             alt={venue.image_alt || venue.name}
