@@ -1,4 +1,24 @@
 {
+  "ilsan-myeongwolgwan-yojeong": {
+    "nickname": "신실장",
+    "phone": "010-3695-4929",
+    "card": "/og/ad-ilsan-myeongwolgwan-yojeong.png",
+    "address": "",
+    "address_region": "일산",
+    "address_locality": "일산",
+    "address_street": "",
+    "confirmed": "2026-11-02"
+  },
+  "cheongdam-h2o-night": {
+    "nickname": "펩시맨",
+    "phone": "010-5655-4866",
+    "card": "/og/ad-cheongdam-h2o-night.png",
+    "address": "",
+    "address_region": "서울청담",
+    "address_locality": "청담",
+    "address_street": "",
+    "confirmed": "2026-11-02"
+  },
   "sillim-grandprix-night": {
     "nickname": "쌍코피",
     "phone": "010-7352-1606",
@@ -12,5 +32,85 @@
       "ilsan-room",
       "ilsan-myeongwolgwan-yojeong"
     ]
+  },
+  "paju-yadang-skydome-night": {
+    "nickname": "딸기",
+    "phone": "010-3447-0963",
+    "card": "/og/ad-paju-yadang-skydome-night.png",
+    "address": "",
+    "address_region": "파주",
+    "address_locality": "야당",
+    "address_street": "",
+    "confirmed": "2026-11-02"
+  },
+  "suwon-chancedom-night": {
+    "nickname": "박찬호",
+    "phone": "010-7117-5077",
+    "card": "/og/ad-suwon-chancedom-night.png",
+    "address": "",
+    "address_region": "수원",
+    "address_locality": "수원",
+    "address_street": "",
+    "confirmed": "2026-11-02"
+  },
+  "seongnam-shampoo-night": {
+    "nickname": "이쁜이",
+    "phone": "010-3432-4758",
+    "card": "/og/ad-seongnam-shampoo-night.png",
+    "address": "",
+    "address_region": "성남",
+    "address_locality": "성남",
+    "address_street": "",
+    "confirmed": "2026-11-02"
+  },
+  "daejeon-seven-night": {
+    "nickname": "영탁",
+    "phone": "010-7770-0869",
+    "card": "/og/ad-daejeon-seven-night.png",
+    "address": "",
+    "address_region": "대전",
+    "address_locality": "대전",
+    "address_street": "",
+    "confirmed": "2026-11-02"
+  },
+  "busan-asiad-night": {
+    "nickname": "새우깡",
+    "phone": "010-3614-1056",
+    "card": "/og/ad-busan-asiad-night.png",
+    "address": "",
+    "address_region": "부산",
+    "address_locality": "부산",
+    "address_street": "",
+    "confirmed": "2026-11-02"
+  },
+  "busan-mul-night": {
+    "nickname": "따봉",
+    "phone": "010-7942-9076",
+    "card": "/og/ad-busan-mul-night.png",
+    "address": "",
+    "address_region": "부산",
+    "address_locality": "부산",
+    "address_street": "",
+    "confirmed": "2026-11-02"
+  },
+  "jangandong-hoppa-bbangbbang": {
+    "nickname": "유현재",
+    "phone": "010-7674-8310",
+    "card": "/og/ad-jangandong-hoppa-bbangbbang.png",
+    "address": "",
+    "address_region": "장안동",
+    "address_locality": "장안동",
+    "address_street": "",
+    "confirmed": "2026-11-02"
+  },
+  "geondae-hoppa-w": {
+    "nickname": "유현재",
+    "phone": "010-7674-8310",
+    "card": "/og/ad-geondae-hoppa-w.png",
+    "address": "",
+    "address_region": "건대",
+    "address_locality": "건대",
+    "address_street": "",
+    "confirmed": "2026-11-02"
   }
 }
