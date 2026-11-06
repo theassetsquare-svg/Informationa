@@ -1,0 +1,126 @@
+{
+  "_설명": "정리68-3(2026-11-07) 상위노출 정리 — 가게 전용 사이트(수원찬스돔나이트 · 수원)와 지역이 다른 다른 가게 쪽. 주소·글·썸네일 그대로 · 301 0 · 지우기 0. 이 목록의 쪽만 meta robots noindex,follow + 사이트맵에서 뺌 + public 머리 설정 파일의 X-Robots-Tag noindex,follow. 근거 docs/참고/상위노출/상위노출_공식방법_2026-11-01.md 0절·5절 · 계획 scripts/rank/consolidate-plan.mjs --plan --site=hh (2026-11-07 03:3x 라이브 다시 재기 144/144).",
+  "_읽는곳": "src/lib/noindex.ts(쪽 틀 generateMetadata · sitemap.ts) · public 머리 설정 파일(손으로 같은 목록)",
+  "paths": [
+    {
+      "path": "/night/ansan-hit-night/",
+      "shop": "안산히트나이트",
+      "representative": "https://cityguide-memo.netlify.app/ansan-hit-night/"
+    },
+    {
+      "path": "/night/bucheon-gorae-night/",
+      "shop": "부천고래나이트",
+      "representative": "https://ee.nolcool.com/v/bucheon-gorae-night/"
+    },
+    {
+      "path": "/night/cheonan-korea-night/",
+      "shop": "천안코리아나이트",
+      "representative": "https://infotalk.netlify.app/night/cheonan-korea-night/"
+    },
+    {
+      "path": "/night/cheonan-stardom-night/",
+      "shop": "천안스타돔나이트",
+      "representative": "https://infotalk.netlify.app/night/cheonan-stardome-night/"
+    },
+    {
+      "path": "/night/daegu-babamba-night/",
+      "shop": "대구바밤바나이트",
+      "representative": "https://cityguide-memo.netlify.app/daegu-babamba-night/"
+    },
+    {
+      "path": "/night/daegu-hobak-night/",
+      "shop": "대구호박나이트",
+      "representative": "https://d.nolcool.com/hall/daegu-hobak-night/"
+    },
+    {
+      "path": "/night/doksan-gukbingwan-night/",
+      "shop": "독산동국빈관나이트",
+      "representative": "https://l.nolcool.com/night/doksan-gukbingwan-night-2/"
+    },
+    {
+      "path": "/night/gildong-chance-night/",
+      "shop": "길동찬스나이트",
+      "representative": "https://g.nolcool.com/hall/gildong-chance-night/"
+    },
+    {
+      "path": "/night/gumi-hobak-night/",
+      "shop": "구미호박나이트",
+      "representative": "https://infotalk.netlify.app/night/gumi-hobak-night/"
+    },
+    {
+      "path": "/night/guri-hobak-night/",
+      "shop": "구리호박나이트",
+      "representative": "https://c.nolcool.com/info/guri-hobak-night/"
+    },
+    {
+      "path": "/night/gwangju-cheomdan-empa-night/",
+      "shop": "광주첨단나이트",
+      "representative": "https://f.nolcool.com/night/gwangju-cheomdan-night-1/"
+    },
+    {
+      "path": "/night/gwangju-sangmu-night/",
+      "shop": "광주상무나이트",
+      "representative": "https://l.nolcool.com/night/gwangju-sangmu-night/"
+    },
+    {
+      "path": "/night/ilsan-shampoo-night/",
+      "shop": "일산샴푸나이트",
+      "representative": "https://j.nolcool.com/access/ilsan-shampoo-night/"
+    },
+    {
+      "path": "/night/incheon-arabian-night/",
+      "shop": "인천아라비안나이트",
+      "representative": "https://infotalk.netlify.app/night/incheon-arabian-night/"
+    },
+    {
+      "path": "/night/jeju-night/",
+      "shop": "제주도나이트",
+      "representative": "https://d.nolcool.com/hall/jeju-night/"
+    },
+    {
+      "path": "/night/osan-hobak-night/",
+      "shop": "오산호박나이트",
+      "representative": "https://townlife-note.netlify.app/osan-hobak-night/"
+    },
+    {
+      "path": "/night/pyeongtaek-hobak-night/",
+      "shop": "평택호박나이트",
+      "representative": "https://d.nolcool.com/hall/pyeongtaek-hobak-night/"
+    },
+    {
+      "path": "/night/seosan-hobak-night/",
+      "shop": "서산호박나이트",
+      "representative": "https://localinfo-desk.netlify.app/seosan-hobak-night/"
+    },
+    {
+      "path": "/night/suyu-shampoo-night/",
+      "shop": "수유샴푸나이트",
+      "representative": "https://bb.nolcool.com/suyu-shampoo-night/"
+    },
+    {
+      "path": "/night/uijeongbu-hangukgwan-night/",
+      "shop": "의정부한국관나이트",
+      "representative": "https://k.nolcool.com/club/uijeongbu-hangukgwan-night/"
+    },
+    {
+      "path": "/night/ulsan-champion-night/",
+      "shop": "울산챔피언나이트",
+      "representative": "https://b.nolcool.com/area/weekend/"
+    },
+    {
+      "path": "/night/ulsan-newworld-night/",
+      "shop": "울산뉴월드나이트",
+      "representative": "https://townlife-note.netlify.app/ulsan-newworld-night/"
+    },
+    {
+      "path": "/room/haeundae-goguryeo/",
+      "shop": "해운대고구려",
+      "representative": "https://gg.nolcool.com/venue/haeundae-goguryeo/"
+    },
+    {
+      "path": "/room/ilsan-room/",
+      "shop": "일산룸",
+      "representative": "https://ee.nolcool.com/v/ilsan-room/"
+    }
+  ]
+}

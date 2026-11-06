@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllVenues, SITE_URL } from '../lib/venues';
+import { isNoindexPath } from '../lib/noindex';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const venues = getAllVenues();
@@ -27,7 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: SITE_URL + '/chat/', lastModified: now, changeFrequency: 'monthly' as const, priority: 0.5 },
   ];
 
-  const venuePages = venues.map(v => ({
+  /* 정리68-3(2026-11-07): noindex 쪽(dedicated/noindex-paths.json)은 사이트맵에서 뺌 — 주소·쪽은 그대로(200) */
+  const venuePages = venues.filter(v => !isNoindexPath(`/${v.cat_slug}/${v.slug}/`)).map(v => ({
     url: `${SITE_URL}/${v.cat_slug}/${v.slug}/`,
     lastModified: now,
     changeFrequency: 'monthly' as const,

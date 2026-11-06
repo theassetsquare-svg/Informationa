@@ -20,3 +20,100 @@
 
 /*.ico
   Cache-Control: public, max-age=31536000, immutable
+
+# 정리68-3(2026-11-07) noindex 쪽 — dedicated/noindex-paths.json 과 같은 목록 · 위 /* 의 index 줄을 떼고 noindex, follow (주소·쪽 그대로 · 리디렉션 없음)
+/night/ansan-hit-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/bucheon-gorae-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/cheonan-korea-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/cheonan-stardom-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/daegu-babamba-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/daegu-hobak-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/doksan-gukbingwan-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/gildong-chance-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/gumi-hobak-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/guri-hobak-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/gwangju-cheomdan-empa-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/gwangju-sangmu-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/ilsan-shampoo-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/incheon-arabian-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/jeju-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/osan-hobak-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/pyeongtaek-hobak-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/seosan-hobak-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/suyu-shampoo-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/uijeongbu-hangukgwan-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/ulsan-champion-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/night/ulsan-newworld-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/room/haeundae-goguryeo/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
+/room/ilsan-room/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow

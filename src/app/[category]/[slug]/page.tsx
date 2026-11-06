@@ -4,6 +4,7 @@ import { generateGoldContent, SITE_NAME } from '../../../lib/gold-content';
 import { loadVenueContent, stripHtml } from '../../../lib/venue-loader';
 import { getVenueImage, getVenueBodyImages, getVenueGalleryImages } from '../../../lib/venue-images';
 import { getVenueAd, adAlt, adTel, adTelIntl } from '../../../lib/venue-ads';
+import { isNoindexPath } from '../../../lib/noindex';
 import VenueCard from '../../../components/VenueCard';
 import StickyPhoneBar from '../../../components/StickyPhoneBar';
 import StickyHighlight from '../../../components/StickyHighlight';
@@ -147,10 +148,13 @@ export function generateMetadata({ params }: Props): Metadata {
   /* 광고 칸(venue-ads.json)이 있는 가게만 — og·twitter 그림을 4줄 카드로 · alt 는 규격 글자 */
   const ad = getVenueAd(venue.slug);
   const ogImage = ad ? `${SITE_URL}${ad.card}` : gc.ogImage;
+  /* 정리68-3(2026-11-07): dedicated/noindex-paths.json 의 쪽만 noindex, follow — 주소·글·canonical 그대로 · 사이트맵에서도 뺌 */
+  const noindex = isNoindexPath(`/${venue.cat_slug}/${venue.slug}/`);
   return {
     title: gc.title,
     description: gc.description,
     alternates: { canonical: url },
+    ...(noindex ? { robots: { index: false, follow: true, googleBot: { index: false, follow: true } } } : {}),
     openGraph: {
       title: gc.title, description: gc.description, url,
       siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
