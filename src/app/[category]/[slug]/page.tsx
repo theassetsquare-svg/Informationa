@@ -5,6 +5,7 @@ import { loadVenueContent, stripHtml } from '../../../lib/venue-loader';
 import { getVenueImage, getVenueBodyImages, getVenueGalleryImages } from '../../../lib/venue-images';
 import { getVenueAd, adAlt, adTel, adTelIntl } from '../../../lib/venue-ads';
 import { isNoindexPath } from '../../../lib/noindex';
+import { getRepLink } from '../../../lib/rep-links';
 import VenueCard from '../../../components/VenueCard';
 import StickyPhoneBar from '../../../components/StickyPhoneBar';
 import StickyHighlight from '../../../components/StickyHighlight';
@@ -190,6 +191,8 @@ export default function VenueDetailPage({ params }: Props) {
   // venue-content JSON 로드 (고유 콘텐츠)
   const contentSlug = findContentSlug(venue.slug);
   const vc = contentSlug ? loadVenueContent(contentSlug) : null;
+  // 정리68-3 — 보호 쪽은 대표 쪽으로 링크 1개 (dedicated/rep-links.json)
+  const repLink = getRepLink(venue.slug);
 
   // 카테고리 단어 필터 (키워드 스터핑 방지)
   const catWord = { club: '클럽', night: '나이트', lounge: '라운지', room: '룸', yojeong: '요정', hoppa: '호빠' }[venue.cat_slug] || '';
@@ -602,6 +605,19 @@ export default function VenueDetailPage({ params }: Props) {
             </section>
           )}
         </>
+      )}
+
+      {/* 대표 쪽 링크 (정리68-3 · 보호 쪽만) */}
+      {repLink && (
+        <section className="detail-section">
+          <div className="container narrow">
+            <p data-rep-link="1" style={{ marginBottom: '1rem' }}>
+              {repLink.before}
+              <a href={repLink.url} target="_blank" rel="noopener noreferrer">{repLink.text}</a>
+              {repLink.after}
+            </p>
+          </div>
+        </section>
       )}
 
       {/* 기본 정보 */}

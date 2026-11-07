@@ -1,0 +1,73 @@
+{
+  "_설명": "정리68-3(2026-11-07) 보호 쪽 11 — 가게마다 대표 쪽으로 가는 링크 1개. 쪽 틀(src/app/[category]/[slug]/page.tsx)이 slug 로 찾아 본문 끝(기본 정보 앞)에 문단 하나로 그린다. 주소 출처 = scripts/rank/consolidate-plan.mjs --plan --site=hh (2026-11-07 23:4x). 글은 쪽마다 다르게 손으로 씀.",
+  "links": {
+    "cheongju-dontellmama-night": {
+      "before": "이 가게 이야기는 다른 쪽에서도 이어진다. ",
+      "text": "청주돈텔마마나이트를 한 쪽에 모아 정리한 안내",
+      "after": "를 같이 보면 빠진 부분이 채워진다."
+    },
+    "cheongju-hobak-night": {
+      "before": "여기서 다 못 적은 내용은 ",
+      "text": "청주호박나이트 홀 안내 쪽",
+      "after": "에 따로 적어 두었다."
+    },
+    "daejeon-one-night": {
+      "before": "",
+      "text": "대전원나이트 홀 정리 쪽",
+      "after": "에는 이 글과 겹치지 않는 내용이 있다. 두 쪽을 번갈아 보는 편이 낫다."
+    },
+    "indeogwon-gukbingwan-night": {
+      "before": "인덕원 근처 동선까지 묶어 둔 ",
+      "text": "인덕원국빈관나이트 지역 쪽",
+      "after": "도 참고가 된다."
+    },
+    "nowon-hobak-night": {
+      "before": "노원 쪽은 ",
+      "text": "노원호박나이트 홀 안내",
+      "after": "에서 한 번 더 다뤘다. 이 글을 읽고 그쪽으로 넘어가면 순서가 맞는다."
+    },
+    "paju-yadang-skydome-night": {
+      "before": "야당역 일대를 처음 가는 사람이라면 ",
+      "text": "파주야당스카이돔나이트 홀 쪽",
+      "after": "을 먼저 보는 게 편하다."
+    },
+    "sangbong-hangukgwan-night": {
+      "before": "상봉동 가게에 관한 글은 ",
+      "text": "상봉동한국관나이트 전용 쪽",
+      "after": "에 가장 자세히 있다."
+    },
+    "seongnam-shampoo-night": {
+      "before": "성남 쪽 정리는 ",
+      "text": "성남샴푸나이트 안내 쪽",
+      "after": "에서 이어진다. 이 글에서 빠진 이야기가 거기 있다."
+    },
+    "sillim-grandprix-night": {
+      "before": "",
+      "text": "신림그랑프리나이트 클럽 안내 쪽",
+      "after": "은 이 글과 다른 각도로 쓴 글이다. 둘을 같이 읽으면 그림이 또렷해진다."
+    },
+    "suwon-chancedom-night": {
+      "before": "수원 찬스돔 소식은 ",
+      "text": "수원찬스돔나이트 전용 쪽",
+      "after": "에 먼저 올라간다."
+    },
+    "yeongdeungpo-terminal-night": {
+      "before": "영등포 가게에 대해 더 읽고 싶으면 ",
+      "text": "영등포터미널나이트 안내 쪽",
+      "after": "으로 넘어가면 된다."
+    }
+  },
+  "urls": {
+    "cheongju-dontellmama-night": "https://townlife-note.netlify.app/cheongju-dontellmama-night/",
+    "cheongju-hobak-night": "https://g.nolcool.com/hall/cheongju-hobak-night/",
+    "daejeon-one-night": "https://g.nolcool.com/hall/daejeon-one/",
+    "indeogwon-gukbingwan-night": "https://d.nolcool.com/area/indeokwon-gukbinkwan-1/",
+    "nowon-hobak-night": "https://g.nolcool.com/hall/nowon-hobak-night/",
+    "paju-yadang-skydome-night": "https://d.nolcool.com/hall/paju-skydome-night-5/",
+    "sangbong-hangukgwan-night": "https://w.nolcool.com/sangbong-hangukgwan-night/",
+    "seongnam-shampoo-night": "https://infotalk.netlify.app/night/seongnam-shampoo-night-2/",
+    "sillim-grandprix-night": "https://i.nolcool.com/club/sillim-grandprix-night-1/",
+    "suwon-chancedom-night": "https://gg.nolcool.com/suwon-chancedome-night/",
+    "yeongdeungpo-terminal-night": "https://infotalk.netlify.app/night/yeongdeungpo-terminal-night/"
+  }
+}
