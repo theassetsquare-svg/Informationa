@@ -1,0 +1,11 @@
+{
+  "_설명": "네이버70-1(2026-11-08) 겹침 쪽 — 큰제목(h1) 바로 뒤 대표 쪽 링크 한 줄. 쪽 틀(src/app/[category]/[slug]/page.tsx)이 slug 로 찾아 그린다. 이 쪽은 검색 제외(dedicated/noindex-paths.json)이고 사람에게는 그대로 보인다. 사실 출처 = naver-watch data/naver-facts/부산아시아드나이트.json(영업시간 = 대표님 확인 2026-10-19).",
+  "links": {
+    "busan-asiad-night": {
+      "url": "https://d.nolcool.com/hall/busan-asiad-night-3/",
+      "before": "바로잡습니다. 이 가게는 24시간 문을 열지 않습니다. 오후 7시에 열어 새벽 5시에 닫습니다(2026년 10월 19일 확인). 동래구 온천장로107번길 32 허심청 건물 주소와 온천장역·공영주차장 거리는 ",
+      "text": "부산아시아드나이트 위치 안내",
+      "after": "에 새로 정리했습니다."
+    }
+  }
+}

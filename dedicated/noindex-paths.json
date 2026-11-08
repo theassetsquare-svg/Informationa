@@ -13,6 +13,12 @@
       "representative": "https://ee.nolcool.com/v/bucheon-gorae-night/"
     },
     {
+      "path": "/night/busan-asiad-night/",
+      "shop": "부산아시아드나이트",
+      "representative": "https://d.nolcool.com/hall/busan-asiad-night-3/",
+      "job": "네이버70-1(2026-11-08) 겹침 쪽 — 대표 쪽 색인됨(개별 확인 2026-11-08) 뒤 · 맨 위 링크 한 줄은 dedicated/naver70-top-links.json"
+    },
+    {
       "path": "/night/cheonan-korea-night/",
       "shop": "천안코리아나이트",
       "representative": "https://infotalk.netlify.app/night/cheonan-korea-night/"

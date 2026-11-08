@@ -30,6 +30,11 @@
   ! X-Robots-Tag
   X-Robots-Tag: noindex, follow
 
+# 네이버70-1(2026-11-08) 겹침 쪽 — 같은 꼴 · dedicated/noindex-paths.json 에도 있음
+/night/busan-asiad-night/
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex, follow
+
 /night/cheonan-korea-night/
   ! X-Robots-Tag
   X-Robots-Tag: noindex, follow
