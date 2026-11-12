@@ -315,8 +315,8 @@ export default function VenueDetailPage({ params }: Props) {
   const localBizLd = {
     '@context': 'https://schema.org', '@type': 'NightClub',
     name: venue.name,
-    ...(ad ? { image: `${SITE_URL}${ad.card}`, telephone: adTelIntl(ad) } : {}),
-    address: ad
+    ...(ad ? { image: `${SITE_URL}${ad.card}`, ...(ad.inquiry ? {} : { telephone: adTelIntl(ad) }) } : {}),
+    address: ad && !ad.inquiry
       ? { '@type': 'PostalAddress', streetAddress: ad.address_street, addressLocality: ad.address_locality, addressRegion: ad.address_region, addressCountry: 'KR' }
       : { '@type': 'PostalAddress', streetAddress: venue.address || undefined, addressLocality: venue.district, addressRegion: venue.region, addressCountry: 'KR' },
     openingHours: venue.hours || undefined,
@@ -359,8 +359,8 @@ export default function VenueDetailPage({ params }: Props) {
         <div className="container">
           {venue.badge && <span className="venue-card-badge" style={{ marginBottom: '0.75rem' }}>{venue.badge}</span>}
           {ad && (
-            <p className="ad-label" style={{ fontSize: '0.8rem', color: '#9B1C1C', fontWeight: 700, marginBottom: '0.5rem' }}>
-              <span style={{ display: 'inline-block', background: '#222', color: '#FFF', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '4px', marginRight: '6px' }}>광고</span>19세 미만 출입 금지
+            <p className={ad.inquiry ? 'age-label' : 'ad-label'} style={{ fontSize: '0.8rem', color: '#9B1C1C', fontWeight: 700, marginBottom: '0.5rem' }}>
+              {!ad.inquiry && <span style={{ display: 'inline-block', background: '#222', color: '#FFF', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '4px', marginRight: '6px' }}>광고</span>}19세 미만 출입 금지
             </p>
           )}
           <h1>{venue.name}</h1>
@@ -377,7 +377,9 @@ export default function VenueDetailPage({ params }: Props) {
           )}
           {ad && (
             <p style={{ marginBottom: '0.5rem' }}>
-              <a href={`tel:${adTel(ad)}`} style={{ color: '#4F46E5', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none' }}>{`담당 ${ad.nickname} ${ad.phone}`}</a>
+              {ad.inquiry
+                ? <span style={{ color: '#4F46E5', fontWeight: 700, fontSize: '0.95rem' }}>광고문의 카카오톡 besta12</span>
+                : <a href={`tel:${adTel(ad)}`} style={{ color: '#4F46E5', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none' }}>{`담당 ${ad.nickname} ${ad.phone}`}</a>}
             </p>
           )}
           <div className="detail-meta">
@@ -634,11 +636,11 @@ export default function VenueDetailPage({ params }: Props) {
           <table className="info-table">
             <tbody>
               {venue.address && <tr><th>주소</th><td>{venue.address}</td></tr>}
-              {ad && !venue.address && <tr><th>주소</th><td>{ad.address}</td></tr>}
+              {ad && !ad.inquiry && !venue.address && <tr><th>주소</th><td>{ad.address}</td></tr>}
               {venue.hours && <tr><th>영업시간</th><td>{venue.hours}</td></tr>}
               {venue.station && <tr><th>교통</th><td>{venue.station}</td></tr>}
               {hasPhone && <tr><th>담당</th><td>{venue.nickname}</td></tr>}
-              {ad && <tr><th>담당</th><td>{ad.nickname}</td></tr>}
+              {ad && <tr><th>담당</th><td>{ad.inquiry ? '광고문의 카카오톡 besta12' : ad.nickname}</td></tr>}
               {filteredTags.length > 0 && <tr><th>태그</th><td>{filteredTags.join(', ')}</td></tr>}
             </tbody>
           </table>
@@ -798,8 +800,8 @@ export default function VenueDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* 관계 고지 — 광고 칸이 있는 쪽 본문 끝 */}
-      {ad && (
+      {/* 관계 고지 — 광고 칸이 있는 쪽 본문 끝(광고문의 쪽은 광고주가 없어 싣지 않는다) */}
+      {ad && !ad.inquiry && (
         <section className="detail-section">
           <div className="container narrow">
             <p style={{ fontSize: '14px', color: '#555' }}>{`이 페이지는 광고이며, 업소 제공 정보를 받아 실었습니다(담당 ${ad.nickname}). 확인일 ${ad.confirmed}. 실린 내용은 사정에 따라 바뀔 수 있습니다.`}</p>
@@ -812,7 +814,7 @@ export default function VenueDetailPage({ params }: Props) {
 
       {/* StickyPhoneBar (광고주 있는 업소만) */}
       {hasPhone && <StickyPhoneBar name={venue.name} nickname={venue.nickname} phone={venue.nickname_phone} />}
-      {ad && <StickyPhoneBar name={venue.name} nickname={ad.nickname} phone={ad.phone} tel={adTel(ad)} label={`${venue.name} 예약 · ${ad.nickname} ${ad.phone}`} />}
+      {ad && !ad.inquiry && <StickyPhoneBar name={venue.name} nickname={ad.nickname} phone={ad.phone} tel={adTel(ad)} label={`${venue.name} 예약 · ${ad.nickname} ${ad.phone}`} />}
     </>
   );
 }

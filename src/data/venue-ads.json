@@ -1,13 +1,25 @@
 {
   "ilsan-myeongwolgwan-yojeong": {
-    "nickname": "신실장",
-    "phone": "010-3695-4929",
-    "card": "/og/ad-ilsan-myeongwolgwan-yojeong.png",
+    "inquiry": true,
+    "nickname": "",
+    "phone": "",
+    "card": "/og/yojeong-ilsan-myeongwolgwan-yojeong-inq-eccc493d.png",
     "address": "",
     "address_region": "일산",
     "address_locality": "일산",
     "address_street": "",
-    "confirmed": "2026-11-02"
+    "confirmed": "2026-11-12"
+  },
+  "ilsan-room": {
+    "inquiry": true,
+    "nickname": "",
+    "phone": "",
+    "card": "/og/room-ilsan-room.png",
+    "address": "",
+    "address_region": "일산",
+    "address_locality": "일산",
+    "address_street": "",
+    "confirmed": "2026-11-12"
   },
   "cheongdam-h2o-night": {
     "nickname": "펩시맨",
