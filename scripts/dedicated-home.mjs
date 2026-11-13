@@ -16,6 +16,23 @@ if (existsSync('dist/sitemap.xml')) {
     if (sm.includes(`<loc>${loc}</loc>`)) continue;
     sm = sm.replace('</urlset>', `<url><loc>${loc}</loc><lastmod>${오늘}</lastmod></url>\n</urlset>`); 더함++;
   }
+  // ③ 일산76-2 지적 고침(2026-11-13): strict 광고주 쪽(src/data/venue-ads.json)의 <url> 에 새 카드 그림 줄 — 다른 쪽은 그대로
+  {
+    const 광고 = JSON.parse(readFileSync('src/data/venue-ads.json', 'utf8'));
+    const 가게 = JSON.parse(readFileSync('src/data/venues.json', 'utf8'));
+    let 그림 = 0;
+    for (const [slug, a] of Object.entries(광고)) {
+      if (!a.strict || !a.card) continue;
+      const v = 가게.find((x) => x.slug === slug); if (!v) continue;
+      const loc = `<loc>${HOST}/${v.cat_slug}/${slug}/</loc>`;
+      const i = sm.indexOf(loc); if (i < 0) continue;
+      const j = sm.indexOf('</url>', i);
+      if (sm.slice(i, j).includes('<image:image>')) continue;
+      sm = sm.slice(0, j) + `<image:image>\n<image:loc>${HOST}${a.card}</image:loc>\n</image:image>\n` + sm.slice(j); 그림++;
+    }
+    if (그림 && !sm.includes('xmlns:image=')) sm = sm.replace('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"');
+    console.log(`[dedicated-home] 사이트맵 그림 줄 +${그림}`);
+  }
   writeFileSync('dist/sitemap.xml', sm);
 }
 console.log(`[dedicated-home] 홈 교체 · 사이트맵 +${더함} (쪽 ${쪽들.length})`);

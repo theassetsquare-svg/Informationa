@@ -1,25 +1,32 @@
 {
   "ilsan-myeongwolgwan-yojeong": {
-    "inquiry": true,
-    "nickname": "",
-    "phone": "",
-    "card": "/og/yojeong-ilsan-myeongwolgwan-yojeong-inq-eccc493d.png",
-    "address": "",
-    "address_region": "일산",
-    "address_locality": "일산",
-    "address_street": "",
-    "confirmed": "2026-11-12"
+    "nickname": "일산요정 총책임자 신실장",
+    "phone": "010-3541-0027",
+    "card": "/og/yojeong-ilsan-myeongwolgwan-yojeong-adv-11e703af.png",
+    "address": "고양시 일산동구 장항동 895-1 B1층",
+    "address_region": "경기도",
+    "address_locality": "고양시 일산동구",
+    "address_street": "장항동 895-1 B1층",
+    "confirmed": "2026-11-13",
+    "alt": "일산명월관요정 일산요정 총책임자 신실장 안내 카드",
+    "bar_label": "010-3541-0027",
+    "notice": "이 페이지는 광고입니다. 예약·문의는 담당 일산요정 총책임자 신실장에게 전화로 하시면 됩니다. 연락처 확인일 2026-11-13.",
+    "strict": true
   },
   "ilsan-room": {
-    "inquiry": true,
-    "nickname": "",
-    "phone": "",
-    "card": "/og/room-ilsan-room.png",
+    "nickname": "일산룸 총책임자 신실장",
+    "phone": "010-3541-0027",
+    "card": "/og/room-ilsan-room-adv-f35fe1f4.png",
     "address": "",
     "address_region": "일산",
     "address_locality": "일산",
     "address_street": "",
-    "confirmed": "2026-11-12"
+    "confirmed": "2026-11-13",
+    "alt": "일산룸 일산룸 총책임자 신실장 안내 카드",
+    "bar_label": "010-3541-0027",
+    "notice": "이 페이지는 광고입니다. 예약·문의는 담당 일산룸 총책임자 신실장에게 전화로 하시면 됩니다. 연락처 확인일 2026-11-13.",
+    "strict": true,
+    "description": "대표 룸, 격이 다른 자리가 시작되는 곳. 일산룸. 문 닫고 조용히 얘기하기 좋은 룸이다."
   },
   "cheongdam-h2o-night": {
     "nickname": "펩시맨",

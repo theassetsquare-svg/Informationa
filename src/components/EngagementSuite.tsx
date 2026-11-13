@@ -184,7 +184,9 @@ export function SwipeGallery({ images, name, catSlug }: { images: string[]; name
 }
 
 /* ── Before/After: 첫 방문 vs 단골의 차이 ── */
-export function BeforeAfter({ catSlug }: { catSlug: string }) {
+/* strict(확인된 것만 싣는 광고주 쪽 · 일산76-2) — 확인 안 된 방 종류·서비스·복장 규정·예약 조건 줄은 그 쪽에서만 뺀다 */
+const BA_STRICT_DROP = ['VIP룸 예약하고 간다', '기념일 세팅을 미리 요청한다', '복장 캐주얼로 갔다가 눈치 본다', '예약 없이 갔다가 입장 거절', '비즈니스 캐주얼 갖춰 입는다', '최소 3일 전에 예약한다'];
+export function BeforeAfter({ catSlug, strict }: { catSlug: string; strict?: boolean }) {
   const [tab, setTab] = useState<'before' | 'after'>('before');
   const data: Record<string, { before: string[]; after: string[] }> = {
     club: { before: ['입구에서 줄 서서 30분 기다린다', '플로어 어디 서야 할지 모른다', '음료 하나 시키는데 10분 걸린다'], after: ['오픈 직후 도착해서 대기 없이 입장', '사운드 베스트 포지션을 알고 있다', '바텐더한테 "평소 거"하면 바로 나온다'] },
@@ -194,7 +196,8 @@ export function BeforeAfter({ catSlug }: { catSlug: string }) {
     yojeong: { before: ['코스 구성을 몰라서 당황한다', '복장 캐주얼로 갔다가 눈치 본다', '예약 없이 갔다가 입장 거절'], after: ['제철 메뉴 미리 문의하고 간다', '비즈니스 캐주얼 갖춰 입는다', '최소 3일 전에 예약한다'] },
     hoppa: { before: ['처음이라 긴장해서 말을 못 한다', '시스템을 몰라서 어색하다', '호스트 교체를 요청 못 한다'], after: ['매니저한테 취향을 정확히 전달한다', '입장부터 퇴장까지 흐름을 안다', '편하게 교체 요청한다'] },
   };
-  const d = data[catSlug] || data.club;
+  const d0 = data[catSlug] || data.club;
+  const d = strict ? { before: d0.before.filter(x => !BA_STRICT_DROP.includes(x)), after: d0.after.filter(x => !BA_STRICT_DROP.includes(x)) } : d0;
   return (
     <div style={{ background: '#F7F7F8', borderRadius: '16px', padding: '1.25rem', margin: '1.5rem 0' }}>
       <h3 style={{ fontSize: '1rem', marginBottom: '1rem', textAlign: 'center' }}>첫 방문 vs 단골의 차이</h3>

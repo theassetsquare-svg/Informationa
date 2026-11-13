@@ -151,17 +151,19 @@ export function generateMetadata({ params }: Props): Metadata {
   const ogImage = ad ? `${SITE_URL}${ad.card}` : gc.ogImage;
   /* 정리68-3(2026-11-07): dedicated/noindex-paths.json 의 쪽만 noindex, follow — 주소·글·canonical 그대로 · 사이트맵에서도 뺌 */
   const noindex = isNoindexPath(`/${venue.cat_slug}/${venue.slug}/`);
+  /* 일산76-2 — 광고 칸에 description 이 있으면 그 쪽만 그 글(접객 낱말만 바꾼 글) */
+  const desc = ad?.description || gc.description;
   return {
     title: gc.title,
-    description: gc.description,
+    description: desc,
     alternates: { canonical: url },
     ...(noindex ? { robots: { index: false, follow: true, googleBot: { index: false, follow: true } } } : {}),
     openGraph: {
-      title: gc.title, description: gc.description, url,
+      title: gc.title, description: desc, url,
       siteName: SITE_NAME, locale: 'ko_KR', type: 'website',
       images: [ad ? { url: ogImage, width: 1200, height: 1200, alt: adAlt(venue.name, ad) } : { url: gc.ogImage, width: 1200, height: 1200 }],
     },
-    twitter: { card: 'summary_large_image', title: gc.title, description: gc.description, images: [ogImage] },
+    twitter: { card: 'summary_large_image', title: gc.title, description: desc, images: [ogImage] },
   };
 }
 
@@ -256,7 +258,8 @@ export default function VenueDetailPage({ params }: Props) {
   const vcBoosterTexts: string[] = [];
   let _rc = _bc + h2Count;
   let _rl = _bl + h2Count * (_nLen + 1);
-  if (vc && (_rc * _nLen) / _rl * 100 < 1.5) {
+  /* strict 쪽(일산76-2)은 보강·희석 글(지어낸 후기·재방문율·확인 안 된 안내)을 싣지 않는다 */
+  if (vc && !ad?.strict && (_rc * _nLen) / _rl * 100 < 1.5) {
     const _pool = [
       `${venue.name}${_eR} 검색해서 여기까지 왔다면, 이미 관심이 있다는 뜻이다. 직접 가보면 검색으로는 알 수 없던 현장 분위기를 체감하게 된다.`,
       `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`,
@@ -279,9 +282,17 @@ export default function VenueDetailPage({ params }: Props) {
     }
   }
 
+  /* strict 쪽(일산76-2 지적 고침) — 보강 풀의 일반 안내 한 줄만(지어낸 후기·재방문율·확인 안 된 안내는 그대로 0) */
+  if (vc && ad?.strict) {
+    const _s = `${venue.name} 방문 전에 전화 한 통 넣는 게 현명하다. 당일 상황이랑 좌석 여부를 바로 확인할 수 있다.`;
+    vcBoosterTexts.push(_s);
+    _rc += (_s.match(_nRe) || []).length;
+    _rl += _s.length;
+  }
+
   // Density diluter: when density > 2.5%, add non-name filler to bring it down
   const densityDiluterTexts: string[] = [];
-  if ((_rc * _nLen) / _rl * 100 > 2.5) {
+  if (!ad?.strict && (_rc * _nLen) / _rl * 100 > 2.5) {
     const _dilPool = [
       `${venue.district}에서 이 정도 분위기를 갖춘 곳은 손에 꼽는다. 현장의 공기, 조명, 사운드가 ���들어내는 경���은 글로 전달하기 어렵다. 직접 가봐야 이해되는 종류다.`,
       `방문 전에 전화 한 통이면 당일 상황을 바로 파악할 수 있다. 좌석 여부, 대기 시간, 특별 이벤트까지 확인 가능하다. 이 5분이 ���패 없는 저녁을 만들어준다.`,
@@ -317,7 +328,7 @@ export default function VenueDetailPage({ params }: Props) {
     name: venue.name,
     ...(ad ? { image: `${SITE_URL}${ad.card}`, ...(ad.inquiry ? {} : { telephone: adTelIntl(ad) }) } : {}),
     address: ad && !ad.inquiry
-      ? { '@type': 'PostalAddress', streetAddress: ad.address_street, addressLocality: ad.address_locality, addressRegion: ad.address_region, addressCountry: 'KR' }
+      ? { '@type': 'PostalAddress', streetAddress: (ad.strict && !ad.address_street) ? undefined : ad.address_street, addressLocality: ad.address_locality, addressRegion: ad.address_region, addressCountry: 'KR' }
       : { '@type': 'PostalAddress', streetAddress: venue.address || undefined, addressLocality: venue.district, addressRegion: venue.region, addressCountry: 'KR' },
     openingHours: venue.hours || undefined,
     url: `${SITE_URL}/${venue.cat_slug}/${venue.slug}/`,
@@ -430,18 +441,22 @@ export default function VenueDetailPage({ params }: Props) {
       {/* ═══ 본문 — venue-content 있으면 고유 콘텐츠, 없으면 생성 콘텐츠 ═══ */}
       {vc ? (
         <>
-          {/* 인트로 */}
+          {/* 인트로 — strict 쪽(일산76-2)은 글이 비면 칸째 싣지 않는다 */}
+          {(!ad?.strict || vc.prologue) && (
           <section className="detail-section">
             <div className="container narrow">
               <h2>{vc.prologueTitle || `${year}년 방문 가이드`}</h2>
               <div dangerouslySetInnerHTML={{ __html: _rd(vc.prologue) }} />
             </div>
           </section>
+          )}
 
-          {/* 본문 이미지 1 */}
+          {/* 본문 이미지 1 — strict 쪽은 가게와 무관한 그림이라 싣지 않는다 */}
+          {!ad?.strict && (
           <div className="container narrow" style={{ margin: '1.5rem auto' }}>
             <img src={bodyImages[0]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
           </div>
+          )}
 
           {/* 장면 1 */}
           {vc.scene1 && (
@@ -454,9 +469,11 @@ export default function VenueDetailPage({ params }: Props) {
           )}
 
           {/* 본문 이미지 2 */}
+          {!ad?.strict && (
           <div className="container narrow" style={{ margin: '1.5rem auto' }}>
             <img src={bodyImages[1]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
           </div>
+          )}
 
           {/* 장면 2 */}
           {vc.scene2 && (
@@ -479,9 +496,11 @@ export default function VenueDetailPage({ params }: Props) {
           )}
 
           {/* 본문 이미지 3 */}
+          {!ad?.strict && (
           <div className="container narrow" style={{ margin: '1.5rem auto' }}>
             <img src={bodyImages[2]} alt={venue.name} style={{ width: '100%', borderRadius: '12px', aspectRatio: '16/9', objectFit: 'cover' }} loading="lazy" />
           </div>
+          )}
 
           {/* 대화 */}
           {vc.dialogueSection && (
@@ -636,7 +655,7 @@ export default function VenueDetailPage({ params }: Props) {
           <table className="info-table">
             <tbody>
               {venue.address && <tr><th>주소</th><td>{venue.address}</td></tr>}
-              {ad && !ad.inquiry && !venue.address && <tr><th>주소</th><td>{ad.address}</td></tr>}
+              {ad && !ad.inquiry && !venue.address && (!ad.strict || ad.address) && <tr><th>주소</th><td>{ad.address}</td></tr>}
               {venue.hours && <tr><th>영업시간</th><td>{venue.hours}</td></tr>}
               {venue.station && <tr><th>교통</th><td>{venue.station}</td></tr>}
               {hasPhone && <tr><th>담당</th><td>{venue.nickname}</td></tr>}
@@ -717,7 +736,7 @@ export default function VenueDetailPage({ params }: Props) {
                   <tr><th>카테고리</th><td>{catLabel}</td><td>{CAT_SLUG_TO_LABEL[related[0].cat_slug] || related[0].category}</td></tr>
                   {venue.hours && <tr><th>영업시간</th><td>{venue.hours}</td><td>{related[0].hours || '문의'}</td></tr>}
                   {venue.station && <tr><th>교통</th><td>{venue.station}</td><td>{related[0].station || '문의'}</td></tr>}
-                  <tr><th>분위기</th><td>{venue.card_hook}</td><td>{related[0].card_hook}</td></tr>
+                  {!ad?.strict && <tr><th>분위기</th><td>{venue.card_hook}</td><td>{related[0].card_hook}</td></tr>}
                 </tbody>
               </table>
             </div>
@@ -728,17 +747,19 @@ export default function VenueDetailPage({ params }: Props) {
       {/* 첫 방문 vs 단골 */}
       <section className="detail-section">
         <div className="container narrow">
-          <BeforeAfter catSlug={venue.cat_slug} />
+          <BeforeAfter catSlug={venue.cat_slug} {...(ad?.strict ? { strict: true } : {})} />
         </div>
       </section>
 
-      {/* 스와이프 갤러리 (6장 + 사진별 캡션) */}
+      {/* 스와이프 갤러리 (6장 + 사진별 캡션) — strict 쪽은 가게와 무관한 그림이라 싣지 않는다 */}
+      {!ad?.strict && (
       <section className="detail-section">
         <div className="container narrow">
           <h2>사진 갤러리</h2>
           <SwipeGallery images={galleryImages} name={venue.name} catSlug={venue.cat_slug} />
         </div>
       </section>
+      )}
 
       {/* 직접 가본 손님의 한마디 — 광고 칸이 있는 쪽에는 싣지 않는다(지어낸 인용) */}
       {!ad && <section className="detail-section">
@@ -759,10 +780,12 @@ export default function VenueDetailPage({ params }: Props) {
         <DailyFortune catSlug={venue.cat_slug} />
       </div>
 
-      {/* 이 업소의 비밀 (80% 스크롤 시 등장) */}
+      {/* 이 업소의 비밀 (80% 스크롤 시 등장) — strict 쪽은 틀이 지어낸 시설·예약 문장이라 싣지 않는다 */}
+      {!ad?.strict && (
       <div className="container narrow">
         <SecretReveal name={venue.name} catSlug={venue.cat_slug} />
       </div>
+      )}
 
       {/* 놀쿨에서 확인 CTA */}
       <div className="container narrow">
@@ -804,17 +827,17 @@ export default function VenueDetailPage({ params }: Props) {
       {ad && !ad.inquiry && (
         <section className="detail-section">
           <div className="container narrow">
-            <p style={{ fontSize: '14px', color: '#555' }}>{`이 페이지는 광고이며, 업소 제공 정보를 받아 실었습니다(담당 ${ad.nickname}). 확인일 ${ad.confirmed}. 실린 내용은 사정에 따라 바뀔 수 있습니다.`}</p>
+            <p style={{ fontSize: '14px', color: '#555' }}>{ad.notice || `이 페이지는 광고이며, 업소 제공 정보를 받아 실었습니다(담당 ${ad.nickname}). 확인일 ${ad.confirmed}. 실린 내용은 사정에 따라 바뀔 수 있습니다.`}</p>
           </div>
         </section>
       )}
 
       {/* 50% 스크롤 시 숨겨진 장점 스티키 카드 */}
-      <StickyHighlight name={venue.name} catSlug={venue.cat_slug} />
+      {!ad?.strict && <StickyHighlight name={venue.name} catSlug={venue.cat_slug} />}
 
       {/* StickyPhoneBar (광고주 있는 업소만) */}
       {hasPhone && <StickyPhoneBar name={venue.name} nickname={venue.nickname} phone={venue.nickname_phone} />}
-      {ad && !ad.inquiry && <StickyPhoneBar name={venue.name} nickname={ad.nickname} phone={ad.phone} tel={adTel(ad)} label={`${venue.name} 예약 · ${ad.nickname} ${ad.phone}`} />}
+      {ad && !ad.inquiry && <StickyPhoneBar name={venue.name} nickname={ad.nickname} phone={ad.phone} tel={adTel(ad)} label={ad.bar_label || `${venue.name} 예약 · ${ad.nickname} ${ad.phone}`} />}
     </>
   );
 }

@@ -23,6 +23,16 @@ export interface VenueAd {
   confirmed: string;
   /** 이 쪽 추천 카드에서 축소판을 걷을 가게 slug (옛 카드에 다른 담당 닉네임이 그려진 것) */
   hide_thumbs?: string[];
+  /** 일산76-2(2026-11-13) — 있으면 그 쪽만 이 값을 쓴다: 카드 그림 설명(번호 0) · 고정 전화바 보이는 글자(번호만) · 본문 끝 관계 고지 */
+  alt?: string;
+  bar_label?: string;
+  notice?: string;
+  /** 일산76-2 둘째 손질(2026-11-13) — 확인된 것만 싣는 쪽: 가게와 무관한 본문 그림·갤러리, 틀이 지어낸 비밀·장점 칸,
+   *  키워드 밀도 보강 글, 비교표 분위기 줄, 첫 방문 vs 단골 칸의 확인 안 된 줄을 이 쪽에서만 싣지 않는다(다른 쪽은 그대로).
+   *  체류 위젯은 ad-paths.ts 경로로 막는다. */
+  strict?: boolean;
+  /** 있으면 그 쪽 meta·og·twitter description 을 이 값으로(접객 낱말만 바꾼 글) */
+  description?: string;
 }
 
 const ads = adsData as Record<string, VenueAd>;
@@ -33,6 +43,7 @@ export function getVenueAd(slug: string): VenueAd | null {
 
 /** og:image:alt · 본문 카드 img alt */
 export function adAlt(name: string, ad: VenueAd): string {
+  if (ad.alt) return ad.alt;
   if (ad.inquiry) return `${name} 광고문의 카톡 besta12`;
   return `${name} ${ad.nickname} ${ad.phone} 광고문의 카톡 besta12`;
 }
